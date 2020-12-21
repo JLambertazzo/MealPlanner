@@ -122,6 +122,8 @@ router.post('/api/login', mongoChecker, async (req, res) => {
 // {
 //   name: 'meal name',
 //   ingredients: [{ name: 'name', qty: qty }],
+//   date: 'yyyy-mm-dd',
+//   mealNum: num,
 //   description: 'description of meal' // optional
 // }
 router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
@@ -135,6 +137,8 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   const meal = {
     name: req.body.name,
     ingredients: req.body.ingredients,
+    date: req.body.date,
+    mealNum: req.body.mealNum,
     description: req.body.description || ''
   }
   User.findById(req.params.id).then(result => {
