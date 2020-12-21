@@ -3,14 +3,17 @@ import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
-export class index extends Component {
+import NavBar from '../NavBar'
+
+export class CalendarView extends Component {
   render () {
     return (
-      <div>
+      <div id='calView'>
+        <NavBar />
         <Calendar />
       </div>
     )
   }
 }
 
-export default index
+export default CalendarView
