@@ -6,6 +6,19 @@
   align-items: center;
 }
 
+.custom-calendar-styles {
+  width: 80vw;
+  height: max-content;
+  border: none;
+  box-shadow: #e0e0e0 0px 0px 2px 2px;
+  margin: 5px;
+  justify-self: center;
+}
+
+.custom-calendar-styles button {
+  height: max(9vh, 80px);
+}
+
 .testClassName {
   color: white;
   background-color: black;

@@ -33,20 +33,20 @@ export class CalendarView extends Component {
   }
   
   render () {
-    const styleCalendar = ({ date, view }) => {
+    const calendarContent = ({ activeStartDate, date, view }) => {
       if (view === 'month') {
         if (this.state.datesWithMeals.find(el => el.toDateString() === date.toDateString())) {
-          return 'testClassName'
+          return(<div>.</div>) 
+        } else { 
+          return null 
         }
-      } else {
-        console.log('at least it ran')
       }
     }
 
     return (
       <div id='calView'>
         <NavBar />
-        <Calendar onChange={this.handleChange} tileClassName={styleCalendar} />
+        <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
         <MealModal isOpen={this.state.showModal} closeModal={() => this.setModal(false)} />
       </div>
     )
