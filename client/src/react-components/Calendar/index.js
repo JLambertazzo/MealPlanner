@@ -4,12 +4,14 @@ import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
 import NavBar from '../NavBar'
+import MealModal from '../MealModal'
 
 export class CalendarView extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      datesWithMeals: [new Date()]
+      datesWithMeals: [new Date()],
+      showModal: false
     }
   }
 
@@ -18,8 +20,15 @@ export class CalendarView extends Component {
       datesWithMeals: [...prevState.datesWithMeals, date]
     }))
   }
+
+  setModal = show => {
+    this.setState({
+      showModal: show
+    })
+  }
   
   handleChange = value => {
+    this.setModal(true)
     this.addDate(value)
   }
   
@@ -38,6 +47,7 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar />
         <Calendar onChange={this.handleChange} tileClassName={styleCalendar} />
+        <MealModal isOpen={this.state.showModal} closeModal={() => this.setModal(false)} />
       </div>
     )
   }
