@@ -5,3 +5,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+.testClassName {
+  color: white;
+  background-color: black;
+}
