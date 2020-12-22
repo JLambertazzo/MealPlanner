@@ -15,7 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/client/build')))
 
 app.get('*', (req, res) => {
-  const validPaths = ['/']
+  const validPaths = ['/', '/calendar']
   if (!validPaths.includes(req.url)) {
     res.status(404).send('404 not found :(')
   }
