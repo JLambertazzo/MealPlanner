@@ -1,9 +1,20 @@
 details {
   cursor: default;
+  padding: 0px;
+  margin: 10px;
+  box-shadow: #E9ECEF 0px 2px 0px 0px;
+  background: #F8F9FA;
 }
 
 summary {
   cursor: pointer;
+  text-align: center;
+  font-size: large;
+  padding: 5px;
+}
+
+summary:hover {
+  background: #E9ECEF;
 }
 
 #modalHeader {
