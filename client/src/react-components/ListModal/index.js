@@ -33,11 +33,25 @@ export class ListModal extends Component {
         mealNum: 2,
         ingredients: [],
         description: 'a meal'
+      },
+      {
+        name: 'name5',
+        date: new Date(),
+        mealNum: 2,
+        ingredients: [],
+        description: 'a meal'
+      },
+      {
+        name: 'name6',
+        date: new Date(),
+        mealNum: 2,
+        ingredients: [],
+        description: 'a meal'
       }
     ]
   }
 
-  handleClick = () => {
+  showMealModal = () => {
     this.props.showMealModal()
     this.props.exit()
   }
@@ -52,6 +66,7 @@ export class ListModal extends Component {
       contentLabel="List Modal"
       >
         <h4>Meals for {this.props.date.toDateString()}:</h4>
+          
         {this.getMealsByDate().map(meal => {
           return(<details>
             <summary>{meal.name}</summary>
@@ -61,7 +76,9 @@ export class ListModal extends Component {
             <ul>{meal.description}</ul>
           </details>)
         })}
-        <button onClick={this.handleClick} class="btn waves-effect waves-light teal darken-2">Add Meal</button>
+
+        <button onClick={this.showMealModal} className="btn waves-effect waves-light teal darken-2 right"><i className='material-icons left'>add</i>New Meal</button>
+        <button onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right"><i className="material-icons left">close</i>Close</button>
       </Modal>
     )
     }

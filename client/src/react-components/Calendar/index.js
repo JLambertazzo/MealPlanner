@@ -13,7 +13,7 @@ export class CalendarView extends Component {
     this.state = {
       datesWithMeals: [new Date()],
       showMealModal: false,
-      showListModal: true,
+      showListModal: false,
       selectedDate: new Date()
     }
   }

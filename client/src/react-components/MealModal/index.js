@@ -3,9 +3,42 @@ import Modal from 'react-modal'
 import './style.css'
 
 export class index extends Component {
+  state = {
+    mealName: '',
+    mealNum: '',
+    ingredients: [],
+    description: ''
+  }
+
   handleReturn = () => {
     this.props.showListModal()
     this.props.exit()
+  }
+
+  handleNameChange = event => {
+    this.setState({ mealName: event.target.value })
+  }
+
+  handleNumChange = event => {
+    this.setState({ mealNum: event.target.value })
+  }
+
+  handleIngredientChange = event => {
+    this.setState({ ingredients: event.target.value.split(',').forEach(el => el.trim()) })
+  }
+
+  handleDescriptionChange = event => {
+    this.setState({ description: event.target.value })
+  }
+
+  handleSubmit = event => {
+    event.preventDefault()
+    if (this.state.mealNum === '') {
+      this.setState({ mealNum: '0' })
+    }
+    // convert mealNum to number and call api
+    console.log(this.state)
+    this.handleReturn()
   }
 
   render() {
@@ -17,14 +50,14 @@ export class index extends Component {
         onRequestClose={this.props.exit}
         contentLabel="Meal Modal"
       >
-        <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i class="material-icons left">chevron_left</i>Return</button>
+        <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
         <h4>Add a meal for {this.props.date.toDateString()}</h4>
         <form>
           <div className="input-field">
-            <input type="text" className="validate" placeholder="Meal Name" required />
+            <input type="text" className="validate" placeholder="Meal Name" onChange={this.handleNameChange} required />
           </div>
           <div className="input-field">
-            <select id="mealSelect">
+            <select id="mealSelect" onChange={this.handleNumChange}>
               <option value="0">Breakfast</option>
               <option value="1">Lunch</option>
               <option value="2">Dinner</option>
@@ -33,13 +66,13 @@ export class index extends Component {
 
           </div>
           <div className="input-field">
-            <input type="text" placeholder="ingredients - fix" className="validate" required/>
+            <input type="text" placeholder="ingredients - fix" className="validate" onChange={this.handleIngredientChange} required/>
           </div>
           <div className="input-field">
-            <input type="text" placeholder="Description" className="validate" />
+            <input type="text" placeholder="Description" className="validate" onChange={this.handleDescriptionChange} />
           </div>
+          <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" onClick={this.handleSubmit} />
           <input type="submit" value="Cancel" onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right" />
-          <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" />
         </form>
       </Modal>
     )

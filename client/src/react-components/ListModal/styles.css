@@ -5,3 +5,7 @@ details {
 summary {
   cursor: pointer;
 }
+
+#modalHeader {
+  display: flex;
+}
