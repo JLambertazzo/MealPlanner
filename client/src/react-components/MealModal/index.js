@@ -4,7 +4,8 @@ import './style.css'
 
 export class index extends Component {
   handleReturn = () => {
-
+    this.props.showListModal()
+    this.props.exit()
   }
 
   render() {

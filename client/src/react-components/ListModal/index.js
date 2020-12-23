@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import './styles.css'
 
 export class ListModal extends Component {
   getMealsByDate(date = new Date()) {
