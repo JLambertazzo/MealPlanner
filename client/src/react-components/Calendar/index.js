@@ -5,13 +5,16 @@ import './style.css'
 
 import NavBar from '../NavBar'
 import MealModal from '../MealModal'
+import ListModal from '../ListModal'
 
 export class CalendarView extends Component {
   constructor(props) {
     super(props)
     this.state = {
       datesWithMeals: [new Date()],
-      showModal: false
+      showMealModal: false,
+      showListModal: true,
+      selectedDate: new Date()
     }
   }
 
@@ -21,15 +24,33 @@ export class CalendarView extends Component {
     }))
   }
 
-  setModal = show => {
+  setMealModal = show => {
     this.setState({
-      showModal: show
+      showMealModal: show
+    })
+  }
+
+  setListModal = show => {
+    this.setState({
+      showListModal: show
     })
   }
   
   handleChange = value => {
-    this.setModal(true)
-    this.addDate(value)
+    this.setState({
+      selectedDate: value
+    })
+    this.showListModal()
+  }
+
+  showMealModal = () => {
+    this.setListModal(false)
+    this.setMealModal(true)
+  }
+
+  showListModal = () => {
+    this.setListModal(true)
+    this.setMealModal(false)
   }
   
   render () {
@@ -47,7 +68,18 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar />
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
-        <MealModal isOpen={this.state.showModal} closeModal={() => this.setModal(false)} />
+        <ListModal 
+          isOpen={this.state.showListModal} 
+          exit={() => this.setListModal(false)} 
+          date={this.state.selectedDate}
+          showMealModal={this.showMealModal} 
+        />
+        <MealModal 
+          isOpen={this.state.showMealModal} 
+          exit={() => this.setMealModal(false)} 
+          date={this.state.selectedDate}
+          showListModal={this.showListModal} 
+        />
       </div>
     )
   }
