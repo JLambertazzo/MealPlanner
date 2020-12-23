@@ -52,7 +52,7 @@ export class index extends Component {
       >
         <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
         <h4>Add a meal for {this.props.date.toDateString()}</h4>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <div className="input-field">
             <input type="text" className="validate" placeholder="Meal Name" onChange={this.handleNameChange} required />
           </div>
@@ -71,7 +71,7 @@ export class index extends Component {
           <div className="input-field">
             <input type="text" placeholder="Description" className="validate" onChange={this.handleDescriptionChange} />
           </div>
-          <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" onClick={this.handleSubmit} />
+          <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" />
           <input type="submit" value="Cancel" onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right" />
         </form>
       </Modal>
