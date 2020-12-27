@@ -6,6 +6,20 @@
   align-items: center;
 }
 
+#buttonContainer {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+}
+
+#buttonContainer button {
+  margin: 5px;
+}
+
+.hide {
+  visibility: hidden;
+}
+
 .custom-calendar-styles {
   width: 80vw;
   height: max-content;

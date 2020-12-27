@@ -68,11 +68,15 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar />
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
+        <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal ? 'hide' : '')}>
+          <button className="btn waves-effect waves-light"><i className="material-icons left">list</i>Generate Shopping List</button>
+          <button className="btn waves-effect waves-light"><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
+        </div>
         <ListModal 
           isOpen={this.state.showListModal} 
           exit={() => this.setListModal(false)} 
           date={this.state.selectedDate}
-          showMealModal={this.showMealModal} 
+          showMealModal={this.showMealModal}
         />
         <MealModal 
           isOpen={this.state.showMealModal} 
