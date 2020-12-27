@@ -1,0 +1,16 @@
+#mealSelect {
+    display: block;
+}
+
+.ingredientContainer {
+    display: flex;
+
+}
+
+.qInput {
+    margin: 5px;
+}
+
+.nInput {
+    margin: 5px;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import './style.css'
+import { uid } from 'react-uid'
+import './styles.css'
 
 export class index extends Component {
   state = {
@@ -37,7 +38,6 @@ export class index extends Component {
       this.setState({ mealNum: '0' })
     }
     // convert mealNum to number and call api
-    console.log(this.state)
     this.handleReturn()
   }
 
@@ -65,8 +65,8 @@ export class index extends Component {
             </select>
 
           </div>
-          <div className="input-field">
-            <input type="text" placeholder="ingredients - fix" className="validate" onChange={this.handleIngredientChange} required/>
+          <div className="input-field list-holder">
+            <input placeholder="ingredients" className="validate" onChange={this.handleIngredientChange} required />
           </div>
           <div className="input-field">
             <input type="text" placeholder="Description" className="validate" onChange={this.handleDescriptionChange} />
