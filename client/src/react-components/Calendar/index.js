@@ -6,6 +6,7 @@ import './style.css'
 import NavBar from '../NavBar'
 import MealModal from '../MealModal'
 import ListModal from '../ListModal'
+import ShoppingModal from '../ShoppingModal'
 
 export class CalendarView extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ export class CalendarView extends Component {
       datesWithMeals: [new Date()],
       showMealModal: false,
       showListModal: false,
+      showShoppingModal: false,
       selectedDate: new Date()
     }
   }
@@ -33,6 +35,12 @@ export class CalendarView extends Component {
   setListModal = show => {
     this.setState({
       showListModal: show
+    })
+  }
+
+  setShoppingModal = show => {
+    this.setState({
+      showShoppingModal: show
     })
   }
   
@@ -68,8 +76,8 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar />
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
-        <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal ? 'hide' : '')}>
-          <button className="btn waves-effect waves-light"><i className="material-icons left">list</i>Generate Shopping List</button>
+        <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal ? 'hide' : '')}>
+          <button className="btn waves-effect waves-light" onClick={() => this.setShoppingModal(true)} ><i className="material-icons left">list</i>Generate Shopping List</button>
           <button className="btn waves-effect waves-light"><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
         </div>
         <ListModal 
@@ -83,6 +91,10 @@ export class CalendarView extends Component {
           exit={() => this.setMealModal(false)} 
           date={this.state.selectedDate}
           showListModal={this.showListModal} 
+        />
+        <ShoppingModal
+          isOpen={this.state.showShoppingModal}
+          exit={() => this.setShoppingModal(false)}
         />
       </div>
     )

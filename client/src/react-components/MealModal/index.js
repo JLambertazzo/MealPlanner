@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { uid } from 'react-uid'
 import './styles.css'
 
 export class index extends Component {
@@ -46,7 +45,6 @@ export class index extends Component {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        onAfterOpen={this.afterModalOpen}
         onRequestClose={this.props.exit}
         contentLabel="Meal Modal"
       >
