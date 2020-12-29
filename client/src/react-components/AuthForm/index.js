@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
+import { createUser } from '../../actions/actions.js'
 import './styles.css'
 
 export class AuthForm extends Component {
@@ -52,9 +53,21 @@ export class AuthForm extends Component {
     // api call
   }
 
-  handleSignup = event => {
+  handleSignup = async (event) => {
     event.preventDefault()
-    // api call
+    // api 
+    if (this.state.pass !== this.state.confPass) {
+      return
+    }
+    const payload = {
+      email: this.state.email,
+      password: this.state.pass
+    }
+    try {
+      await createUser(payload)
+    } catch(error) {
+      console.log(error)
+    }
   }
   
   render() {

@@ -239,3 +239,5 @@ router.delete('/api/users/:id/ingredients/:ingredientId', mongoChecker, idChecke
     }
   }
 })
+
+module.exports = router

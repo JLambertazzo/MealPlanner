@@ -14,8 +14,11 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/client/build')))
 
+//api routes
+app.use(require('./routes/api'))
+
 app.get('*', (req, res) => {
-  const validPaths = ['/', '/calendar']
+  const validPaths = ['/', '/calendar', '/login', '/signup']
   if (!validPaths.includes(req.url)) {
     res.status(404).send('404 not found :(')
   }
