@@ -9,6 +9,7 @@ const { ObjectID } = require('mongodb')
 const { User } = require('../db/user')
 
 const bodyParse = require('body-parser')
+const { mongo } = require('mongoose')
 router.use(bodyParse.json())
 
 function isMongoError (error) {
@@ -51,6 +52,15 @@ const ingredientIdChecker = async (req, res, next) => {
   }
   next()
 }
+
+// check if a user is currently logged in
+router.get('/api/checkloggedin', (req, res) => {
+  if (req.session.user) {
+    res.send({ uid: req.session.user })
+  } else {
+    res.status(401).send()
+  }
+})
 
 router.get('/api/users', mongoChecker, (req, res) => {
   User.find().then(result => {

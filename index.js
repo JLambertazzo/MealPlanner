@@ -9,10 +9,25 @@ const app = express()
 const { mongoose } = require('./db/mongoose')
 mongoose.set('useFindAndModify', false)
 
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session)
+
 // set up body parse middleware and static folder
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, '/client/build')))
+
+app.use(session({
+  secret: 'a hardcoded secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    expires: 36000000,
+    httpOnly: true
+  },
+  store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  unset: 'destroy'
+}))
 
 //api routes
 app.use(require('./routes/api'))

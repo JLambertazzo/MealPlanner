@@ -1,6 +1,18 @@
 'use strict'
 const log = console.log
 
+export const checkLoggedIn = app => {
+  fetch('/api/checkloggedin').then(res => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return { uid: null }
+    }
+  }).then(json => {
+    app.setState({ uid: json.uid })
+  }).catch(error => log(error))
+}
+
 export const createUser = (payload) => {
   const request = new Request('/api/users', {
     method: 'post',
