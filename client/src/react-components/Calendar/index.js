@@ -7,6 +7,7 @@ import NavBar from '../NavBar'
 import MealModal from '../MealModal'
 import ListModal from '../ListModal'
 import ShoppingModal from '../ShoppingModal'
+import IngredientModal from '../IngredientModal'
 
 export class CalendarView extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class CalendarView extends Component {
       showMealModal: false,
       showListModal: false,
       showShoppingModal: false,
+      showIngredientModal: false,
       selectedDate: new Date()
     }
   }
@@ -41,6 +43,11 @@ export class CalendarView extends Component {
   setShoppingModal = show => {
     this.setState({
       showShoppingModal: show
+    })
+  }
+  setIngredientModal = show => {
+    this.setState({
+      showIngredientModal: show
     })
   }
   
@@ -76,9 +83,10 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar />
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
-        <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal ? 'hide' : '')}>
+        <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
+          ? 'hide' : '')}>
           <button className="btn waves-effect waves-light" onClick={() => this.setShoppingModal(true)} ><i className="material-icons left">list</i>Generate Shopping List</button>
-          <button className="btn waves-effect waves-light"><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
+          <button className="btn waves-effect waves-light" onClick={() => this.setIngredientModal(true)}><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
         </div>
         <ListModal 
           isOpen={this.state.showListModal} 
@@ -95,6 +103,10 @@ export class CalendarView extends Component {
         <ShoppingModal
           isOpen={this.state.showShoppingModal}
           exit={() => this.setShoppingModal(false)}
+        />
+        <IngredientModal
+          isOpen={this.state.showIngredientModal}
+          exit={() => this.setIngredientModal(false)}  
         />
       </div>
     )
