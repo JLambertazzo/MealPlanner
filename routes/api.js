@@ -129,17 +129,6 @@ router.post('/api/login', mongoChecker, async (req, res) => {
   }
 })
 
-// log user out
-router.get('/api/logout', (req, res) => {
-  req.session.destroy(error => {
-    if (error) {
-      res.status(500).send('internal server error')
-    } else {
-      res.send()
-    }
-  })
-})
-
 // Add meal
 // expects:
 // {

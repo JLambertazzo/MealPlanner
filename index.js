@@ -33,6 +33,41 @@ app.use(session({
 //api routes
 app.use(require('./routes/api'))
 
+app.get('/calendar', (req, res) => {
+  if (!req.session.user) {
+    res.status(301).redirect('/signup')
+  } else {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'))
+  }
+})
+
+app.get('/signup', (req, res) => {
+  if (req.session.user) {
+    res.status(301).redirect('/')
+  } else {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'))
+  }
+})
+
+app.get('/login', (req, res) => {
+  if (req.session.user) {
+    res.status(301).redirect('/')
+  } else {
+    res.sendFile(path.join(__dirname, '/client/build/index.html'))
+  }
+})
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(error => {
+    if (error) {
+      log(error)
+      res.status(500).send('internal server error')
+    } else {
+      res.status(301).redirect('/')
+    }
+  })
+})
+
 app.get('*', (req, res) => {
   const validPaths = ['/', '/calendar', '/login', '/signup']
   if (!validPaths.includes(req.url)) {

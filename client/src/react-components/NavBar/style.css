@@ -1,0 +1,18 @@
+#menuAnchor {
+  padding: 0px 15px;
+  color: ivory;
+}
+
+#menuAnchor:focus {
+  background: none;
+}
+
+#user-menu {
+  font-family: inherit;
+}
+
+#user-menu a {  
+  font-family: inherit;
+  text-decoration: none;
+  color: inherit;
+}

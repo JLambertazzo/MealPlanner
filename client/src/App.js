@@ -20,7 +20,7 @@ class App extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path='/' render={() => <HomePage loggedIn={this.state.uid}/>} />
-          <Route exact path='/calendar' render={() => <Calendar />} />
+          <Route exact path='/calendar' render={() => <Calendar loggedIn={this.state.uid}/>} />
           <Route exact path='/login' render={() => <AuthForm showLogin={true}/>} />
           <Route exact path='/signup' render={() => <AuthForm showLogin={false}/>} />
         </Switch>
