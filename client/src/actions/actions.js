@@ -31,7 +31,6 @@ export const createUser = (payload) => {
     }
   }).then(json => {
     log('Success:', json)
-    return json
   }).catch(error => log(error))
 }
 

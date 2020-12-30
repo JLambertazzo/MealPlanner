@@ -56,8 +56,8 @@ export class AuthForm extends Component {
       password: this.state.pass
     }
     try {
-      const x = await login(payload)
-      console.log(x)
+      await login(payload)
+      window.open('/calendar', '_self')
     } catch(error) {
       console.log(error)
     }
@@ -75,6 +75,8 @@ export class AuthForm extends Component {
     }
     try {
       await createUser(payload)
+      await login(payload)
+      window.open('/calendar', '_self')
     } catch(error) {
       console.log(error)
     }

@@ -81,7 +81,7 @@ export class CalendarView extends Component {
 
     return (
       <div id='calView'>
-        <NavBar />
+        <NavBar loggedIn={this.props.loggedIn}/>
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
         <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
           ? 'hide' : '')}>

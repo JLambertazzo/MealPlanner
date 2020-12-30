@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount () {
-    checkLoggedIn(this).then(res => console.log(this.state))
+    checkLoggedIn(this).then(res => console.log(this.state, this.props))
   }
 
   render () {
@@ -21,8 +21,8 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={() => <HomePage loggedIn={this.state.uid}/>} />
           <Route exact path='/calendar' render={() => <Calendar loggedIn={this.state.uid}/>} />
-          <Route exact path='/login' render={() => <AuthForm showLogin={true}/>} />
-          <Route exact path='/signup' render={() => <AuthForm showLogin={false}/>} />
+          <Route exact path='/login' render={(props) => <AuthForm {...props} showLogin={true}/>} />
+          <Route exact path='/signup' render={(props) => <AuthForm {...props} showLogin={false}/>} />
         </Switch>
       </BrowserRouter>
     )
