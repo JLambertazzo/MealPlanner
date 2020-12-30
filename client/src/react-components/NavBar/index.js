@@ -2,14 +2,9 @@ import React, { Component } from 'react'
 import './style.css'
 
 export class NavBar extends Component {
-  state = {
-    loggedIn: false
-  }
-
-  
   render () {
     const getRightSide = () => {
-      if (!this.state.loggedIn) {
+      if (!this.props.loggedIn) {
         return ( <ul className="right"><li><a href='/signup'>Sign Up</a></li><li><a href='/login'>Log In</a></li></ul> )
       } else {
         return ( <ul className="right"><li><i className="material-icons left">person</i>Profile</li></ul> )

@@ -1,8 +1,8 @@
 'use strict'
 const log = console.log
 
-export const checkLoggedIn = app => {
-  fetch('/api/checkloggedin').then(res => {
+export const checkLoggedIn = (app) => {
+  return fetch('/api/checkloggedin').then(res => {
     if (res.ok) {
       return res.json()
     } else {
@@ -10,6 +10,7 @@ export const checkLoggedIn = app => {
     }
   }).then(json => {
     app.setState({ uid: json.uid })
+    return json.uid
   }).catch(error => log(error))
 }
 

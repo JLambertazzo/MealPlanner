@@ -23,6 +23,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: {
     expires: 36000000,
+    sameSite: 'strict',
     httpOnly: true
   },
   store: new MongoStore({ mongooseConnection: mongoose.connection }),

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
-import { createUser } from '../../actions/actions.js'
+import { login, createUser } from '../../actions/actions.js'
 import './styles.css'
 
 export class AuthForm extends Component {
@@ -48,9 +48,19 @@ export class AuthForm extends Component {
     }
   }
 
-  handleLogin = event => {
+  handleLogin = async event => {
     event.preventDefault()
     // api call
+    const payload = {
+      email: this.state.email,
+      password: this.state.pass
+    }
+    try {
+      const x = await login(payload)
+      console.log(x)
+    } catch(error) {
+      console.log(error)
+    }
   }
 
   handleSignup = async (event) => {
