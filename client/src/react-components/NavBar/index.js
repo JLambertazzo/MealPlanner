@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Button, Menu, MenuItem } from '@material-ui/core'
-import { history } from 'react-router'
 import './style.css'
 
 export class NavBar extends Component {
@@ -48,7 +47,7 @@ export class NavBar extends Component {
     return (
       <nav className='teal darken-3'>
         <div className='nav-wrapper'> 
-          <a href='/' className='brand-logo'>TEMP NAME</a>
+          <a href='/' id='logo' className='brand-logo'>Grocery App</a>
           { getRightSide() }
         </div>
       </nav>

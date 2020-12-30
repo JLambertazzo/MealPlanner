@@ -5,10 +5,15 @@ import './style.css'
 export class HomePage extends Component {
   render () {
     return (
-      <div>
+      <div id='home'>
         <NavBar loggedIn={this.props.loggedIn}/>
-        <h1>HomePage</h1>
-        <a className="btn waves-effect waves-light teal darken-2" href="/calendar">Go To Calendar</a>
+        <div id='content'>
+          <video src='/gstorevid.mp4' autoPlay loop muted />
+          <div id='text'>
+            <h1>Grocery App</h1>
+            <a className="btn waves-effect waves-light teal darken-2" href="/calendar">Get Started</a>
+          </div>
+        </div>
       </div>
     )
   }

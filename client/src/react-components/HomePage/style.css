@@ -1,0 +1,30 @@
+#home {
+  display: flex;
+  flex-direction: column;
+}
+
+#content {
+  display: grid;
+  place-items: center;
+  background-position: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#content video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100%;
+  z-index: -2;
+  position: fixed;
+}
+
+#text {
+  display: flex;
+  flex-direction: column;
+}
+
+#text h1 {
+  color: teal;
+  text-shadow: black 2px 2px 4px;
+}

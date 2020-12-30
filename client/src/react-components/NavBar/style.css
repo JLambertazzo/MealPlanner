@@ -16,3 +16,7 @@
   text-decoration: none;
   color: inherit;
 }
+
+#logo {
+  padding-left: 15px;
+}
