@@ -34,15 +34,13 @@ export class index extends Component {
 
   handleSubmit = event => {
     event.preventDefault()
-    if (this.state.mealNum === '') {
-      this.setState({ mealNum: '0' })
-    }
+    const validMealNum = this.state.mealNum || 0
     // convert mealNum to number and call api
     const payload = {
       name: this.state.mealName,
       ingredients: [{ name: 'hardcoded', qty: 2 }, { name: 'alsohardcoded', qty: 2 }],
       date: this.props.date.toString(),
-      mealNum: parseInt(this.state.mealNum),
+      mealNum: parseInt(validMealNum),
       description: this.state.description
     }
     addMeal(payload, this.props.uid).then(() => this.handleReturn()).catch(error => console.log(error))

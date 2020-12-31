@@ -5,7 +5,20 @@ import './style.css'
 
 export class NavBar extends Component {
   state = {
-    anchorEl: null
+    anchorEl: null,
+    uid: null,
+    username: 'Profile'
+  }
+
+  componentDidUpdate() {
+    if (this.props.uid !== this.state.uid) {
+      this.getName(this.props.uid).then(res => {
+        this.setState({
+          uid: this.props.uid,
+          username: res
+        })
+      })
+    }
   }
 
   handleMenuOpen = event => {
@@ -20,6 +33,15 @@ export class NavBar extends Component {
     })
   }
 
+  getName = (uid) => {
+    if (!uid) {
+      return Promise.resolve('Profile')
+    }
+    return getUserById(uid).then(res => {
+      return res.username
+    })
+  }
+
   render () {
     const getRightSide = () => {
       if (!this.props.uid) {
@@ -27,7 +49,7 @@ export class NavBar extends Component {
       } else {
         return (
           <div className='right'>
-            <Button id='menuAnchor' aria-controls='user-menu' aria-haspopup='true' onClick={this.handleMenuOpen}><i className='material-icons left'>person</i>Profile</Button>
+            <Button id='menuAnchor' aria-controls='user-menu' aria-haspopup='true' onClick={this.handleMenuOpen}><i className='material-icons left'>person</i><h6>{this.state.username}</h6></Button>
             <Menu
               id='user-menu'
               anchorEl={this.state.anchorEl}

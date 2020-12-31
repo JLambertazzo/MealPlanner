@@ -30,7 +30,7 @@ export const createUser = (payload) => {
       log('error creating user')
     }
   }).then(json => {
-    log('Success:', json)
+    return json
   }).catch(error => log(error))
 }
 
@@ -50,7 +50,6 @@ export const login = (payload) => {
       log('error logging in')
     }
   }).then(json => {
-    log('Success:', json)
     return json
   }).catch(error => log(error))
 }
@@ -83,7 +82,6 @@ export const addMeal = (payload, uid) => {
       log('error creating meal')
     }
   }).then(json => {
-    log('Success:', json)
     return json
   }).catch(error => log(error))
 }
@@ -104,7 +102,6 @@ export const addIngredient = (payload, uid) => {
       log('error creating ingredient')
     }
   }).then(json => {
-    log('Success:', json)
     return json
   }).catch(error => log(error))
 }
@@ -125,7 +122,6 @@ export const deleteMeal = (payload, uid, mid) => {
       log('error deleting meal')
     }
   }).then(json => {
-    log('Success:', json)
     return json
   }).catch(error => log(error))
 }
@@ -146,7 +142,6 @@ export const deleteIngredient = (payload, uid, iid) => {
       log('error deleting ingredient')
     }
   }).then(json => {
-    log('Success:', json)
     return json
   }).catch(error => log(error))
 }
