@@ -5,19 +5,7 @@ import './styles.css'
 
 export class ListModal extends Component {
   state = {
-    meals: [],
-    uid: null,
-    date: null
-  }
-
-  componentDidUpdate() {
-    if (this.state.uid !== this.props.uid || this.state.date !== this.props.date) {
-      this.getMealsToday()
-      this.setState({
-        date: this.props.date,
-        uid: this.props.uid
-      })
-    }
+    meals: []
   }
 
   getMealsToday = () => {
@@ -46,7 +34,7 @@ export class ListModal extends Component {
     return (
       <Modal
       isOpen={this.props.isOpen}
-      onAfterOpen={this.afterModalOpen}
+      onAfterOpen={this.getMealsToday}
       onRequestClose={this.props.exit}
       contentLabel="List Modal"
       >

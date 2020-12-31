@@ -79,12 +79,12 @@ router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
 // create user
 // expects:
 // {
-//   email: 'email',
+//   username: 'username',
 //   password: 'password'
 // }
 router.post('/api/users', mongoChecker, (req, res) => {
   const user = new User({
-    email: req.body.email,
+    username: req.body.username,
     password: req.body.password,
     meals: [],
     ingredients: []
@@ -105,12 +105,12 @@ router.post('/api/users', mongoChecker, (req, res) => {
 // login user
 // expects:
 // {
-//   email: 'email',
+//   username: 'username',
 //   password: 'password'
 // }
 router.post('/api/login', mongoChecker, async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email })
+    const user = await User.findOne({ username: req.body.username })
     if (user && await bcrypt.compare(req.body.password, user.password)) {
       req.session.user = user._id
       res.send(user)

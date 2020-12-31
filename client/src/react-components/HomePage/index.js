@@ -6,7 +6,7 @@ export class HomePage extends Component {
   render () {
     return (
       <div id='home'>
-        <NavBar loggedIn={this.props.uid}/>
+        <NavBar uid={this.props.uid}/>
         <div id='content'>
           <video src='/gstorevid.mp4' autoPlay loop muted />
           <div id='text'>

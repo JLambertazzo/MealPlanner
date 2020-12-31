@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Menu, MenuItem } from '@material-ui/core'
+import { getUserById } from '../../actions/actions'
 import './style.css'
 
 export class NavBar extends Component {
@@ -21,7 +22,7 @@ export class NavBar extends Component {
 
   render () {
     const getRightSide = () => {
-      if (!this.props.loggedIn) {
+      if (!this.props.uid) {
         return ( <ul className='right'><li><a href='/signup'>Sign Up</a></li><li><a href='/login'>Log In</a></li></ul> )
       } else {
         return (

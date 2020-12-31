@@ -5,13 +5,13 @@ import './styles.css'
 
 export class AuthForm extends Component {
   state = {
-    email: '',
+    username: '',
     pass: '',
     confPass: ''
   }
 
-  handleEmailChange = event => {
-    this.setState({ email: event.target.value })
+  handleUsernameChange = event => {
+    this.setState({ username: event.target.value })
   }
 
   handlePassChange = event => {
@@ -52,7 +52,7 @@ export class AuthForm extends Component {
     event.preventDefault()
     // api call
     const payload = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.pass
     }
     try {
@@ -70,7 +70,7 @@ export class AuthForm extends Component {
       return
     }
     const payload = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.pass
     }
     try {
@@ -89,13 +89,13 @@ export class AuthForm extends Component {
         <form className="container" onSubmit={this.props.showLogin ? this.handleLogin : this.handleSignup}>
           <h3 className="center-align"><i class="material-icons">{this.props.showLogin ? 'person' : 'person_add'}</i>{this.props.showLogin ? 'Log In' : 'Sign Up'}</h3>
           <div className="input-field">
-            <label for="email">Email:</label>
+            <label for="username">Username:</label>
             <input 
-              name="email" 
-              type="email"
+              name="username" 
+              type="text"
               onFocus={this.setInputActive}
               onBlur={this.setInputInactive} 
-              onChange={this.handleEmailChange} 
+              onChange={this.handleUsernameChange} 
               required 
             />
           </div>
