@@ -1,56 +1,41 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import { getUserById } from '../../actions/actions'
 import './styles.css'
 
 export class ListModal extends Component {
-  getMealsByDate(date = new Date()) {
-    // hardcoded for now
-    return [
-      {
-        name: 'name',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      },
-      {
-        name: 'name2',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      },
-      {
-        name: 'name3',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      },
-      {
-        name: 'name4',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      },
-      {
-        name: 'name5',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      },
-      {
-        name: 'name6',
-        date: new Date(),
-        mealNum: 2,
-        ingredients: [],
-        description: 'a meal'
-      }
-    ]
+  state = {
+    meals: [],
+    uid: null,
+    date: null
   }
 
+  componentDidUpdate() {
+    if (this.state.uid !== this.props.uid || this.state.date !== this.props.date) {
+      this.getMealsToday()
+      this.setState({
+        date: this.props.date,
+        uid: this.props.uid
+      })
+    }
+  }
+
+  getMealsToday = () => {
+    if (!this.props.uid) {
+      console.log(this.props.uid, 'no uid')
+      return
+    }
+    getUserById(this.props.uid).then(res => {
+      const mealsToday = res.meals.filter(element => {
+        const mealDate = new Date(element.date)
+        return (mealDate.toDateString() === this.props.date.toDateString())
+      })
+      this.setState({
+        meals: mealsToday
+      })
+    }).catch(error => console.log(error))
+  }
+  
   showMealModal = () => {
     this.props.showMealModal()
     this.props.exit()
@@ -67,11 +52,11 @@ export class ListModal extends Component {
       >
         <h4>Meals for {this.props.date.toDateString()}:</h4>
           
-        {this.getMealsByDate().map(meal => {
+        {this.state.meals.map(meal => {
           return(<details>
             <summary>{meal.name}</summary>
             <h6>Ingredients: </h6>
-            <ul>{meal.ingredients}</ul>
+            {/* <ul>{meal.ingredients}</ul> */}
             <h6>Description:</h6>
             <ul>{meal.description}</ul>
           </details>)

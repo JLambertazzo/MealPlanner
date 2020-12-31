@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import { addMeal } from '../../actions/actions'
 import './styles.css'
 
 export class index extends Component {
@@ -37,7 +38,14 @@ export class index extends Component {
       this.setState({ mealNum: '0' })
     }
     // convert mealNum to number and call api
-    this.handleReturn()
+    const payload = {
+      name: this.state.mealName,
+      ingredients: [{ name: 'hardcoded', qty: 2 }, { name: 'alsohardcoded', qty: 2 }],
+      date: this.props.date.toString(),
+      mealNum: parseInt(this.state.mealNum),
+      description: this.state.description
+    }
+    addMeal(payload, this.props.uid).then(() => this.handleReturn()).catch(error => console.log(error))
   }
 
   render() {

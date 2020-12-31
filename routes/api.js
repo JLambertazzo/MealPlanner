@@ -62,8 +62,9 @@ router.get('/api/checkloggedin', (req, res) => {
   }
 })
 
-router.get('/api/users', mongoChecker, (req, res) => {
-  User.find().then(result => {
+// get user by id
+router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
+  User.findById(req.params.id).then(result => {
     res.send(result)
   }).catch(error => {
     log(error)

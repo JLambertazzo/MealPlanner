@@ -46,12 +46,23 @@ export const login = (payload) => {
   return fetch(request).then(res => {
     if (res.ok) {
       return res.json()
-      // TODO change session user
     } else {
       log('error logging in')
     }
   }).then(json => {
     log('Success:', json)
+    return json
+  }).catch(error => log(error))
+}
+
+export const getUserById = (uid) => {
+  return fetch(`/api/users/${uid}`).then(res => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      log('error getting user')
+    }
+  }).then(json => {
     return json
   }).catch(error => log(error))
 }

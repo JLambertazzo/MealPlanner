@@ -12,15 +12,15 @@ class App extends Component {
   }
 
   componentDidMount () {
-    checkLoggedIn(this).then(res => console.log(this.state, this.props))
+    checkLoggedIn(this)
   }
 
   render () {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' render={() => <HomePage loggedIn={this.state.uid}/>} />
-          <Route exact path='/calendar' render={() => <Calendar loggedIn={this.state.uid}/>} />
+          <Route exact path='/' render={() => <HomePage uid={this.state.uid}/>} />
+          <Route exact path='/calendar' render={() => <Calendar uid={this.state.uid} />} />
           <Route exact path='/login' render={(props) => <AuthForm {...props} showLogin={true}/>} />
           <Route exact path='/signup' render={(props) => <AuthForm {...props} showLogin={false}/>} />
         </Switch>

@@ -10,16 +10,13 @@ import ShoppingModal from '../ShoppingModal'
 import IngredientModal from '../IngredientModal'
 
 export class CalendarView extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      datesWithMeals: [new Date()],
-      showMealModal: false,
-      showListModal: false,
-      showShoppingModal: false,
-      showIngredientModal: false,
-      selectedDate: new Date()
-    }
+  state = {
+    datesWithMeals: [new Date()],
+    showMealModal: false,
+    showListModal: false,
+    showShoppingModal: false,
+    showIngredientModal: false,
+    selectedDate: new Date()
   }
 
   addDate = date => {
@@ -81,7 +78,7 @@ export class CalendarView extends Component {
 
     return (
       <div id='calView'>
-        <NavBar loggedIn={this.props.loggedIn}/>
+        <NavBar loggedIn={this.props.uid}/>
         <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
         <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
           ? 'hide' : '')}>
@@ -89,12 +86,14 @@ export class CalendarView extends Component {
           <button className="btn waves-effect waves-light" onClick={() => this.setIngredientModal(true)}><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
         </div>
         <ListModal 
+          uid={this.props.uid}
           isOpen={this.state.showListModal} 
           exit={() => this.setListModal(false)} 
           date={this.state.selectedDate}
           showMealModal={this.showMealModal}
         />
-        <MealModal 
+        <MealModal
+          uid={this.props.uid}
           isOpen={this.state.showMealModal} 
           exit={() => this.setMealModal(false)} 
           date={this.state.selectedDate}
