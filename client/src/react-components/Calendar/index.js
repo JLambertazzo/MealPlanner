@@ -100,6 +100,7 @@ export class CalendarView extends Component {
           showListModal={this.showListModal} 
         />
         <ShoppingModal
+          uid={this.props.uid}
           isOpen={this.state.showShoppingModal}
           exit={() => this.setShoppingModal(false)}
         />

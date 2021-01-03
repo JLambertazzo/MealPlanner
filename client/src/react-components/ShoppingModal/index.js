@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
+import { getUserById } from '../../actions/actions'
 import './styles.css'
 
 export class ShoppingModal extends Component {
@@ -8,12 +9,15 @@ export class ShoppingModal extends Component {
     need: []
   }
 
-  componentDidMount() {
-    // api call get data
+  getData = () => {
     const have = ['hardcoded', 'for']
-    const need = ['hardcoded', 'data', 'for', 'now']
-    this.setState({
-      need: need.filter(el => !have.includes(el))
+    getUserById(this.props.uid).then(user => {
+      user.meals.forEach(meal => {
+        const keep = meal.ingredients.filter(el => !have.includes(el))
+        this.setState(prevState => {
+          return { need: [...prevState.need, ...keep] }
+        })
+      })
     })
   }
 
@@ -34,6 +38,7 @@ export class ShoppingModal extends Component {
       <Modal
         isOpen={this.props.isOpen}
         onRequestClose={this.props.exit}
+        onAfterOpen={this.getData}
         contentLabel="Shopping List Modal"
       >
         <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
@@ -43,7 +48,7 @@ export class ShoppingModal extends Component {
             {
               this.state.need.map(el => {
                 return(
-                  <li key={uid(el)}>{el}</li>
+                  <li key={uid(el)}>{el.name}</li>
                   )
                 })
               }

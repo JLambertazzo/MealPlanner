@@ -44,7 +44,15 @@ export class ListModal extends Component {
           return(<details>
             <summary>{meal.name}</summary>
             <h6>Ingredients: </h6>
-            {/* <ul>{meal.ingredients}</ul> */}
+            <ul>
+              {
+                meal.ingredients.map(ingredient => {
+                  return(<li>
+                    {ingredient.qty} {ingredient.name}
+                  </li>)
+                })
+              }
+            </ul>
             <h6>Description:</h6>
             <ul>{meal.description}</ul>
           </details>)
