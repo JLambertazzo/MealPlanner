@@ -1,13 +1,25 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { addMeal } from '../../actions/actions'
+import { uid } from 'react-uid'
 import './styles.css'
 
 export class index extends Component {
   state = {
     mealName: '',
     mealNum: '',
-    ingredients: [],
+    ingredients: [{
+      name: '',
+      num: 0
+    },
+    {
+      name: '',
+      num: 0
+    },
+    {
+      name: '',
+      num: 0
+    }],
     description: ''
   }
 
@@ -24,8 +36,18 @@ export class index extends Component {
     this.setState({ mealNum: event.target.value })
   }
 
-  handleIngredientChange = event => {
-    this.setState({ ingredients: event.target.value.split(',').forEach(el => el.trim()) })
+  handleIngredientNumChange = event => {
+    const index = event.target.parentElement.getAttribute('index')
+    let ingredients = [...this.state.ingredients]
+    ingredients[index].num = event.target.value
+    this.setState({ ingredients: ingredients })
+  }
+
+  handleIngredientNameChange = event => {
+    const index = event.target.parentElement.getAttribute('index')
+    let ingredients = [...this.state.ingredients]
+    ingredients[index].name = event.target.value
+    this.setState({ ingredients: ingredients })
   }
 
   handleDescriptionChange = event => {
@@ -70,6 +92,18 @@ export class index extends Component {
 
           </div>
           <div className="input-field list-holder">
+            <ul>
+            {
+              this.state.ingredients.map((ingredient, index) => {
+                return(
+                  <li className='ingredientContainer' index={index}>
+                    <input className='qInput' type='number' value={ingredient.num} onChange={this.handleIngredientNumChange} />
+                    <input className='nInput' type='text' value={ingredient.name} onChange={this.handleIngredientNameChange} />
+                  </li>
+                )
+              })
+            }
+            </ul>
             <input placeholder="ingredients" className="validate" onChange={this.handleIngredientChange} required />
           </div>
           <div className="input-field">
