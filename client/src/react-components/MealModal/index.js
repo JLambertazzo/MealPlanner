@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { addMeal } from '../../actions/actions'
-import { uid } from 'react-uid'
 import './styles.css'
 
 export class index extends Component {
@@ -10,15 +9,7 @@ export class index extends Component {
     mealNum: '',
     ingredients: [{
       name: '',
-      num: 0
-    },
-    {
-      name: '',
-      num: 0
-    },
-    {
-      name: '',
-      num: 0
+      qty: 0
     }],
     description: ''
   }
@@ -36,10 +27,10 @@ export class index extends Component {
     this.setState({ mealNum: event.target.value })
   }
 
-  handleIngredientNumChange = event => {
+  handleIngredientQtyChange = event => {
     const index = event.target.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
-    ingredients[index].num = event.target.value
+    ingredients[index].qty = event.target.value
     this.setState({ ingredients: ingredients })
   }
 
@@ -48,6 +39,15 @@ export class index extends Component {
     let ingredients = [...this.state.ingredients]
     ingredients[index].name = event.target.value
     this.setState({ ingredients: ingredients })
+  }
+
+  handleAddIngredient = event => {
+    event.preventDefault()
+    this.setState(prevState => { 
+      return {
+        ingredients: [...prevState.ingredients, { name: '', qty: 0 }]
+      }
+    })
   }
 
   handleDescriptionChange = event => {
@@ -60,7 +60,7 @@ export class index extends Component {
     // convert mealNum to number and call api
     const payload = {
       name: this.state.mealName,
-      ingredients: [{ name: 'hardcoded', qty: 2 }, { name: 'alsohardcoded', qty: 2 }],
+      ingredients: this.state.ingredients.filter(ingredient => ingredient.name && ingredient.qty),
       date: this.props.date.toString(),
       mealNum: parseInt(validMealNum),
       description: this.state.description
@@ -91,20 +91,20 @@ export class index extends Component {
             </select>
 
           </div>
-          <div className="input-field list-holder">
+          <div className='input-field list-holder'>
             <ul>
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
                   <li className='ingredientContainer' index={index}>
-                    <input className='qInput' type='number' value={ingredient.num} onChange={this.handleIngredientNumChange} />
-                    <input className='nInput' type='text' value={ingredient.name} onChange={this.handleIngredientNameChange} />
+                    <input className='qInput' type='number' value={ingredient.qty} placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
+                    <input className='nInput' type='text' value={ingredient.name} placeholder='Ingredient Name' onChange={this.handleIngredientNameChange} />
                   </li>
                 )
               })
             }
             </ul>
-            <input placeholder="ingredients" className="validate" onChange={this.handleIngredientChange} required />
+            <button className='btn waves-effect waves-light' onClick={this.handleAddIngredient}>Add Ingredient</button>
           </div>
           <div className="input-field">
             <input type="text" placeholder="Description" className="validate" onChange={this.handleDescriptionChange} />

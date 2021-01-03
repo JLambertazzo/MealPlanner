@@ -2,14 +2,24 @@
     display: block;
 }
 
+.list-holder {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .ingredientContainer {
     display: flex;
+    width: 80%;
 }
 
 .qInput {
-    margin: 5px;
+    margin: 5px !important;
+    width: 20% !important;
 }
 
 .nInput {
-    margin: 5px;
+    margin: 5px !important;
 }
