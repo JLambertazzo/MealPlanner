@@ -6,17 +6,25 @@ import './styles.css'
 
 export class ShoppingModal extends Component {
   state = {
-    need: []
+    need: {}
   }
 
   getData = () => {
-    const have = ['hardcoded', 'for']
     getUserById(this.props.uid).then(user => {
+      let need = {}
       user.meals.forEach(meal => {
-        const keep = meal.ingredients.filter(el => !have.includes(el))
-        this.setState(prevState => {
-          return { need: [...prevState.need, ...keep] }
+        meal.ingredients.forEach(ingredient => {
+          if (need[ingredient.name]) {
+            need[ingredient.name] += ingredient.qty
+            console.log('adding', ingredient.qty)
+          } else {
+            need[ingredient.name] = ingredient.qty
+            console.log('setting to', ingredient.qty)
+          }
         })
+      })
+      this.setState({
+        need: need
       })
     })
   }
@@ -46,9 +54,10 @@ export class ShoppingModal extends Component {
           <h5>My Shopping List:</h5>
           <ul>
             {
-              this.state.need.map(el => {
+              Object.keys(this.state.need).map(key => {
+                console.log(this.state.need[key])
                 return(
-                  <li key={uid(el)}>{el.name}</li>
+                  <li key={uid(key)}>{this.state.need[key]} {key}</li>
                   )
                 })
               }

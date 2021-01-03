@@ -19,6 +19,10 @@ export class index extends Component {
     this.props.exit()
   }
 
+  handleClose = () => {
+    this.setState({ ingredients: [{ name: '', qty: 0 }] })
+  }
+
   handleNameChange = event => {
     this.setState({ mealName: event.target.value })
   }
@@ -74,6 +78,7 @@ export class index extends Component {
       <Modal
         isOpen={this.props.isOpen}
         onRequestClose={this.props.exit}
+        onAfterClose={this.handleClose}
         contentLabel="Meal Modal"
       >
         <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
