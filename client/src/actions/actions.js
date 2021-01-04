@@ -86,12 +86,13 @@ export const addMeal = (payload, uid) => {
   }).catch(error => log(error))
 }
 
-export const addIngredient = (payload, uid) => {
+export const setIngredients = (payload, uid) => {
   const request = new Request(`/api/users/${uid}/ingredients`, {
-    method: 'post',
+    method: 'PATCH',
     body: JSON.stringify(payload),
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Accept: 'application/json, text/plain, */*'
     }
   })
 
@@ -99,7 +100,7 @@ export const addIngredient = (payload, uid) => {
     if (res.ok) {
       return res.json()
     } else {
-      log('error creating ingredient')
+      log('error saving ingredients')
     }
   }).then(json => {
     return json

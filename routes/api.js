@@ -172,21 +172,17 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   })
 })
 
-// Add ingredients
+// Set ingredients
 // expects:
 // {
-//   name: 'name',
-//   qty: 'qty'
+//   ingredients: [{
+//     name: 'ingredient name',
+//     qty: number
+//   }]
 // }
-router.post('/api/users/:id/ingredients', mongoChecker, idChecker, (req, res) => {
-  const ingredient = {
-    name: req.body.name,
-    qty: req.body.qty
-  }
-  User.findById(req.params.id).then(result => {
+router.patch('/api/users/:id/ingredients', mongoChecker, idChecker, (req, res) => {
+  User.findByIdAndUpdate(req.params.id, { $set: { ingredients: req.body.ingredients }}).then(result => {
     if (result) {
-      result.ingredients.push(ingredient)
-      result.save()
       res.send(result)
     } else {
       res.status(404).send('resource not found')

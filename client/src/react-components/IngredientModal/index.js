@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { getUserById } from '../../actions/actions'
+import { getUserById, setIngredients } from '../../actions/actions'
 import './styles.css'
 
 export class IngredientModal extends Component {
@@ -22,7 +22,9 @@ export class IngredientModal extends Component {
   }
 
   saveData = () => {
-    // need to create an action
+    setIngredients({ ingredients: this.state.ingredients }, this.props.uid).then(res => {
+      console.log('saved successfully') // TODO display in frontend please
+    }).catch(error => console.log(error))
   }
 
   handleReturn = () => {
@@ -52,12 +54,17 @@ export class IngredientModal extends Component {
     })
   }
 
+  afterClose = () => {
+    this.setState({ ingredients: [{ name: '', qty: 0 }] })
+  }
+
   render() {
     return (
       <Modal
         isOpen={this.props.isOpen}
-        onAfterOpen={this.props.getData}
+        onAfterOpen={this.getData}
         onRequestClose={this.props.exit}
+        onAfterClose={this.afterClose}
         contentLabel="Ingredients Modal"
       >
         <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
