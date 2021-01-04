@@ -16,10 +16,8 @@ export class ShoppingModal extends Component {
         meal.ingredients.forEach(ingredient => {
           if (need[ingredient.name]) {
             need[ingredient.name] += ingredient.qty
-            console.log('adding', ingredient.qty)
           } else {
             need[ingredient.name] = ingredient.qty
-            console.log('setting to', ingredient.qty)
           }
         })
       })
@@ -55,7 +53,6 @@ export class ShoppingModal extends Component {
           <ul>
             {
               Object.keys(this.state.need).map(key => {
-                console.log(this.state.need[key])
                 return(
                   <li key={uid(key)}>{this.state.need[key]} {key}</li>
                   )

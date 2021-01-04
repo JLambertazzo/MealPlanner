@@ -105,6 +105,7 @@ export class CalendarView extends Component {
           exit={() => this.setShoppingModal(false)}
         />
         <IngredientModal
+          uid={this.props.uid}
           isOpen={this.state.showIngredientModal}
           exit={() => this.setIngredientModal(false)}  
         />
