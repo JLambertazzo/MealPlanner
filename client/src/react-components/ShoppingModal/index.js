@@ -11,15 +11,18 @@ export class ShoppingModal extends Component {
 
   getData = () => {
     getUserById(this.props.uid).then(user => {
-      let need = {}
+      const need = {}
       user.meals.forEach(meal => {
         meal.ingredients.forEach(ingredient => {
-          if (need[ingredient.name]) {
-            need[ingredient.name] += ingredient.qty
-          } else {
-            need[ingredient.name] = ingredient.qty
-          }
+          need[ingredient.name] = ingredient.qty
         })
+      })
+      user.ingredients.forEach(ingredient => {
+        if (need[ingredient.name] && (need[ingredient.name] - ingredient.qty) > 0) {
+          need[ingredient.name] -= ingredient.qty
+        } else if (need[ingredient.name]) {
+          delete need[ingredient.name]
+        }
       })
       this.setState({
         need: need
@@ -55,9 +58,9 @@ export class ShoppingModal extends Component {
               Object.keys(this.state.need).map(key => {
                 return(
                   <li key={uid(key)}>{this.state.need[key]} {key}</li>
-                  )
-                })
-              }
+                )
+              })
+            }
           </ul>
         </div>  
         <h5>Export List:</h5>
