@@ -10,6 +10,14 @@
     align-items: center;
 }
 
+.list-holder h6 {
+    text-align: left;
+}
+
+.list-holder button {
+    margin: 5px;
+}
+
 .ingredientContainer {
     display: flex;
     width: 80%;

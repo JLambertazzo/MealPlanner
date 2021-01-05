@@ -71,6 +71,21 @@ export class index extends Component {
     }
     addMeal(payload, this.props.uid).then(() => this.handleReturn()).catch(error => console.log(error))
   }
+  
+  setInputActive = (event) => {
+    if (event.target.tagName === 'LABEL') {
+      event.target.classList.add('active')
+      event.target.nextElementSibling.select()
+    } else {
+      event.target.previousElementSibling.classList.add('active')
+    }
+  }
+
+  setInputInactive = (event) => {
+    if (event.target.value === '') {
+      event.target.previousElementSibling.classList.remove('active')
+    }
+  }
 
   render() {
     Modal.setAppElement('#root')
@@ -85,25 +100,26 @@ export class index extends Component {
         <h4>Add a meal for {this.props.date.toDateString()}</h4>
         <form onSubmit={this.handleSubmit}>
           <div className="input-field">
-            <input type="text" className="validate" placeholder="Meal Name" onChange={this.handleNameChange} required />
+            <label for='mealName' onClick={this.setInputActive}>Meal Name</label>
+            <input name='mealName' type="text" className="validate" onChange={this.handleNameChange} onFocus={this.setInputActive} onBlur={this.setInputInactive} required />
           </div>
           <div className="input-field">
-            <select id="mealSelect" onChange={this.handleNumChange}>
+            <select name='mealNum' id="mealSelect" onChange={this.handleNumChange}>
               <option value="0">Breakfast</option>
               <option value="1">Lunch</option>
               <option value="2">Dinner</option>
               <option value="3">Snack</option>
             </select>
-
           </div>
           <div className='input-field list-holder'>
+            <h6>Ingredients:</h6>
             <ul>
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
                   <li className='ingredientContainer' index={index}>
-                    <input className='qInput' type='number' value={ingredient.qty} placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
-                    <input className='nInput' type='text' value={ingredient.name} placeholder='Ingredient Name' onChange={this.handleIngredientNameChange} />
+                    <input name='qInput' className='qInput' type='number' value={ingredient.qty} placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
+                    <input name='nInput' className='nInput' type='text' value={ingredient.name} placeholder='Ingredient Name' onChange={this.handleIngredientNameChange} />
                   </li>
                 )
               })
@@ -112,7 +128,8 @@ export class index extends Component {
             <button className='btn waves-effect waves-light' onClick={this.handleAddIngredient}>Add Ingredient</button>
           </div>
           <div className="input-field">
-            <input type="text" placeholder="Description" className="validate" onChange={this.handleDescriptionChange} />
+            <label for='description' onClick={this.setInputActive}>Meal Description</label>
+            <input name='description' type="text" className="validate" onChange={this.handleDescriptionChange} onFocus={this.setInputActive} onBlur={this.setInputInactive} />
           </div>
           <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" />
           <input type="submit" value="Cancel" onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right" />

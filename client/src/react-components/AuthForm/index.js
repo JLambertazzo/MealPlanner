@@ -50,7 +50,6 @@ export class AuthForm extends Component {
 
   handleLogin = async event => {
     event.preventDefault()
-    // api call
     const payload = {
       username: this.state.username,
       password: this.state.pass
@@ -65,7 +64,6 @@ export class AuthForm extends Component {
 
   handleSignup = async (event) => {
     event.preventDefault()
-    // api 
     if (this.state.pass !== this.state.confPass) {
       return
     }
