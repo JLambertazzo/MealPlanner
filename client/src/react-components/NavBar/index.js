@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Menu, MenuItem } from '@material-ui/core'
+import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup } from '@material-ui/core'
 import { getUserById } from '../../actions/actions'
 import './style.css'
 
@@ -45,10 +45,15 @@ export class NavBar extends Component {
   render () {
     const getRightSide = () => {
       if (!this.props.uid) {
-        return ( <ul className='right'><li><a href='/signup'>Sign Up</a></li><li><a href='/login'>Log In</a></li></ul> )
+        return (
+          <ButtonGroup style={{ marginLeft: 'auto' }} >
+            <Button onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
+            <Button onClick={() => window.open('/login', '_self')}>Log In</Button>
+          </ButtonGroup> 
+        )
       } else {
         return (
-          <div className='right'>
+          <div style={{ marginLeft: 'auto' }}>
             <Button id='menuAnchor' aria-controls='user-menu' aria-haspopup='true' onClick={this.handleMenuOpen}><i className='material-icons left'>person</i><h6>{this.state.username}</h6></Button>
             <Menu
               id='user-menu'
@@ -68,12 +73,12 @@ export class NavBar extends Component {
     }
 
     return (
-      <nav className='teal darken-3'>
-        <div className='nav-wrapper'> 
-          <a href='/' id='logo' className='brand-logo'>Grocery App</a>
+      <AppBar position='static'>
+        <Toolbar className='nav-wrapper'> 
+          <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>Grocery App</Typography></a>
           { getRightSide() }
-        </div>
-      </nav>
+        </Toolbar>
+      </AppBar>
     )
   }
 }

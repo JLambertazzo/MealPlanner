@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Calendar from 'react-calendar'
+import { Button } from '@material-ui/core'
+import { List, Edit } from '@material-ui/icons'
 import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
@@ -79,15 +81,15 @@ export class CalendarView extends Component {
     return (
       <div id='calView'>
         <NavBar uid={this.props.uid}/>
-        <Calendar className="custom-calendar-styles grey lighten-5" onChange={this.handleChange} tileContent={calendarContent} />
+        <Calendar className="custom-calendar-styles grey lighten-5 " onChange={this.handleChange} tileContent={calendarContent} />
         <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
           ? 'hide' : '')}>
-          <button className="btn waves-effect waves-light" onClick={() => this.setShoppingModal(true)} ><i className="material-icons left">list</i>Generate Shopping List</button>
-          <button className="btn waves-effect waves-light" onClick={() => this.setIngredientModal(true)}><i className="material-icons left">mode_edit</i>Edit My Ingredients</button>
+          <Button variante='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>Generate Shopping List</Button>
+          <Button variante='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Ingredients</Button>
         </div>
-        <ListModal 
+        <ListModal
           uid={this.props.uid}
-          isOpen={this.state.showListModal} 
+          isOpen={this.state.showListModal}
           exit={() => this.setListModal(false)} 
           date={this.state.selectedDate}
           showMealModal={this.showMealModal}

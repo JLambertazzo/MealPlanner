@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { getUserById, setIngredients } from '../../actions/actions'
+import { Button } from '@material-ui/core'
+import { Save, Add, ChevronLeft } from '@material-ui/icons'
 import './styles.css'
 
 export class IngredientModal extends Component {
@@ -67,7 +69,7 @@ export class IngredientModal extends Component {
         onAfterClose={this.afterClose}
         contentLabel="Ingredients Modal"
       >
-        <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
+        <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
         <h5>My Ingredients:</h5>
         <div className='list-holder'>
           <ul>
@@ -82,8 +84,8 @@ export class IngredientModal extends Component {
               })
             }
           </ul>
-          <button className='btn waves-effect waves-light' onClick={this.handleAddIngredient}><i className='material-icons left'>add</i>Add Ingredient</button>
-          <button className='btn waves-effect waves-light' onClick={this.saveData}><i className='material-icons left'>save</i>Save Data</button>
+          <Button variant='contained' startIcon={<Add />} onClick={this.handleAddIngredient}>Add Ingredient</Button>
+          <Button variant='contained' startIcon={<Save />} onClick={this.saveData}>Save Data</Button>
         </div>
       </Modal>
     )

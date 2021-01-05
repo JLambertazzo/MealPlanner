@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import { Button, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+import { Add, Close, ExpandMore } from '@material-ui/icons'
 import { getUserById } from '../../actions/actions'
 import './styles.css'
 
@@ -41,25 +43,29 @@ export class ListModal extends Component {
         <h4>Meals for {this.props.date.toDateString()}:</h4>
           
         {this.state.meals.map(meal => {
-          return(<details>
-            <summary>{meal.name}</summary>
-            <h6>Ingredients: </h6>
-            <ul>
-              {
-                meal.ingredients.map(ingredient => {
-                  return(<li>
-                    {ingredient.qty} {ingredient.name}
-                  </li>)
-                })
-              }
-            </ul>
-            <h6>Description:</h6>
-            <ul>{meal.description}</ul>
-          </details>)
+          return(
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />} >{meal.name}</AccordionSummary>
+              <AccordionDetails>
+                <h6>Ingredients: </h6>
+                <ul>
+                  {
+                    meal.ingredients.map(ingredient => {
+                      return(<li>
+                        {ingredient.qty} {ingredient.name}
+                      </li>)
+                    })
+                  }
+                </ul>
+                <h6>Description:</h6>
+                <ul>{meal.description}</ul>
+              </AccordionDetails>
+            </Accordion>
+          )
         })}
 
-        <button onClick={this.showMealModal} className="btn waves-effect waves-light teal darken-2 right"><i className='material-icons left'>add</i>New Meal</button>
-        <button onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right"><i className="material-icons left">close</i>Close</button>
+        <Button onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
+        <Button onClick={this.props.exit} startIcon={<Close />}>Close</Button>
       </Modal>
     )
     }
