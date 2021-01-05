@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup } from '@material-ui/core'
+import { Person, ExitToApp } from '@material-ui/icons'
 import { getUserById } from '../../actions/actions'
 import './style.css'
 
@@ -38,7 +39,11 @@ export class NavBar extends Component {
       return Promise.resolve('Profile')
     }
     return getUserById(uid).then(res => {
-      return res.username
+      if (res) {
+        return res.username
+      } else {
+        return 'Profile'
+      }
     })
   }
 
@@ -54,7 +59,7 @@ export class NavBar extends Component {
       } else {
         return (
           <div style={{ marginLeft: 'auto' }}>
-            <Button id='menuAnchor' aria-controls='user-menu' aria-haspopup='true' onClick={this.handleMenuOpen}><i className='material-icons left'>person</i><h6>{this.state.username}</h6></Button>
+            <Button id='menuAnchor' variant='contained' color='secondary' aria-controls='user-menu' aria-haspopup='true' startIcon={<Person />} onClick={this.handleMenuOpen}>{this.state.username}</Button>
             <Menu
               id='user-menu'
               anchorEl={this.state.anchorEl}
@@ -62,10 +67,8 @@ export class NavBar extends Component {
               open={Boolean(this.state.anchorEl)}
               onClose={this.handleMenuClose}
             >
-              <MenuItem><a href='/calendar'><i className='material-icons left'>person</i>My Profile</a></MenuItem>
-              <MenuItem><a href='/calendar'><i className='material-icons left'>list</i>My Shopping List</a></MenuItem>
-              <MenuItem><a href='/calendar'><i className='material-icons left'>mode_edit</i>My Ingredients</a></MenuItem>
-              <MenuItem><a href='/logout'><i className='material-icons left'>exit_to_app</i>Log Out</a></MenuItem>
+              <MenuItem><a href='/calendar'><Person />My Profile</a></MenuItem>
+              <MenuItem><a href='/logout'><ExitToApp />Log Out</a></MenuItem>
             </Menu>
           </div>
         )
@@ -73,7 +76,7 @@ export class NavBar extends Component {
     }
 
     return (
-      <AppBar position='static'>
+      <AppBar color='primary' position='static'>
         <Toolbar className='nav-wrapper'> 
           <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>Grocery App</Typography></a>
           { getRightSide() }

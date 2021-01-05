@@ -8,8 +8,10 @@
   background: none;
 }
 
-#user-menu {
+#user-menu a {
   font-family: inherit;
+  text-decoration: none;
+  color: inherit;
 }
 
 .nav-wrapper a {  
