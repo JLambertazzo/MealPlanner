@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Input } from '@material-ui/core'
+import { ChevronLeft } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
 
@@ -9,7 +11,7 @@ export class index extends Component {
     mealNum: '',
     ingredients: [{
       name: '',
-      qty: 0
+      qty: ''
     }],
     description: ''
   }
@@ -32,14 +34,14 @@ export class index extends Component {
   }
 
   handleIngredientQtyChange = event => {
-    const index = event.target.parentElement.getAttribute('index')
+    const index = event.target.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
     ingredients[index].qty = event.target.value
     this.setState({ ingredients: ingredients })
   }
 
   handleIngredientNameChange = event => {
-    const index = event.target.parentElement.getAttribute('index')
+    const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
     ingredients[index].name = event.target.value
     this.setState({ ingredients: ingredients })
@@ -49,7 +51,7 @@ export class index extends Component {
     event.preventDefault()
     this.setState(prevState => { 
       return {
-        ingredients: [...prevState.ingredients, { name: '', qty: 0 }]
+        ingredients: [...prevState.ingredients, { name: '', qty: '' }]
       }
     })
   }
@@ -71,21 +73,6 @@ export class index extends Component {
     }
     addMeal(payload, this.props.uid).then(() => this.handleReturn()).catch(error => console.log(error))
   }
-  
-  setInputActive = (event) => {
-    if (event.target.tagName === 'LABEL') {
-      event.target.classList.add('active')
-      event.target.nextElementSibling.select()
-    } else {
-      event.target.previousElementSibling.classList.add('active')
-    }
-  }
-
-  setInputInactive = (event) => {
-    if (event.target.value === '') {
-      event.target.previousElementSibling.classList.remove('active')
-    }
-  }
 
   render() {
     Modal.setAppElement('#root')
@@ -96,43 +83,42 @@ export class index extends Component {
         onAfterClose={this.handleClose}
         contentLabel="Meal Modal"
       >
-        <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
+        <Button variant='contained' startIcon={<ChevronLeft />} onClick={this.handleReturn}>Return</Button>
         <h4>Add a meal for {this.props.date.toDateString()}</h4>
-        <form onSubmit={this.handleSubmit}>
-          <div className="input-field">
-            <label for='mealName' onClick={this.setInputActive}>Meal Name</label>
-            <input name='mealName' type="text" className="validate" onChange={this.handleNameChange} onFocus={this.setInputActive} onBlur={this.setInputInactive} required />
-          </div>
-          <div className="input-field">
-            <select name='mealNum' id="mealSelect" onChange={this.handleNumChange}>
-              <option value="0">Breakfast</option>
-              <option value="1">Lunch</option>
-              <option value="2">Dinner</option>
-              <option value="3">Snack</option>
-            </select>
-          </div>
-          <div className='input-field list-holder'>
+        <form id='mealModalForm' onSubmit={this.handleSubmit}>
+          <FormControl className="input-field">
+            <TextField label='Meal Name' onChange={this.handleNameChange} required />
+          </FormControl>
+          <FormControl className="input-field">
+            <InputLabel id='selectLabel'>Meal:</InputLabel>
+            <Select labelId='selectLabel' name='mealNum' id="mealSelect" onChange={this.handleNumChange} required >
+              <MenuItem value="0">Breakfast</MenuItem>
+              <MenuItem value="1">Lunch</MenuItem>
+              <MenuItem value="2">Dinner</MenuItem>
+              <MenuItem value="3">Snack</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl className='input-field list-holder'>
             <h6>Ingredients:</h6>
             <ul>
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
                   <li className='ingredientContainer' index={index}>
-                    <input name='qInput' className='qInput' type='number' value={ingredient.qty} placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
-                    <input name='nInput' className='nInput' type='text' value={ingredient.name} placeholder='Ingredient Name' onChange={this.handleIngredientNameChange} />
+                    <Input className='qInput' type='number' placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
+                    <TextField className='nInput' label='Ingredient Name' onChange={this.handleIngredientNameChange} />
                   </li>
                 )
               })
             }
             </ul>
-            <button className='btn waves-effect waves-light' onClick={this.handleAddIngredient}>Add Ingredient</button>
-          </div>
-          <div className="input-field">
-            <label for='description' onClick={this.setInputActive}>Meal Description</label>
-            <input name='description' type="text" className="validate" onChange={this.handleDescriptionChange} onFocus={this.setInputActive} onBlur={this.setInputInactive} />
-          </div>
-          <input type="submit" value="Submit" className="btn waves-effect waves-light teal darken-3 right" />
-          <input type="submit" value="Cancel" onClick={this.props.exit} className="btn waves-effect waves-light red darken-2 right" />
+            <Button variant='contained' onClick={this.handleAddIngredient}>Add Ingredient</Button>
+          </FormControl>
+          <FormControl className="input-field">
+            <TextField label='Meal Description' onChange={this.handleDescriptionChange} />
+          </FormControl>
+          <Button type="submit" variant='contained'>Submit</Button>
+          <Button variant='contained' onClick={this.props.exit}>Cancel</Button>
         </form>
       </Modal>
     )
