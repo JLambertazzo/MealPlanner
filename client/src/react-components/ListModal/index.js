@@ -64,8 +64,8 @@ export class ListModal extends Component {
           )
         })}
 
-        <Button onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
-        <Button onClick={this.props.exit} startIcon={<Close />}>Close</Button>
+        <Button variant='contained' onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
+        <Button variant='contained' onClick={this.props.exit} startIcon={<Close />}>Close</Button>
       </Modal>
     )
     }

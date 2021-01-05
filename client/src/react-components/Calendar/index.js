@@ -81,11 +81,11 @@ export class CalendarView extends Component {
     return (
       <div id='calView'>
         <NavBar uid={this.props.uid}/>
-        <Calendar className="custom-calendar-styles grey lighten-5 " onChange={this.handleChange} tileContent={calendarContent} />
+        <Calendar className="custom-calendar-styles" calendarType='US' onChange={this.handleChange} tileContent={calendarContent} minDetail='month'/>
         <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
           ? 'hide' : '')}>
-          <Button variante='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>Generate Shopping List</Button>
-          <Button variante='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Ingredients</Button>
+          <Button variant='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>Generate Shopping List</Button>
+          <Button variant='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Ingredients</Button>
         </div>
         <ListModal
           uid={this.props.uid}

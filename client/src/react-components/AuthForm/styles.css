@@ -1,4 +1,5 @@
 #authForm .container {
+  margin-top: 20px;
   box-shadow: #E9ECEF 0px 0px 2px 2px;
   padding: 5px;
   height: 80vh;
@@ -13,5 +14,6 @@
 }
 
 #authForm {
-  display: grid;
+  display: flex;
+  flex-direction: column;
 }

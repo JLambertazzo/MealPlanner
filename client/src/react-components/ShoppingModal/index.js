@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
+import { Button } from '@material-ui/core'
+import { ChevronLeft, FileCopy, Print, Email, Message } from '@material-ui/icons'
 import './styles.css'
 
 export class ShoppingModal extends Component {
@@ -11,6 +13,9 @@ export class ShoppingModal extends Component {
 
   getData = () => {
     getUserById(this.props.uid).then(user => {
+      if (!user) {
+        return
+      }
       const need = {}
       user.meals.forEach(meal => {
         meal.ingredients.forEach(ingredient => {
@@ -50,7 +55,7 @@ export class ShoppingModal extends Component {
         onAfterOpen={this.getData}
         contentLabel="Shopping List Modal"
       >
-        <button onClick={this.handleReturn} className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">chevron_left</i>Return</button>
+        <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
         <div id="shoppingContainer">
           <h5>My Shopping List:</h5>
           <ul>
@@ -65,10 +70,10 @@ export class ShoppingModal extends Component {
         </div>  
         <h5>Export List:</h5>
         <div id="exportContainer">
-          <button className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">content_copy</i>Copy to Clipboard</button>
-          <button className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">printer</i>Print</button>
-          <button className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">email</i>Share by Email</button>
-          <button className="btn waves-effect waves-light teal darken-2"><i className="material-icons left">message</i>Share by Messenger</button>
+          <Button variant='contained' startIcon={<FileCopy />}>Copy to Clipboard</Button>
+          <Button variant='contained' startIcon={<Print />}>Print</Button>
+          <Button variant='contained' startIcon={<Email />}>Share by Email</Button>
+          <Button variant='contained' startIcon={<Message />}>Share by Messenger</Button>
         </div>
       </Modal>
     )

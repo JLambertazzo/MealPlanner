@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
+import { Button } from '@material-ui/core'
 import './style.css'
 
 export class HomePage extends Component {
@@ -11,7 +12,7 @@ export class HomePage extends Component {
           <video src='/gstorevid.mp4' autoPlay loop muted />
           <div id='text'>
             <h1>Grocery App</h1>
-            <a className="btn waves-effect waves-light teal darken-2" href="/calendar">Get Started</a>
+            <Button variant='contained' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
           </div>
         </div>
       </div>

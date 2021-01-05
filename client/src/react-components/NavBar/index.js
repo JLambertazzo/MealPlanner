@@ -47,8 +47,8 @@ export class NavBar extends Component {
       if (!this.props.uid) {
         return (
           <ButtonGroup style={{ marginLeft: 'auto' }} >
-            <Button onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
-            <Button onClick={() => window.open('/login', '_self')}>Log In</Button>
+            <Button variant='contained' onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
+            <Button variant='contained' onClick={() => window.open('/login', '_self')}>Log In</Button>
           </ButtonGroup> 
         )
       } else {

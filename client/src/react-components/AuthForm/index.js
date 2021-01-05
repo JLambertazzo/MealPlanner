@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
 import { login, createUser } from '../../actions/actions.js'
+import { Button, TextField, FormControl } from '@material-ui/core'
+import { Person, PersonAdd } from '@material-ui/icons'
 import './styles.css'
 
 export class AuthForm extends Component {
@@ -24,17 +26,10 @@ export class AuthForm extends Component {
 
   getConfPassField = () => {
     if (!this.props.showLogin) {
-      return (<div className="input-field">
-      <label for="confPass">Confirm Password:</label>
-      <input 
-        name="confPass"
-        type="password" 
-        onFocus={this.setInputActive}
-        onBlur={this.setInputInactive}  
-        onChange={this.handleConfPassChange} 
-        required 
-      />
-      </div>)
+      return (
+      <FormControl className="input-field">
+        <TextField label='Confirm Password' onChange={this.handleConfPassChange} required/>
+      </FormControl>)
     }
   }
 
@@ -85,38 +80,17 @@ export class AuthForm extends Component {
       <div id="authForm">
         <NavBar />
         <form className="container" onSubmit={this.props.showLogin ? this.handleLogin : this.handleSignup}>
-          <h3 className="center-align"><i class="material-icons">{this.props.showLogin ? 'person' : 'person_add'}</i>{this.props.showLogin ? 'Log In' : 'Sign Up'}</h3>
-          <div className="input-field">
-            <label for="username">Username:</label>
-            <input 
-              name="username" 
-              type="text"
-              onFocus={this.setInputActive}
-              onBlur={this.setInputInactive} 
-              onChange={this.handleUsernameChange} 
-              required 
-            />
-          </div>
-          <div className="input-field">
-            <label for="pass">Password:</label>
-            <input 
-              type="password"
-              name="pass"
-              onFocus={this.setInputActive}
-              onBlur={this.setInputInactive}
-              onChange={this.handlePassChange} 
-              required 
-            />
-          </div>
+          <h3 className="center-align">{this.props.showLogin ? <Person /> : <PersonAdd />} {this.props.showLogin ? 'Log In' : 'Sign Up'}</h3>
+          <FormControl className="input-field">
+            <TextField label='Username' onChange={this.handleUsernameChange} required/>
+          </FormControl>
+          <FormControl className="input-field">
+            <TextField label='Password' type='password' onChange={this.handlePassChange} required/>
+          </FormControl>
           {this.getConfPassField()}
-          <div className="input-field">
-              <input 
-                type="submit" 
-                value={this.props.showLogin ? 'Log In' : 'Sign Up'} 
-                className="btn waves-effect waves-light right teal darken-2"
-                required 
-              />
-          </div>
+          <FormControl className="input-field">
+            <Button type='submit' variant='contained'>{this.props.showLogin ? 'Log In' : 'Sign Up'}</Button>
+          </FormControl>
         </form>
       </div>
     )
