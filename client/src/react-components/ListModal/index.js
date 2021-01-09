@@ -31,6 +31,18 @@ export class ListModal extends Component {
     this.props.exit()
   }
 
+  getMealText = (mealNum) => {
+    if (mealNum === 0) {
+      return 'Breakfast:'
+    } else if (mealNum === 1) {
+      return 'Lunch:'
+    } else if (mealNum === 2) {
+      return 'Dinner:'
+    } else {
+      return 'Snack:'
+    }
+  }
+
   render() {
     Modal.setAppElement('#root')
     return (
@@ -52,20 +64,24 @@ export class ListModal extends Component {
         {this.state.meals.map(meal => {
           return(
             <Accordion>
-              <AccordionSummary expandIcon={<ExpandMore />} >{meal.name}</AccordionSummary>
+              <AccordionSummary expandIcon={<ExpandMore />} ><Typography variant='h6'>{this.getMealText(meal.mealNum)} {meal.name}</Typography></AccordionSummary>
               <AccordionDetails>
-                <h6>Ingredients: </h6>
-                <ul>
-                  {
-                    meal.ingredients.map(ingredient => {
-                      return(<li>
-                        {ingredient.qty} {ingredient.name}
-                      </li>)
-                    })
-                  }
-                </ul>
-                <h6>Description:</h6>
-                <ul>{meal.description}</ul>
+                <div className='mealDetails'>
+                  <Typography variant='h6'>Ingredients: </Typography>
+                  <ul>
+                    {
+                      meal.ingredients.map(ingredient => {
+                        return(<li>
+                          {ingredient.qty} {ingredient.name}
+                        </li>)
+                      })
+                    }
+                  </ul>
+                </div>
+                <div className='mealDetails'>
+                  <Typography variant='h6'>Description:</Typography>
+                  <ul>{meal.description}</ul>
+                </div>
               </AccordionDetails>
             </Accordion>
           )

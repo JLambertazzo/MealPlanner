@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Calendar from 'react-calendar'
 import { Button } from '@material-ui/core'
 import { List, Edit } from '@material-ui/icons'
+import { getUserById } from '../../actions/actions'
 import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
@@ -13,7 +14,7 @@ import IngredientModal from '../IngredientModal'
 
 export class CalendarView extends Component {
   state = {
-    datesWithMeals: [new Date()],
+    datesWithMeals: [],
     showMealModal: false,
     showListModal: false,
     showShoppingModal: false,
@@ -66,11 +67,28 @@ export class CalendarView extends Component {
     this.setListModal(true)
     this.setMealModal(false)
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.uid !== prevProps.uid || (this.state.showListModal === false && prevState.showListModal === true)) {
+      getUserById(this.props.uid).then(user => {
+        if (!user) {
+          return
+        }
+        const datesWithMeals = []
+        user.meals.forEach(meal => {
+          if (!datesWithMeals.includes(new Date(meal.date).toDateString())) {
+            datesWithMeals.push(new Date(meal.date).toDateString())
+          }
+        })
+        this.setState({ datesWithMeals: datesWithMeals })
+      })
+    }
+  }
   
   render () {
-    const calendarContent = ({ activeStartDate, date, view }) => {
-      if (view === 'month') {
-        if (this.state.datesWithMeals.find(el => el.toDateString() === date.toDateString())) {
+    const calendarContent = ({ date, view }) => {
+      if (view === 'month' && this.props.uid) {
+        if (this.state.datesWithMeals.includes(date.toDateString())) {
           return(<div>.</div>) 
         } else { 
           return null 

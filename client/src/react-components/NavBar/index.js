@@ -78,7 +78,7 @@ export class NavBar extends Component {
     return (
       <AppBar color='primary' position='static'>
         <Toolbar className='nav-wrapper'> 
-          <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>Grocery App</Typography></a>
+          <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>MealPlanner</Typography></a>
           { getRightSide() }
         </Toolbar>
       </AppBar>

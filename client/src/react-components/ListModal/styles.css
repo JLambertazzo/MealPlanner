@@ -29,3 +29,16 @@ summary:hover {
 .modalHeader button {
   height: 3.5em;
 }
+
+.mealDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiAccordion-root {
+  margin-top: 10px;
+}
+
+.MuiAccordionDetails-root {
+  flex-direction: column;
+}

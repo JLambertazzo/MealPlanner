@@ -11,7 +11,7 @@ export class HomePage extends Component {
         <div id='content'>
           <video src='/gstorevid.mp4' autoPlay loop muted />
           <div id='text'>
-            <h1>Grocery App</h1>
+            <h1>MealPlanner</h1>
             <Button variant='contained' color='secondary' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
           </div>
         </div>

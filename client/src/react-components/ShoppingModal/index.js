@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
-import { Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, TextField } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { ChevronLeft, FileCopy, Print, Email, Message } from '@material-ui/icons'
 import './styles.css'
 
