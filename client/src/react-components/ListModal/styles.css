@@ -1,3 +1,7 @@
+#listModal {
+  margin-top: 5vh;
+}
+
 details {
   cursor: default;
   padding: 0px;
@@ -17,6 +21,11 @@ summary:hover {
   background: #E9ECEF;
 }
 
-#modalHeader {
+.modalHeader {
   display: flex;
+  justify-content: space-between;
+}
+
+.modalHeader button {
+  height: 3.5em;
 }

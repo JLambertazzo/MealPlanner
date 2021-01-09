@@ -7,12 +7,11 @@ export class HomePage extends Component {
   render () {
     return (
       <div id='home'>
-        <NavBar uid={this.props.uid || 'a'}/>
+        <NavBar uid={this.props.uid}/>
         <div id='content'>
           <video src='/gstorevid.mp4' autoPlay loop muted />
           <div id='text'>
-            <h1>Grocery App</h1>
-            <Button variant='contained' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
+            <Button color='primary' variant='contained' href='/calendar'>Get Started</Button>
           </div>
         </div>
       </div>

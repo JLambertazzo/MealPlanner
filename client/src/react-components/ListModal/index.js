@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Button, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core'
+import { Button, Accordion, AccordionSummary, AccordionDetails, ButtonGroup, Typography } from '@material-ui/core'
 import { Add, Close, ExpandMore } from '@material-ui/icons'
 import { getUserById } from '../../actions/actions'
 import './styles.css'
@@ -35,12 +35,19 @@ export class ListModal extends Component {
     Modal.setAppElement('#root')
     return (
       <Modal
-      isOpen={this.props.isOpen}
-      onAfterOpen={this.getMealsToday}
-      onRequestClose={this.props.exit}
-      contentLabel="List Modal"
+        id='listModal'
+        isOpen={this.props.isOpen}
+        onAfterOpen={this.getMealsToday}
+        onRequestClose={this.props.exit}
+        contentLabel="List Modal"
       >
-        <h4>Meals for {this.props.date.toDateString()}:</h4>
+        <div className='modalHeader'>
+          <Typography variant='h4'>Meals for {this.props.date.toDateString()}:</Typography>
+          <ButtonGroup>
+            <Button variant='contained' color='danger' onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
+            <Button variant='contained' onClick={this.props.exit} startIcon={<Close />}>Close</Button>
+          </ButtonGroup>
+        </div>
           
         {this.state.meals.map(meal => {
           return(
@@ -64,8 +71,6 @@ export class ListModal extends Component {
           )
         })}
 
-        <Button variant='contained' onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
-        <Button variant='contained' onClick={this.props.exit} startIcon={<Close />}>Close</Button>
       </Modal>
     )
     }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Input } from '@material-ui/core'
-import { ChevronLeft } from '@material-ui/icons'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Input, Typography } from '@material-ui/core'
+import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
 
@@ -34,7 +34,7 @@ export class index extends Component {
   }
 
   handleIngredientQtyChange = event => {
-    const index = event.target.parentElement.parentElement.getAttribute('index')
+    const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
     ingredients[index].qty = event.target.value
     this.setState({ ingredients: ingredients })
@@ -78,19 +78,22 @@ export class index extends Component {
     Modal.setAppElement('#root')
     return (
       <Modal
+        id='mealModal'
         isOpen={this.props.isOpen}
         onRequestClose={this.props.exit}
         onAfterClose={this.handleClose}
         contentLabel="Meal Modal"
       >
-        <Button variant='contained' startIcon={<ChevronLeft />} onClick={this.handleReturn}>Return</Button>
-        <h4>Add a meal for {this.props.date.toDateString()}</h4>
+        <div className='modalHeader'>
+          <Typography variant='h4'>Add a meal for {this.props.date.toDateString()}</Typography>
+          <Button variant='contained' startIcon={<ChevronLeft />} onClick={this.handleReturn}>Return</Button>
+        </div>
         <form id='mealModalForm' onSubmit={this.handleSubmit}>
           <FormControl className="input-field">
             <TextField label='Meal Name' onChange={this.handleNameChange} required />
           </FormControl>
           <FormControl className="input-field">
-            <InputLabel id='selectLabel'>Meal:</InputLabel>
+            <InputLabel id='selectLabel' required>Meal:</InputLabel>
             <Select labelId='selectLabel' name='mealNum' id="mealSelect" onChange={this.handleNumChange} required >
               <MenuItem value="0">Breakfast</MenuItem>
               <MenuItem value="1">Lunch</MenuItem>
@@ -99,13 +102,13 @@ export class index extends Component {
             </Select>
           </FormControl>
           <FormControl className='input-field list-holder'>
-            <h6>Ingredients:</h6>
+            <Typography variant='h5'>Ingredients:</Typography>
             <ul>
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
                   <li className='ingredientContainer' index={index}>
-                    <Input className='qInput' type='number' placeholder='Quantity' onChange={this.handleIngredientQtyChange} />
+                    <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
                     <TextField className='nInput' label='Ingredient Name' onChange={this.handleIngredientNameChange} />
                   </li>
                 )
@@ -114,11 +117,13 @@ export class index extends Component {
             </ul>
             <Button variant='contained' onClick={this.handleAddIngredient}>Add Ingredient</Button>
           </FormControl>
-          <FormControl className="input-field">
+          <FormControl className='input-field'>
             <TextField label='Meal Description' onChange={this.handleDescriptionChange} />
           </FormControl>
-          <Button type="submit" variant='contained'>Submit</Button>
-          <Button variant='contained' onClick={this.props.exit}>Cancel</Button>
+          <div id='navButtons'>
+            <Button startIcon={<Publish />} type='submit' variant='contained'>Submit</Button>
+            <Button startIcon={<Close />} variant='contained' onClick={this.props.exit}>Cancel</Button>
+          </div>
         </form>
       </Modal>
     )

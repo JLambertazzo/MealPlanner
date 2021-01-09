@@ -1,11 +1,39 @@
+#mealModal {
+    margin-top: 5vh;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+#mealModal .modalHeader {
+    grid-column: 1 / span 12;
+}
+
 #mealSelect {
     display: block;
 }
 
 #mealModalForm {
+    grid-column: 3 / span 10;
     display: flex;
     flex-direction: column;
+    width: 75%;
+}
+
+#mealModalForm h5 {
+    margin-top: 10px;
+}
+
+#mealModalForm button {
+    margin: 5px;
+}
+
+#navButtons {
+    display: flex;
     justify-content: center;
+}
+
+#navButtons button {
+    margin: 10px;
 }
 
 .list-holder {
@@ -16,12 +44,10 @@
     align-items: center;
 }
 
-.list-holder h6 {
-    text-align: left;
-}
-
-.list-holder button {
-    margin: 5px;
+.list-holder ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .ingredientContainer {
