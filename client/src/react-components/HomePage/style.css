@@ -1,6 +1,7 @@
 #home {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 #content {
@@ -22,9 +23,17 @@
 #text {
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border-radius: 15px;
+  background:rgba(29, 29, 29, 0.7);
 }
 
 #text h1 {
-  color: teal;
+  color: #f0f0f0;
+  margin-top: 0px;
   text-shadow: black 2px 2px 4px;
+}
+
+#text button {
+  background: #f0f0f0
 }

@@ -17,6 +17,26 @@ class App extends Component {
     checkLoggedIn(this)
   }
 
+<<<<<<< HEAD
+=======
+  theme = createMuiTheme({
+    palette: {
+      primary: {
+        light: '#666ad1',
+        main: '#303F9F',
+        dark: '#001970',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#fafafa',
+        main: '#f5f5f5',
+        dark: '#f0f0f0',
+        contrastText: '#3c3c3c',
+      },
+    },
+  })
+
+>>>>>>> ed216dc5d82a5053f2c94107a893334417d0b341
   render () {
     return (
       <ThemeProvider theme={theme}>
