@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography, Dialog, DialogActions, DialogContent, DialogContentText, TextField } from '@material-ui/core'
 import { ChevronLeft, FileCopy, Print, Email, Message } from '@material-ui/icons'
 import './styles.css'
 
@@ -39,11 +39,19 @@ export class ShoppingModal extends Component {
     this.props.exit()
   }
 
+  getText = () => {
+    const text = Object.keys(this.state.need).reduce((acc, curr) => {
+      acc = `${acc}- ${curr}: ${this.state.need[curr]} `
+    }, '')
+    return text
+  }
+
   handleCopy = () => {
-    const text = this.state.need.reduce((acc, curr) => {
-      acc = `${acc}- ${curr} `
-    })
-    // maybe use a lib or something
+    window.navigator.clipboard.writeText(this.getText())
+  }
+
+  handleEmail = () => {
+    window.open(`mailto:?subject=Groceries&body=${this.getText()}`, '_blank')
   }
 
   render() {
@@ -73,10 +81,9 @@ export class ShoppingModal extends Component {
         </div>  
         <Typography variant='h5' align='center'>Export List:</Typography>
         <div id="exportContainer">
-          <Button variant='contained' startIcon={<FileCopy />}>Copy to Clipboard</Button>
-          <Button variant='contained' startIcon={<Print />}>Print</Button>
-          <Button variant='contained' startIcon={<Email />}>Share by Email</Button>
-          <Button variant='contained' startIcon={<Message />}>Share by Messenger</Button>
+          <Button variant='contained' onClick={this.handleCopy} startIcon={<FileCopy />}>Copy to Clipboard</Button>
+          <Button variant='contained' onClick={() => window.print()} startIcon={<Print />}>Print</Button>
+          <Button variant='contained' onClick={this.handleEmail} startIcon={<Email />}>Share by Email</Button>
         </div>
       </Modal>
     )
