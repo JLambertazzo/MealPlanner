@@ -58,10 +58,10 @@ Once there create an account and you will be redirected to the calendar view of 
    ```json
    {
      name: 'meal name',
-     ingredients: [{ name: 'ingredient name', qty: number }],
-     date: 'date string',
-     mealNum: number 0-3,
-     description: 'description of meal'
+     "ingredients": [{ "name": "ingredient name", "qty": number }],
+     "date": "date string",
+     "mealNum": number (0-3),
+     "description": "description of meal"
    }
    ```
    * Returns user with new meal on success
@@ -70,9 +70,9 @@ Once there create an account and you will be redirected to the calendar view of 
    * Expects:
    ```json
    {
-     ingredients: [{
-       name: 'ingredient name',
-       qty: number
+     "ingredients": [{
+       "name": "ingredient name",
+       "qty": number
      }]
    }
    ```
