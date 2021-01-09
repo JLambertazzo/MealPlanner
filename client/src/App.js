@@ -25,10 +25,10 @@ class App extends Component {
         contrastText: '#fff',
       },
       secondary: {
-        light: '#439889',
-        main: '#00695C',
-        dark: '#003d33',
-        contrastText: '#fff',
+        light: '#fafafa',
+        main: '#f5f5f5',
+        dark: '#f0f0f0',
+        contrastText: '#3c3c3c',
       },
     },
   })

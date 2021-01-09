@@ -12,7 +12,7 @@ export class HomePage extends Component {
           <video src='/gstorevid.mp4' autoPlay loop muted />
           <div id='text'>
             <h1>Grocery App</h1>
-            <Button variant='contained' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
+            <Button variant='contained' color='secondary' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
           </div>
         </div>
       </div>
