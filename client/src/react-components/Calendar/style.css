@@ -1,6 +1,5 @@
 #calView {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,6 +13,12 @@
 
 #buttonContainer button {
   margin: 5px;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .hide {
@@ -36,4 +41,10 @@
 .testClassName {
   color: white;
   background-color: black;
+}
+
+/* For calendar button */
+.react-calendar__navigation button[disabled] {
+  background-color: white !important;
+  color: black;
 }

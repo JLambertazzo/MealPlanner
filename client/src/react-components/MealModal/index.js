@@ -120,7 +120,7 @@ export class index extends Component {
           <FormControl className='input-field'>
             <TextField label='Meal Description' onChange={this.handleDescriptionChange} />
           </FormControl>
-          <div id='navButtons'>
+          <div className='modalFooterButtons'>
             <Button startIcon={<Publish />} type='submit' variant='contained'>Submit</Button>
             <Button startIcon={<Close />} variant='contained' onClick={this.props.exit}>Cancel</Button>
           </div>

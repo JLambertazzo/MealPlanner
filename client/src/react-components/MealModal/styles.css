@@ -27,12 +27,12 @@
     margin: 5px;
 }
 
-#navButtons {
+.modalFooterButtons {
     display: flex;
     justify-content: center;
 }
 
-#navButtons button {
+.modalFooterButtons button {
     margin: 10px;
 }
 

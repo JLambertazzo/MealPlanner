@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
-import { Button } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { ChevronLeft, FileCopy, Print, Email, Message } from '@material-ui/icons'
 import './styles.css'
 
@@ -50,14 +50,17 @@ export class ShoppingModal extends Component {
     Modal.setAppElement('#root')
     return (
       <Modal
+        id='shoppingModal'
         isOpen={this.props.isOpen}
         onRequestClose={this.props.exit}
         onAfterOpen={this.getData}
         contentLabel="Shopping List Modal"
       >
-        <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
+        <div className='modalHeader'>
+          <Typography variant='h4'>My Shopping List:</Typography>
+          <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
+        </div>
         <div id="shoppingContainer">
-          <h5>My Shopping List:</h5>
           <ul>
             {
               Object.keys(this.state.need).map(key => {
@@ -68,7 +71,7 @@ export class ShoppingModal extends Component {
             }
           </ul>
         </div>  
-        <h5>Export List:</h5>
+        <Typography variant='h5' align='center'>Export List:</Typography>
         <div id="exportContainer">
           <Button variant='contained' startIcon={<FileCopy />}>Copy to Clipboard</Button>
           <Button variant='contained' startIcon={<Print />}>Print</Button>

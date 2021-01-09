@@ -14,10 +14,12 @@
 
 #content video {
   object-fit: cover;
-  width: 100vw;
-  height: 100%;
+  width: 120vw;
+  height: 120%;
+  overflow: hidden;
   z-index: -2;
   position: fixed;
+  top: -20px;
 }
 
 #text {
