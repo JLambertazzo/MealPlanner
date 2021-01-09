@@ -104,7 +104,7 @@ export class CalendarView extends Component {
           <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
             ? 'hide' : '')}>
             <Button color='primary' variant='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>Generate Shopping List</Button>
-            <Button color='primary' variant='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Ingredients</Button>
+            <Button color='primary' variant='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Pantry</Button>
           </div>
           <ListModal
             uid={this.props.uid}

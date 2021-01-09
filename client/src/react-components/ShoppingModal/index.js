@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
 import { Button, Typography } from '@material-ui/core'
-import { ChevronLeft, FileCopy, Print, Email, Message } from '@material-ui/icons'
+import { ChevronLeft, FileCopy, Print, Email } from '@material-ui/icons'
 import './styles.css'
 
 export class ShoppingModal extends Component {
@@ -43,7 +43,7 @@ export class ShoppingModal extends Component {
 
   getText = () => {
     const text = Object.keys(this.state.need).reduce((acc, curr) => {
-      acc = `${acc}- ${curr}: ${this.state.need[curr]} `
+      return acc = `${acc}- ${curr}: ${this.state.need[curr]}\n`
     }, '')
     return text
   }

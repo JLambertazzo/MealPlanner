@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Input, Typography } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
