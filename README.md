@@ -22,6 +22,70 @@ Once there create an account and you will be redirected to the calendar view of 
    1. Export the list by copying it, printing it, or emailing it
 3. Click on Ingredients List to set the ingredients you already have. These will be removed from the shopping list
 
+## API Routes
+
+* **GET** /api/checkloggedin
+   * Check if a user is currently logged in
+   * Expects no body
+   * Returns id of current user or 401 if not logged in
+* **GET** /api/users/:id
+   * Get user by id
+   * Expects no body
+   * Returns user object if found, 404 otherwise
+* **POST** /api/users
+   * Create new user
+   * Expects:
+   ```json
+   {
+     username: 'username',
+     password: 'password'
+   }
+   ```
+   * Returns user object on success
+* **POST** /api/login
+   * Logs a user in
+   * Expects:
+   ```json
+   {
+     username: 'username',
+     password: 'password'
+   }
+   ```
+   * Returns user logged in on success
+* **POST** /api/users/:id/meals
+   * Adds a meal for user (id)
+   * Expects:
+   ```json
+   {
+     name: 'meal name',
+     ingredients: [{ name: 'ingredient name', qty: number }],
+     date: 'date string',
+     mealNum: number 0-3,
+     description: 'description of meal'
+   }
+   ```
+   * Returns user with new meal on success
+* **POST** /api/users/:id/ingredients
+   * Sets a user's ingredients list
+   * Expects:
+   ```json
+   {
+     ingredients: [{
+       name: 'ingredient name',
+       qty: number
+     }]
+   }
+   ```
+   * Returns user with updated ingredients on success
+* **DELETE** /api/users/:id/meals/:mealId
+   * Deletes a user's meal
+   * Expects no body
+   * Returns updated user object on success
+* **DELETE** /api/users/:id/ingredients/:ingredientId
+   * Deletes a user's ingredient
+   * Expects no body
+   * Returns updated user on success
+
 ## Technologies Used
 
 * Node.js - backend/running server

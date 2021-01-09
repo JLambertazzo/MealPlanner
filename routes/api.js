@@ -56,7 +56,7 @@ const ingredientIdChecker = async (req, res, next) => {
 // check if a user is currently logged in
 router.get('/api/checkloggedin', (req, res) => {
   if (req.session.user) {
-    res.send({uid: req.session.user })
+    res.send({ uid: req.session.user })
   } else {
     res.status(401).send()
   }
@@ -65,7 +65,11 @@ router.get('/api/checkloggedin', (req, res) => {
 // get user by id
 router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
   User.findById(req.params.id).then(result => {
-    res.send(result)
+    if (result) {
+      res.send(result)
+    } else {
+      res.status(404).send()
+    }
   }).catch(error => {
     log(error)
     if (isMongoError(error)) {
@@ -115,7 +119,6 @@ router.post('/api/login', mongoChecker, async (req, res) => {
       req.session.user = user._id
       res.send(user)
     } else if (user) {
-      log(bcrypt.compareSync(user.password, req.body.password), user.password, req.body.password)
       res.status(401).send('forbidden')
     } else {
       res.status(404).send('resource not found')
@@ -135,7 +138,7 @@ router.post('/api/login', mongoChecker, async (req, res) => {
 // {
 //   name: 'meal name',
 //   ingredients: [{ name: 'name', qty: qty }],
-//   date: 'yyyy-mm-dd',
+//   date: 'date string',
 //   mealNum: num,
 //   description: 'description of meal' // optional
 // }
