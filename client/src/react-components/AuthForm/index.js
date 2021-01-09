@@ -28,7 +28,7 @@ export class AuthForm extends Component {
     if (!this.props.showLogin) {
       return (
       <FormControl className="input-field">
-        <TextField label='Confirm Password' onChange={this.handleConfPassChange} required/>
+        <TextField label='Confirm Password' onChange={this.handleConfPassChange} inputProps={{ minLength: 8 }} required/>
       </FormControl>)
     }
   }
@@ -82,10 +82,10 @@ export class AuthForm extends Component {
         <form className="container" onSubmit={this.props.showLogin ? this.handleLogin : this.handleSignup}>
           <h3 className="center-align">{this.props.showLogin ? <Person /> : <PersonAdd />} {this.props.showLogin ? 'Log In' : 'Sign Up'}</h3>
           <FormControl className="input-field">
-            <TextField label='Username' onChange={this.handleUsernameChange} required/>
+            <TextField label='Username' onChange={this.handleUsernameChange} inputProps={{ minLength: 5 }} required/>
           </FormControl>
           <FormControl className="input-field">
-            <TextField label='Password' type='password' onChange={this.handlePassChange} required/>
+            <TextField label='Password' type='password' onChange={this.handlePassChange} inputProps={{ minLength: 8 }} required/>
           </FormControl>
           {this.getConfPassField()}
           <FormControl className="input-field">
