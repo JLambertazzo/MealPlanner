@@ -37,8 +37,8 @@ Once there create an account and you will be redirected to the calendar view of 
    * Expects:
    ```json
    {
-     username: 'username',
-     password: 'password'
+     "username": "username",
+     "password": "password"
    }
    ```
    * Returns user object on success
@@ -47,8 +47,8 @@ Once there create an account and you will be redirected to the calendar view of 
    * Expects:
    ```json
    {
-     username: 'username',
-     password: 'password'
+     "username": "username",
+     "password": "password"
    }
    ```
    * Returns user logged in on success
@@ -57,7 +57,7 @@ Once there create an account and you will be redirected to the calendar view of 
    * Expects:
    ```json
    {
-     name: 'meal name',
+     "name": "meal name",
      "ingredients": [{ "name": "ingredient name", "qty": number }],
      "date": "date string",
      "mealNum": number (0-3),
