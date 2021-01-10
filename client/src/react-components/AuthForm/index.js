@@ -28,7 +28,7 @@ export class AuthForm extends Component {
     if (!this.props.showLogin) {
       return (
       <FormControl className="input-field">
-        <TextField label='Confirm Password' onChange={this.handleConfPassChange} inputProps={{ minLength: 8 }} required/>
+        <TextField label='Confirm Password' type='password' onChange={this.handleConfPassChange} inputProps={{ minLength: 8 }} required/>
       </FormControl>)
     }
   }
