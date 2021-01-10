@@ -1,5 +1,5 @@
 {
-  "name": "familyapp",
+  "name": "mealplanner",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JLambertazzo/familyapp.git"
+    "url": "git+https://github.com/JLambertazzo/MealPlanner.git"
   },
   "author": "Julien Bertazzo Lambert",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JLambertazzo/familyapp/issues"
+    "url": "https://github.com/JLambertazzo/MealPlanner/issues"
   },
-  "homepage": "https://github.com/JLambertazzo/familyapp#readme",
+  "homepage": "https://github.com/JLambertazzo/MealPlanner#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
