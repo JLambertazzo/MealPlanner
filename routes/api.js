@@ -87,7 +87,7 @@ router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
 //   password: 'password'
 // }
 router.post('/api/users', mongoChecker, (req, res) => {
-  if (process.env.BLOCK_SIGNUP) {
+  if (!process.env.ALLOW_SIGNUP) {
     res.status(401).send('Signup Not Allowed Curerntly :(')
   } else {
     const user = new User({
@@ -96,7 +96,7 @@ router.post('/api/users', mongoChecker, (req, res) => {
       meals: [],
       ingredients: []
     })
-    
+
     user.save().then(result => {
       res.send(result)
     }).catch(error => {
