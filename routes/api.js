@@ -86,7 +86,7 @@ router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
 //   username: 'username',
 //   password: 'password'
 // }
-router.post('/api/users', mongoChecker, (req, res) => {
+router.post('/api/users', mongoChecker, async (req, res) => {
   if (process.env.BLOCK_SIGNUP) {
     res.status(401).send('Signup Not Allowed Curerntly :(')
   } else {
@@ -97,16 +97,22 @@ router.post('/api/users', mongoChecker, (req, res) => {
       ingredients: []
     })
 
-    user.save().then(result => {
-      res.send(result)
-    }).catch(error => {
+    try {
+      const otherUsers = await User.findOne({ username: req.body.username })
+      if (otherUsers) {
+        res.status(400).send('username already taken')
+      } else {
+        const result = await user.save()
+        res.send(result)
+      }
+    } catch (error) {
       log(error)
       if (isMongoError(error)) {
         res.status(500).send('internal server error')
       } else {
         res.status(400).send('bad request')
       }
-    })
+    }
   }
 })
 
