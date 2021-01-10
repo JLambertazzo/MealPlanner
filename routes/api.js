@@ -87,23 +87,27 @@ router.get('/api/users/:id', mongoChecker, idChecker, (req, res) => {
 //   password: 'password'
 // }
 router.post('/api/users', mongoChecker, (req, res) => {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    meals: [],
-    ingredients: []
-  })
-
-  user.save().then(result => {
-    res.send(result)
-  }).catch(error => {
-    log(error)
-    if (isMongoError(error)) {
-      res.status(500).send('internal server error')
-    } else {
-      res.status(400).send('bad request')
-    }
-  })
+  if (process.env.BLOCK_SIGNUP) {
+    res.status(401).send('Signup Not Allowed Curerntly :(')
+  } else {
+    const user = new User({
+      username: req.body.username,
+      password: req.body.password,
+      meals: [],
+      ingredients: []
+    })
+    
+    user.save().then(result => {
+      res.send(result)
+    }).catch(error => {
+      log(error)
+      if (isMongoError(error)) {
+        res.status(500).send('internal server error')
+      } else {
+        res.status(400).send('bad request')
+      }
+    })
+  }
 })
 
 // login user

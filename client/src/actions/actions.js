@@ -25,6 +25,8 @@ export const createUser = (payload) => {
   return fetch(request).then(res => {
     if (res.ok) {
       return res.json()
+    } else if (res.status === 401) {
+      alert('User creation is disabled here... To try with custom accounts please run the app locally using the instructions on the github repo. To try the app here please use the example account. \n username: example \n password: password')
     } else {
       log('error creating user')
     }
