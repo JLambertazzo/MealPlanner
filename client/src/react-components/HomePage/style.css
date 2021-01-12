@@ -4,7 +4,7 @@
   overflow: hidden;
 }
 
-#content {
+#homeContent {
   display: grid;
   place-items: center;
   background-position: center;
@@ -12,7 +12,7 @@
   width: 100vw;
 }
 
-#content video {
+#homeContent video {
   object-fit: cover;
   width: 120vw;
   height: 120%;

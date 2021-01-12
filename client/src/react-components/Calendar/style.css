@@ -6,19 +6,28 @@
 }
 
 #buttonContainer {
-  width: 80%;
+  width: 100%;
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 #buttonContainer button {
   margin: 5px;
+  width: 200px;
 }
 
 #content {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+#main {
+  margin-top: 5vh;
+  display: grid;
+  place-items: center;
 }
 
 .hide {
@@ -31,11 +40,10 @@
   border: none;
   box-shadow: #e0e0e0 0px 0px 2px 2px;
   margin: 5px;
-  justify-self: center;
 }
 
 .custom-calendar-styles button {
-  height: max(9vh, 80px);
+  height: max(45px, min(10vw, 10vh));
 }
 
 .testClassName {

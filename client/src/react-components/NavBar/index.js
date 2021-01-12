@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, withStyles, IconButton } from '@material-ui/core'
-import { Person, ExitToApp, PersonAdd, ClassSharp } from '@material-ui/icons'
+import { Person, ExitToApp, PersonAdd } from '@material-ui/icons'
 import MenuIcon from '@material-ui/icons/Menu'
 import { getUserById } from '../../actions/actions'
 import './style.css'

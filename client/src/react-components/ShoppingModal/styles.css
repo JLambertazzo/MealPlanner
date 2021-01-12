@@ -15,6 +15,7 @@
 #exportContainer {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 #exportContainer button {

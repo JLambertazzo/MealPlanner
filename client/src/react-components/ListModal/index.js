@@ -55,8 +55,8 @@ export class ListModal extends Component {
       >
         <div className='modalHeader'>
           <Typography variant='h4'>Meals for {this.props.date.toDateString()}:</Typography>
-          <ButtonGroup>
-            <Button variant='contained' color='danger' onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
+          <ButtonGroup id='controlButtons'>
+            <Button variant='contained' onClick={this.showMealModal} startIcon={<Add />}>New Meal</Button>
             <Button variant='contained' onClick={this.props.exit} startIcon={<Close />}>Close</Button>
           </ButtonGroup>
         </div>

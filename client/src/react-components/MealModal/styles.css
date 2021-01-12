@@ -30,6 +30,7 @@
 .modalFooterButtons {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 
 .modalFooterButtons button {
@@ -53,11 +54,11 @@
 .ingredientContainer {
     display: flex;
     width: 80%;
+    flex-wrap: wrap;
 }
 
 .qInput {
     margin: 5px !important;
-    width: 20% !important;
 }
 
 .nInput {

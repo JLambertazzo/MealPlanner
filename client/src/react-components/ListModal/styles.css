@@ -2,6 +2,15 @@
   margin-top: 5vh;
 }
 
+#controlButtons {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#controlButtons button {
+  width: 140px;
+}
+
 details {
   cursor: default;
   padding: 0px;
@@ -24,10 +33,23 @@ summary:hover {
 .modalHeader {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .modalHeader button {
   height: 3.5em;
+}
+
+@media only screen and (max-width: 778px) {
+  .modalHeader h4 {
+    font-size: 1.7rem;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .modalHeader h4 {
+    font-size: 1.4rem;
+  }
 }
 
 .mealDetails {

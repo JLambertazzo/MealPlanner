@@ -100,11 +100,15 @@ export class CalendarView extends Component {
       <div id='calView'>
         <NavBar uid={this.props.uid}/>
         <div id='content'>
-          <Calendar className="custom-calendar-styles" calendarType='US' onChange={this.handleChange} tileContent={calendarContent} minDetail='month'/>
-          <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
-            ? 'hide' : '')}>
-            <Button color='primary' variant='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>Generate Shopping List</Button>
-            <Button color='primary' variant='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Pantry</Button>
+          <div id='main'>
+            <div>
+              <Calendar className="custom-calendar-styles" calendarType='US' onChange={this.handleChange} tileContent={calendarContent} minDetail='month'/>
+            </div>
+            <div id="buttonContainer" className={(this.state.showListModal || this.state.showMealModal || this.state.showShoppingModal || this.state.showIngredientModal 
+              ? 'hide' : '')}>
+              <Button color='primary' variant='contained' onClick={() => this.setShoppingModal(true)} startIcon={<List />}>My Shopping List</Button>
+              <Button color='primary' variant='contained' onClick={() => this.setIngredientModal(true)} startIcon={<Edit />}>Edit My Pantry</Button>
+            </div>
           </div>
           <ListModal
             uid={this.props.uid}
@@ -112,24 +116,24 @@ export class CalendarView extends Component {
             exit={() => this.setListModal(false)} 
             date={this.state.selectedDate}
             showMealModal={this.showMealModal}
-            />
+          />
           <MealModal
             uid={this.props.uid}
             isOpen={this.state.showMealModal} 
             exit={() => this.setMealModal(false)} 
             date={this.state.selectedDate}
             showListModal={this.showListModal} 
-            />
+          />
           <ShoppingModal
             uid={this.props.uid}
             isOpen={this.state.showShoppingModal}
             exit={() => this.setShoppingModal(false)}
-            />
+          />
           <IngredientModal
             uid={this.props.uid}
             isOpen={this.state.showIngredientModal}
             exit={() => this.setIngredientModal(false)}  
-            />
+          />
         </div>
       </div>
     )
