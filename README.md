@@ -1,6 +1,10 @@
 # MealPlanner
 MealPlanner is a web app made to help you plan meals, which helps save time and money.
 
+Try it **[here](https://the-meal-planner.herokuapp.com/)**  
+(Log in with username: example, password: password)  
+(Sign up disabled, set up locally using instructions below to try sign up)
+
 ## Set Up
 
 To set up this project and run it for yourself follow the steps below:
