@@ -1,15 +1,39 @@
 import React, { Component } from 'react'
-import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup } from '@material-ui/core'
-import { Person, ExitToApp } from '@material-ui/icons'
+import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, withStyles, IconButton } from '@material-ui/core'
+import { Person, ExitToApp, PersonAdd, ClassSharp } from '@material-ui/icons'
+import MenuIcon from '@material-ui/icons/Menu'
 import { getUserById } from '../../actions/actions'
 import './style.css'
 
+const styles = theme => ({
+  desktopSection: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'flex'
+    }
+  },
+  mobileSection: {
+    display: 'flex',
+    color: 'white',
+    [theme.breakpoints.up('md')]: {
+      display: 'none'
+    }
+  },
+  iconTextMix: {
+    display: 'flex',
+    alignItems: 'center',
+    flexWrap: 'wrap'
+  }
+})
+
 export class NavBar extends Component {
   state = {
-    anchorEl: null,
+    userAnchorEl: null,
+    authAnchorEl: null,
     uid: null,
     username: 'Profile'
   }
+
 
   componentDidUpdate() {
     if (this.props.uid !== this.state.uid) {
@@ -22,15 +46,27 @@ export class NavBar extends Component {
     }
   }
 
-  handleMenuOpen = event => {
+  handleUserMenuOpen = event => {
     this.setState({
-      anchorEl: event.target
+      userAnchorEl: event.target
     })
   }
 
-  handleMenuClose = () => {
+  handleUserMenuClose = () => {
     this.setState({
-      anchorEl: null
+      userAnchorEl: null
+    })
+  }
+
+  handleAuthMenuOpen = event => {
+    this.setState({
+      authAnchorEl: event.target
+    })
+  }
+
+  handleAuthMenuClose = event => {
+    this.setState({
+      authAnchorEl: null
     })
   }
 
@@ -48,27 +84,46 @@ export class NavBar extends Component {
   }
 
   render () {
+    const { classes } = this.props
+
     const getRightSide = () => {
       if (!this.props.uid) {
         return (
-          <ButtonGroup style={{ marginLeft: 'auto' }} >
-            <Button variant='contained' onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
-            <Button variant='contained' onClick={() => window.open('/login', '_self')}>Log In</Button>
-          </ButtonGroup> 
+          <div id='authButtons'>
+            <div className={classes.desktopSection}>
+              <ButtonGroup className='authButtons'>
+                <Button variant='contained' onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
+                <Button variant='contained' onClick={() => window.open('/login', '_self')}>Log In</Button>
+              </ButtonGroup> 
+            </div>
+            <div className={classes.mobileSection}>
+              <IconButton edge='end' aria-controls='auth-menu' aria-haspopup='true' color='inherit' onClick={this.handleAuthMenuOpen}><MenuIcon /></IconButton>
+              <Menu
+                id='auth-menu'
+                anchorEl={this.state.authAnchorEl}
+                keepMounted
+                open={Boolean(this.state.authAnchorEl)}
+                onClose={this.handleAuthMenuClose}
+              >
+                <MenuItem><a href='/login' className={classes.iconTextMix}><Person />Log In</a></MenuItem>
+                <MenuItem><a href='/signup' className={classes.iconTextMix}><PersonAdd />Sign Up</a></MenuItem>
+              </Menu>
+            </div>
+          </div>
         )
       } else {
         return (
           <div style={{ marginLeft: 'auto' }}>
-            <Button id='menuAnchor' variant='contained' color='secondary' aria-controls='user-menu' aria-haspopup='true' startIcon={<Person />} onClick={this.handleMenuOpen}>{this.state.username}</Button>
+            <Button id='menuAnchor' variant='contained' color='secondary' aria-controls='user-menu' aria-haspopup='true' startIcon={<Person />} onClick={this.handleUserMenuOpen}>{this.state.username}</Button>
             <Menu
               id='user-menu'
-              anchorEl={this.state.anchorEl}
+              anchorEl={this.state.userAnchorEl}
               keepMounted
-              open={Boolean(this.state.anchorEl)}
-              onClose={this.handleMenuClose}
+              open={Boolean(this.state.userAnchorEl)}
+              onClose={this.handleUserMenuClose}
             >
-              <MenuItem><a href='/calendar'><Person />My Profile</a></MenuItem>
-              <MenuItem><a href='/logout'><ExitToApp />Log Out</a></MenuItem>
+              <MenuItem><a href='/calendar' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
+              <MenuItem><a href='/logout' className={classes.iconTextMix}><ExitToApp />Log Out</a></MenuItem>
             </Menu>
           </div>
         )
@@ -86,4 +141,4 @@ export class NavBar extends Component {
   }
 }
 
-export default NavBar
+export default withStyles(styles)(NavBar)

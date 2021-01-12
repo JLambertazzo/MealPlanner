@@ -1,3 +1,7 @@
+#authButtons {
+  margin-left: auto;
+}
+
 #menuAnchor {
   font-family: inherit;
   padding: 10px 15px;
@@ -7,7 +11,7 @@
   background: none;
 }
 
-#user-menu a {
+#user-menu a, #auth-menu a {
   font-family: inherit;
   text-decoration: none;
   color: inherit;
@@ -21,4 +25,8 @@
 
 #logo {
   padding-left: 15px;
+}
+
+svg {
+  margin-right: 5px;
 }
