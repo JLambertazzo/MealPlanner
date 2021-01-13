@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, Divider } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
@@ -107,10 +107,13 @@ export class index extends Component {
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
-                  <li className='ingredientContainer' index={index}>
-                    <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
-                    <TextField className='nInput' label='Ingredient Name' onChange={this.handleIngredientNameChange} />
-                  </li>
+                  <div>
+                    <li className='ingredientContainer' index={index}>
+                      <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
+                      <TextField className='nInput' label='Ingredient' onChange={this.handleIngredientNameChange} />
+                    </li>
+                    <hr />
+                  </div>
                 )
               })
             }
@@ -118,7 +121,7 @@ export class index extends Component {
             <Button variant='contained' onClick={this.handleAddIngredient}>Add Ingredient</Button>
           </FormControl>
           <FormControl className='input-field'>
-            <TextField label='Meal Description' onChange={this.handleDescriptionChange} />
+            <TextField label='Description' onChange={this.handleDescriptionChange} />
           </FormControl>
           <div className='modalFooterButtons'>
             <Button startIcon={<Publish />} type='submit' variant='contained'>Submit</Button>

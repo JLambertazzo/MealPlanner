@@ -2,6 +2,7 @@
     margin-top: 5vh;
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(12, 1fr);
 }
 
 #mealModal .modalHeader {
@@ -14,6 +15,7 @@
 
 #mealModalForm {
     grid-column: 3 / span 10;
+    grid-row: 2 / span 10;
     display: flex;
     flex-direction: column;
     width: 75%;
@@ -46,14 +48,24 @@
 }
 
 .list-holder ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    list-style-position: inside;
+    padding-left: 0px;
+}
+
+.list-holder hr {
+    border-style: ridge;
+    border-color: #e0e0e0;
+}
+
+@media only screen and (min-width: 768px) {
+    .list-holder hr {
+        display: none;
+    }
 }
 
 .ingredientContainer {
     display: flex;
-    width: 80%;
+    width: 100%;
     flex-wrap: wrap;
 }
 

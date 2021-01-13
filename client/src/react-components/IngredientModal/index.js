@@ -84,10 +84,13 @@ export class IngredientModal extends Component {
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
-                  <li className='ingredientContainer' index={index}>
-                    <TextField label='Quantity' className='qInput' type='number' value={ingredient.qty} onChange={this.handleIngredientQtyChange} />
-                    <TextField label='Ingredient Name' className='nInput' type='text' value={ingredient.name} onChange={this.handleIngredientNameChange} />
-                  </li>
+                  <div>
+                    <li className='ingredientContainer' index={index}>
+                      <TextField label='Quantity' className='qInput' type='number' value={ingredient.qty} onChange={this.handleIngredientQtyChange} />
+                      <TextField label='Ingredient' className='nInput' type='text' value={ingredient.name} onChange={this.handleIngredientNameChange} />
+                    </li>
+                    <hr />
+                  </div>
                 )
               })
             }
