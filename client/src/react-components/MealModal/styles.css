@@ -69,6 +69,10 @@
     flex-wrap: wrap;
 }
 
-.qInput, .uInput, .nInput {
+.qInput {
+    margin: 5px !important;
+}
+
+.nInput {
     margin: 5px !important;
 }

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, Divider } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
-import { Switch } from 'react-router'
 
 export class index extends Component {
   state = {
@@ -111,11 +110,6 @@ export class index extends Component {
                   <div>
                     <li className='ingredientContainer' index={index}>
                       <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
-                      <Select className='uInput' label={`label${index}`} defaultValue='2'>
-                        <MenuItem value="0">Cups of</MenuItem>
-                        <MenuItem value="1">mL of</MenuItem>
-                        <MenuItem value="2">Units of</MenuItem>
-                      </Select>
                       <TextField className='nInput' label='Ingredient' onChange={this.handleIngredientNameChange} />
                     </li>
                     <hr />
