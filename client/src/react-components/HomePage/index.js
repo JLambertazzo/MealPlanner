@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
-import { Button, Card, CardActions, CardContent, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
+import { Button, Card, CardActions, CardContent, CardMedia, CardHeader, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
+import { Add, Edit, Visibility, EventAvailable, MonetizationOn, Timer, Delete } from '@material-ui/icons'
 import './style.css'
 
 export class HomePage extends Component {
@@ -17,96 +18,102 @@ export class HomePage extends Component {
             </div>
             <div id='cards'>
               <Card>
-                <CardContent>
-                  <Typography variant='h6'>
-                    Add meals to your calendar
-                  </Typography>
-                  <hr />
-                  <Typography variant='body1'>
-                    Input meal details to plan for your week. <br />
-                    Click on any day to add more meals or <br />
-                    view the meals you've set!
-                  </Typography>
-                </CardContent>
+                <CardHeader
+                  avatar={<Add color='primary' />}
+                  title={<Typography variant='h6'>Add Meals to Calendar</Typography>}
+                  subheader={<Typography variant='body2' color='textSecondary'>Input details to plan out your meals!</Typography>}
+                />
+                <Divider />
+                <CardMedia
+                  className='focusimg'
+                  component='img'
+                  src='/addmeals.png'
+                  title='add meals'
+                  style={{ width: '400px' }}
+                />
+                <Divider />
                 <CardActions>
                   <Button variant='contained' size='small'>Try it yourself!</Button>
                 </CardActions>
               </Card>
               <Card>
-                <CardContent>
-                  <Typography variant='h6'>
-                    Set the ingredients you have
-                  </Typography>
-                  <hr />
-                  <Typography variant='body1'>
-                    Input ingredient names and quantities <br />
-                    for what you already have. Your<br />
-                    shopping list will adjust accordingly!
-                  </Typography>
-                </CardContent>
+                <CardHeader
+                  avatar={<Edit color='primary' />}
+                  title={<Typography variant='h6'>Set Ingredients You Have</Typography>}
+                  subheader={<Typography variant='body2' color='textSecondary'>Your shopping list will adjust accordingly!</Typography>}
+                />
+                <Divider />
+                <CardMedia
+                  component='img'
+                  src='/setings.png'
+                  title='set ingredients'
+                  style={{ width: '400px' }}
+                />
+                <Divider />
                 <CardActions>
                   <Button variant='contained' size='small'>Try it yourself!</Button>
                 </CardActions>
               </Card>
               <Card>
-                <CardContent>
-                  <Typography variant='h6'>
-                    View your shopping list
-                  </Typography>
-                  <hr />
-                  <Typography variant='body1'>
-                    Ingredients needed for your meals will<br />
-                    automatically be added to your list!
-                  </Typography>
-                </CardContent>
+                <CardHeader
+                  avatar={<Visibility color='primary' />}
+                  title={<Typography variant='h6'>View Shopping List</Typography>}
+                  subheader={<Typography variant='body2' color='textSecondary'>Ingredients are added as needed!</Typography>}
+                />
+                <Divider />
+                <CardMedia
+                  component='img'
+                  src='/shoplist.png'
+                  title='view shopping list'
+                  style={{ width: '400px' }}
+                />
+                <Divider />
                 <CardActions>
                   <Button variant='contained' size='small'>Try it yourself!</Button>
                 </CardActions>
               </Card>
             </div>
-            <div id='purpose'>
-              <List>
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary='Stick to a Plan!'
-                    secondary='Whatever diet or meal plan you follow, we make it easy for you to stick to it!'
-                  />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary='Save Money!'
-                    secondary="Easily plan out what you'll eat when to avoid overspending"
-                  />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary='Save Time!'
-                    secondary="When you shop, you'll know exactly what to get. No more wandering the aisles!"
-                  />
-                </ListItem>
-                <Divider />
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary='Avoid Waste!'
-                    secondary="By planning out your meals, avoid buying things you won't eat."
-                  />
-                </ListItem>
-              </List>
-            </div>
+            <List>
+              <ListItem>
+                <ListItemAvatar>
+                  <EventAvailable color='primary' fontSize='large' />
+                </ListItemAvatar>
+                <ListItemText
+                  primary='Stick to a Plan!'
+                  secondary='Whatever diet or meal plan you follow, we make it easy for you to stick to it!'
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemAvatar>
+                  <MonetizationOn color='primary' fontSize='large' />
+                </ListItemAvatar>
+                <ListItemText
+                  primary='Save Money!'
+                  secondary="Easily plan out what you'll eat when to avoid overspending"
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemAvatar>
+                  <Timer color='primary' fontSize='large' />
+                </ListItemAvatar>
+                <ListItemText
+                  primary='Save Time!'
+                  secondary="When you shop, you'll know exactly what to get. No more wandering the aisles!"
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemAvatar>
+                  <Delete color='primary' fontSize='large' />
+                </ListItemAvatar>
+                <ListItemText
+                  primary='Avoid Waste!'
+                  secondary="By planning out your meals, avoid buying things you won't eat."
+                />
+              </ListItem>
+            </List>
           </div>
         </div>
       </div>
