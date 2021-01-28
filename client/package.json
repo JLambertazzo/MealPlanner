@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.3",
     "@testing-library/user-event": "^12.1.10",
+    "immer": "^8.0.1",
     "jquery": "^3.5.1",
     "materialize-css": "^1.0.0",
     "react": "^17.0.1",

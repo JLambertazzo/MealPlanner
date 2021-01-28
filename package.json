@@ -29,6 +29,7 @@
     "connect-mongo": "^3.2.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
+    "immer": "^8.0.1",
     "mongodb": "^3.6.3",
     "mongoose": "^5.11.7",
     "nodemon": "^2.0.6",
