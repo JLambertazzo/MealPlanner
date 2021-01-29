@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, NativeSelect } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
@@ -11,6 +11,7 @@ export class index extends Component {
     mealNum: '',
     ingredients: [{
       name: '',
+      units: 'cup',
       qty: ''
     }],
     description: ''
@@ -42,6 +43,13 @@ export class index extends Component {
     const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
     ingredients[index].qty = event.target.value
+    this.setState({ ingredients: ingredients })
+  }
+
+  handleIngredientUnitsChange = event => {
+    const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
+    let ingredients = [...this.state.ingredients]
+    ingredients[index].units = event.target.value
     this.setState({ ingredients: ingredients })
   }
 
@@ -115,6 +123,30 @@ export class index extends Component {
                   <div>
                     <li className='ingredientContainer' index={index}>
                       <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
+                      <FormControl>
+                        <InputLabel htmlFor="name-native-error">Name</InputLabel>
+                        <NativeSelect
+                          className='uInput'
+                          value={this.state.ingredients[index].units}
+                          onChange={this.handleIngredientUnitsChange}
+                          name='units'
+                        >
+                          <optgroup label="Mass">
+                            <option value="g">gram</option>
+                            <option value="kg">kilogram</option>
+                            <option value="oz">ounce</option>
+                            <option value="lb">pound</option>
+                          </optgroup>
+                          <optgroup label="Volume">
+                            <option value="ml">mL</option>
+                            <option value="l">L</option>
+                            <option value="tsp">teaspoon</option>
+                            <option value="Tbs">tablespoon</option>
+                            <option value="cup">cup</option>
+                            <option value="pnt">pint</option>
+                          </optgroup>
+                        </NativeSelect>
+                      </FormControl>
                       <TextField className='nInput' label='Ingredient' onChange={this.handleIngredientNameChange} />
                     </li>
                     <hr />

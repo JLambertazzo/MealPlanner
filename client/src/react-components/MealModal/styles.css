@@ -69,8 +69,13 @@
     flex-wrap: wrap;
 }
 
+.MuiFormControl-root:nth-child(2){
+    justify-content: center;
+}
+
 .qInput {
     margin: 5px !important;
+    width: 100px;
 }
 
 .nInput {
