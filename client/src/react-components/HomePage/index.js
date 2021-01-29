@@ -73,7 +73,7 @@ export class HomePage extends Component {
                 </CardActions>
               </Card>
             </div>
-            <List>
+            <List className='reasonsList' subheader='Why Use MealPlanner?'>
               <ListItem>
                 <ListItemAvatar>
                   <EventAvailable color='primary' fontSize='large' />
@@ -90,7 +90,7 @@ export class HomePage extends Component {
                 </ListItemAvatar>
                 <ListItemText
                   primary='Save Money!'
-                  secondary="Easily plan out what you'll eat when to avoid overspending"
+                  secondary="Easily plan out what you'll eat to avoid overspending"
                 />
               </ListItem>
               <Divider />
