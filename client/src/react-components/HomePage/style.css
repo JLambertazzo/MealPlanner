@@ -1,5 +1,7 @@
 #home {
   display: flex;
+  width: 100%;
+  align-items: center;
   flex-direction: column;
 }
 
@@ -21,7 +23,7 @@
   display: grid;
   place-items: center;
   background-image: url('event.svg');
-  background-position: 0% 100%;
+  background-position: center 90%;
   background-repeat: no-repeat;
   background-size: cover;
   background-color: #666ad1;
@@ -47,6 +49,28 @@
 #title h1 {
   color: #303F9F;
   margin: 0px auto;
+}
+
+@media only screen and (min-width: 2000px) {
+  #back {
+    background-position: center 80%;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  #back {
+    background-position: center -300px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #title h1 {
+      font-size: 2.5rem;
+  }
+
+  #back {
+    background-position: center -200px;
+  }
 }
 
 #text button {
@@ -76,12 +100,8 @@
 }
 
 .reasonsList {
+  margin-top: 5% !important;
   background: #f0f0f0;
   width: fit-content;
   border-radius: 15px;
-}
-
-/* TEMP */
-* {
-  transition: 1s;
 }

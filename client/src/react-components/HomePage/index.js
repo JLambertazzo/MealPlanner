@@ -29,7 +29,7 @@ export class HomePage extends Component {
                   component='img'
                   src='/addmeals.png'
                   title='add meals'
-                  style={{ width: '400px' }}
+                  style={{ width: 'min(400px, 100vw)' }}
                 />
                 <Divider />
                 <CardActions>
@@ -47,7 +47,7 @@ export class HomePage extends Component {
                   component='img'
                   src='/setings.png'
                   title='set ingredients'
-                  style={{ width: '400px' }}
+                  style={{ width: 'min(400px, 100vw)' }}
                 />
                 <Divider />
                 <CardActions>
@@ -65,7 +65,7 @@ export class HomePage extends Component {
                   component='img'
                   src='/shoplist.png'
                   title='view shopping list'
-                  style={{ width: '400px' }}
+                  style={{ width: 'min(400px, 100vw)' }}
                 />
                 <Divider />
                 <CardActions>
