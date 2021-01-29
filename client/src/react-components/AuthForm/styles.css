@@ -1,7 +1,6 @@
 #authForm .container {
   position: absolute;
   right: 0px;
-  height: 100vh;
   box-shadow: #0F0F0F 2px 2px 20px 2px;
   height: 100vh;
   width: 40vw;
@@ -11,6 +10,19 @@
   justify-content: center;
   background: #f0f0f0;
   clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%, 10% 50%);
+}
+
+@media only screen and (max-width: 768px) {
+  #authForm .container {
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    clip-path: none;
+    height: fit-content;
+    width: fit-content;
+    padding: 50px;
+    border-radius: 15px;
+  }
 }
 
 #authForm .container * {
