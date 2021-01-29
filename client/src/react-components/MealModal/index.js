@@ -22,7 +22,12 @@ export class index extends Component {
   }
 
   handleClose = () => {
-    this.setState({ ingredients: [{ name: '', qty: 0 }] })
+    this.setState({
+      mealName: '',
+      mealNum: '', 
+      ingredients: [{ name: '', qty: '' }],
+      description: '' 
+    })
   }
 
   handleNameChange = event => {

@@ -18,9 +18,13 @@ export class ShoppingModal extends Component {
       }
       const need = {}
       user.meals.forEach(meal => {
-        if (Date.now() < new Date(meal.date).getTime() || Date.toDateString() === new Date(meal.date).toDateString()) {
+        if (Date.now() < new Date(meal.date).getTime() || (new Date()).toDateString() === new Date(meal.date).toDateString()) {
           meal.ingredients.forEach(ingredient => {
-            need[ingredient.name] = ingredient.qty
+            if (need[ingredient.name]) {
+              need[ingredient.name] += ingredient.qty
+            } else {
+              need[ingredient.name] = ingredient.qty
+            }
           })
         }
       })
