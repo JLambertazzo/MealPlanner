@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
-import { Button, Card, CardActions, CardContent, CardMedia, CardHeader, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar, Avatar } from '@material-ui/core'
+import Footer from '../Footer'
+import { Button, Card, CardActions, CardMedia, CardHeader, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core'
 import { Add, Edit, Visibility, EventAvailable, MonetizationOn, Timer, Delete } from '@material-ui/icons'
 import './style.css'
 
@@ -79,8 +80,8 @@ export class HomePage extends Component {
                   <EventAvailable color='primary' fontSize='large' />
                 </ListItemAvatar>
                 <ListItemText
-                  primary='Stick to a Plan!'
-                  secondary='Whatever diet or meal plan you follow, we make it easy for you to stick to it!'
+                  primary={<Typography variant='h6'>Stick to a Plan!</Typography>}
+                  secondary={<Typography variant='body2' color='textSecondary'>Whatever diet or meal plan you follow, we make it easy for you to stick to it</Typography>}
                 />
               </ListItem>
               <Divider />
@@ -89,8 +90,8 @@ export class HomePage extends Component {
                   <MonetizationOn color='primary' fontSize='large' />
                 </ListItemAvatar>
                 <ListItemText
-                  primary='Save Money!'
-                  secondary="Easily plan out what you'll eat to avoid overspending"
+                  primary={<Typography variant='h6'>Save Money!</Typography>}
+                  secondary={<Typography variant='body2' color='textSecondary'>Easily plan out what you'll eat to avoid overspending</Typography>}
                 />
               </ListItem>
               <Divider />
@@ -99,8 +100,8 @@ export class HomePage extends Component {
                   <Timer color='primary' fontSize='large' />
                 </ListItemAvatar>
                 <ListItemText
-                  primary='Save Time!'
-                  secondary="When you shop, you'll know exactly what to get. No more wandering the aisles!"
+                  primary={<Typography variant='h6'>Save Time!</Typography>}
+                  secondary={<Typography variant='body2' color='textSecondary'>When you shop, you'll know exactly what to get. No more wandering the aisles</Typography>}
                 />
               </ListItem>
               <Divider />
@@ -109,11 +110,12 @@ export class HomePage extends Component {
                   <Delete color='primary' fontSize='large' />
                 </ListItemAvatar>
                 <ListItemText
-                  primary='Avoid Waste!'
-                  secondary="By planning out your meals, avoid buying things you won't eat."
+                  primary={<Typography variant='h6'>Avoid Waste!</Typography>}
+                  secondary={<Typography variant='body2' color='textSecondary'>By planning out your meals, avoid buying things you won't eat</Typography>}
                 />
               </ListItem>
             </List>
+            <Footer />
           </div>
         </div>
       </div>

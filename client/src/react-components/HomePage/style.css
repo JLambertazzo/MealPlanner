@@ -6,7 +6,7 @@
 }
 
 #homeContent {
-  height: 80vh;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 0px 20px;
   width: 100%;
   font-size: 2rem;
   border-radius: 15px;
@@ -100,7 +100,7 @@
 }
 
 .reasonsList {
-  margin-top: 5% !important;
+  margin-top: 2% !important;
   background: #f0f0f0;
   width: fit-content;
   border-radius: 15px;
