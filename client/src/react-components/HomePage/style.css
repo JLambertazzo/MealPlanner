@@ -28,7 +28,7 @@
   background-size: cover;
   background-color: #666ad1;
   background-blend-mode: overlay;
-  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 65%, 0 50%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 50% 45%, 0 50%);
 }
 
 #title {

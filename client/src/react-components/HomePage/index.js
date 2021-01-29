@@ -33,7 +33,7 @@ export class HomePage extends Component {
                 />
                 <Divider />
                 <CardActions>
-                  <Button variant='contained' size='small'>Try it yourself!</Button>
+                  <Button variant='contained' size='small' onClick={() => window.open('/calendar', '_self')}>Try it yourself!</Button>
                 </CardActions>
               </Card>
               <Card>
@@ -51,7 +51,7 @@ export class HomePage extends Component {
                 />
                 <Divider />
                 <CardActions>
-                  <Button variant='contained' size='small'>Try it yourself!</Button>
+                  <Button variant='contained' size='small' onClick={() => window.open('/calendar', '_self')}>Try it yourself!</Button>
                 </CardActions>
               </Card>
               <Card>
@@ -69,7 +69,7 @@ export class HomePage extends Component {
                 />
                 <Divider />
                 <CardActions>
-                  <Button variant='contained' size='small'>Try it yourself!</Button>
+                  <Button variant='contained' size='small' onClick={() => window.open('/calendar', '_self')}>Try it yourself!</Button>
                 </CardActions>
               </Card>
             </div>

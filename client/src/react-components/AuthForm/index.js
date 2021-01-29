@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import NavBar from '../NavBar'
 import { login, createUser } from '../../actions/actions.js'
-import { Button, TextField, FormControl } from '@material-ui/core'
+import { Button, TextField, FormControl, Typography } from '@material-ui/core'
 import { Person, PersonAdd } from '@material-ui/icons'
 import './styles.css'
 
@@ -80,7 +80,7 @@ export class AuthForm extends Component {
       <div id="authForm">
         <NavBar />
         <form className="container" onSubmit={this.props.showLogin ? this.handleLogin : this.handleSignup}>
-          <h3 className="center-align">{this.props.showLogin ? <Person /> : <PersonAdd />} {this.props.showLogin ? 'Log In' : 'Sign Up'}</h3>
+          <Typography variant='h4'>{this.props.showLogin ? <Person /> : <PersonAdd />} {this.props.showLogin ? 'Log In' : 'Sign Up'}</Typography>
           <FormControl className="input-field">
             <TextField label='Username' onChange={this.handleUsernameChange} inputProps={{ minLength: 5 }} required/>
           </FormControl>

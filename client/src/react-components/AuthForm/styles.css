@@ -1,20 +1,31 @@
 #authForm .container {
-  margin-top: 20px;
-  box-shadow: #E9ECEF 0px 0px 2px 2px;
-  padding: 5px;
-  height: 80vh;
-  width: 60vw;
+  position: absolute;
+  right: 0px;
+  height: 100vh;
+  box-shadow: #0F0F0F 2px 2px 20px 2px;
+  height: 100vh;
+  width: 40vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  min-height: 420px;
-  min-width: 370px;
-  border-radius: 15px;
+  justify-content: center;
+  background: #f0f0f0;
+  clip-path: polygon(0% 0, 100% 0, 100% 100%, 0% 100%, 10% 50%);
+}
+
+#authForm .container * {
+  margin: 3% 0;
 }
 
 #authForm {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url('grocerystore.jpg');
+  background-color: #666ad1;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-blend-mode: screen;
+  height: 100vh;
 }
