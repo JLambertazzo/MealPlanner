@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, NativeSelect, List, ListItem } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import './styles.css'
@@ -11,6 +11,7 @@ export class index extends Component {
     mealNum: '',
     ingredients: [{
       name: '',
+      units: 'cup',
       qty: ''
     }],
     description: ''
@@ -25,7 +26,7 @@ export class index extends Component {
     this.setState({
       mealName: '',
       mealNum: '', 
-      ingredients: [{ name: '', qty: '' }],
+      ingredients: [{ name: '', units: 'cup', qty: '' }],
       description: '' 
     })
   }
@@ -45,6 +46,13 @@ export class index extends Component {
     this.setState({ ingredients: ingredients })
   }
 
+  handleIngredientUnitsChange = event => {
+    const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
+    let ingredients = [...this.state.ingredients]
+    ingredients[index].units = event.target.value
+    this.setState({ ingredients: ingredients })
+  }
+
   handleIngredientNameChange = event => {
     const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
@@ -56,7 +64,7 @@ export class index extends Component {
     event.preventDefault()
     this.setState(prevState => { 
       return {
-        ingredients: [...prevState.ingredients, { name: '', qty: '' }]
+        ingredients: [...prevState.ingredients, { name: '', units: 'cup', qty: '' }]
       }
     })
   }
@@ -108,21 +116,45 @@ export class index extends Component {
           </FormControl>
           <FormControl className='input-field list-holder'>
             <Typography variant='h5'>Ingredients:</Typography>
-            <ul>
+            <List component='nav' aria-label='ingredient list'>
             {
               this.state.ingredients.map((ingredient, index) => {
                 return(
                   <div>
-                    <li className='ingredientContainer' index={index}>
+                    <ListItem className='ingredientContainer' index={index}>
                       <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
+                      <FormControl>
+                        <InputLabel htmlFor="units">Units</InputLabel>
+                        <NativeSelect
+                          className='uInput'
+                          value={this.state.ingredients[index].units}
+                          onChange={this.handleIngredientUnitsChange}
+                          name='units'
+                        >
+                          <optgroup label="Mass">
+                            <option value="kg">kilogram</option>
+                            <option value="g">gram</option>
+                            <option value="oz">ounce</option>
+                            <option value="lb">pound</option>
+                          </optgroup>
+                          <optgroup label="Volume">
+                            <option value="ml">mL</option>
+                            <option value="l">L</option>
+                            <option value="tsp">teaspoon</option>
+                            <option value="Tbs">tablespoon</option>
+                            <option value="cup">cup</option>
+                            <option value="pnt">pint</option>
+                          </optgroup>
+                        </NativeSelect>
+                      </FormControl>
                       <TextField className='nInput' label='Ingredient' onChange={this.handleIngredientNameChange} />
-                    </li>
+                    </ListItem>
                     <hr />
                   </div>
                 )
               })
             }
-            </ul>
+            </List>
             <Button variant='contained' onClick={this.handleAddIngredient}>Add Ingredient</Button>
           </FormControl>
           <FormControl className='input-field'>

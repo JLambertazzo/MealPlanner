@@ -8,6 +8,10 @@ const ingredientsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  units: {
+    type: String,
+    required: true
+  },
   qty: {
     type: Number,
     required: true

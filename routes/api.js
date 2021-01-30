@@ -147,7 +147,7 @@ router.post('/api/login', mongoChecker, async (req, res) => {
 // expects:
 // {
 //   name: 'meal name',
-//   ingredients: [{ name: 'name', qty: qty }],
+//   ingredients: [{ name: 'name', units: 'units', qty: qty }],
 //   date: 'date string',
 //   mealNum: num,
 //   description: 'description of meal' // optional
@@ -157,6 +157,7 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   req.body.ingredients.forEach(element => {
     ingredients.push({
       name: element.name,
+      units: element.units,
       qty: element.qty
     })
   })
@@ -190,6 +191,7 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
 // {
 //   ingredients: [{
 //     name: 'ingredient name',
+//     units: 'units',
 //     qty: number
 //   }]
 // }

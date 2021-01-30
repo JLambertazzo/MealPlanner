@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { getUserById, setIngredients } from '../../actions/actions'
-import { Button, Typography, TextField } from '@material-ui/core'
+import { Button, Typography, TextField, FormControl, NativeSelect, InputLabel } from '@material-ui/core'
 import { Save, Add, ChevronLeft } from '@material-ui/icons'
 import './styles.css'
 
@@ -9,6 +9,7 @@ export class IngredientModal extends Component {
   state = {
     ingredients: [{
       name: '',
+      units: 'cup',
       qty: ''
     }]
   }
@@ -45,6 +46,13 @@ export class IngredientModal extends Component {
     this.setState({ ingredients: ingredients })
   }
 
+  handleIngredientUnitsChange = event => {
+    const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
+    let ingredients = [...this.state.ingredients]
+    ingredients[index].units = event.target.value
+    this.setState({ ingredients: ingredients })
+  }
+
   handleIngredientNameChange = event => {
     const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
     let ingredients = [...this.state.ingredients]
@@ -56,13 +64,13 @@ export class IngredientModal extends Component {
     event.preventDefault()
     this.setState(prevState => { 
       return {
-        ingredients: [...prevState.ingredients, { name: '', qty: '' }]
+        ingredients: [...prevState.ingredients, { name: '', units: 'cup', qty: '' }]
       }
     })
   }
 
   afterClose = () => {
-    this.setState({ ingredients: [{ name: '', qty: '' }] })
+    this.setState({ ingredients: [{ name: '', units: 'cup', qty: '' }] })
   }
 
   render() {
@@ -87,6 +95,30 @@ export class IngredientModal extends Component {
                   <div>
                     <li className='ingredientContainer' index={index}>
                       <TextField label='Quantity' className='qInput' type='number' value={ingredient.qty} onChange={this.handleIngredientQtyChange} />
+                      <FormControl>
+                        <InputLabel htmlFor="units">Units</InputLabel>
+                        <NativeSelect
+                          className='uInput'
+                          value={this.state.ingredients[index].units}
+                          onChange={this.handleIngredientUnitsChange}
+                          name='units'
+                        >
+                          <optgroup label="Mass">
+                            <option value="kg">kilogram</option>
+                            <option value="g">gram</option>
+                            <option value="oz">ounce</option>
+                            <option value="lb">pound</option>
+                          </optgroup>
+                          <optgroup label="Volume">
+                            <option value="ml">mL</option>
+                            <option value="l">L</option>
+                            <option value="tsp">teaspoon</option>
+                            <option value="Tbs">tablespoon</option>
+                            <option value="cup">cup</option>
+                            <option value="pnt">pint</option>
+                          </optgroup>
+                        </NativeSelect>
+                      </FormControl>
                       <TextField label='Ingredient' className='nInput' type='text' value={ingredient.name} onChange={this.handleIngredientNameChange} />
                     </li>
                     <hr />

@@ -72,7 +72,7 @@ export class ListModal extends Component {
                     {
                       meal.ingredients.map(ingredient => {
                         return(<li>
-                          {ingredient.qty} {ingredient.name}
+                          {ingredient.qty} {ingredient.units} of {ingredient.name}
                         </li>)
                       })
                     }
