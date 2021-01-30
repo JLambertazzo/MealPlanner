@@ -14,7 +14,12 @@ export class ShoppingModal extends Component {
 
   getData = () => {
     getUserById(this.props.uid).then(user => {
-      if (!user) {
+      if (!user || user.meals.length === 0) {
+        this.setState({
+          need: { None: {
+            kg: 0
+          }}
+        })
         return
       }
       const need = {}
