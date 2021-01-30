@@ -66,11 +66,11 @@ export class ShoppingModal extends Component {
       let mltext = null
       if (this.state.need[name]['kg']) {
         let qty = this.state.need[name]['kg']
-        kgtext = `${name}: ${qty} kg${qty > 1 ? 's' : ''}\n`
+        kgtext = (qty > 0 ? `${name}: ${qty} kg${qty > 1 ? 's' : ''}\n` : null)
       }
       if (this.state.need[name]['ml']) {
         let qty = this.state.need[name]['ml']
-        mltext = `${name}: ${qty} mL${qty > 1 ? 's' : ''}\n`
+        mltext = (qty > 0 ? `${name}: ${qty} mL${qty > 1 ? 's' : ''}\n` : null)
       }
       let totalText = (kgtext ? kgtext : '') + (mltext ? mltext : '')
       return acc + totalText
@@ -91,11 +91,11 @@ export class ShoppingModal extends Component {
     let mltext = null
     if (this.state.need[name]['kg']) {
       let qty = this.state.need[name]['kg']
-      kgtext = `${name}: ${qty} kg${qty > 1 ? 's' : ''}`
+      kgtext = (qty > 0 ? `${name}: ${qty} kg${qty > 1 ? 's' : ''}` : null)
     }
     if (this.state.need[name]['ml']) {
       let qty = this.state.need[name]['ml']
-      mltext = `${name}: ${qty} ml${qty > 1 ? 's' : ''}`
+      mltext = (qty > 0 ? `${name}: ${qty} ml${qty > 1 ? 's' : ''}` : null)
     }
     if (kgtext && mltext) {
       return(
