@@ -25,3 +25,30 @@
 #returnButton {
   float: right;
 }
+
+#tablediv {
+  display: grid;
+  place-content: center;
+  margin: 20px 0px;
+}
+
+#tablediv paper {
+  border-radius: 5px;
+}
+
+paper > table {
+  max-width: 650px;
+  min-width: 400px;
+}
+
+.primaryBack {
+  background: #303F9F;
+}
+
+.row {
+  background: #f5f5f5;
+}
+
+.row:nth-child(even) {
+  background: #f0f0f0;
+}

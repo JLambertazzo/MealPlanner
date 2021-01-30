@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
 import { ChevronLeft, FileCopy, Print, Email } from '@material-ui/icons'
 import convert from 'convert-units'
 import './styles.css'
@@ -135,17 +135,36 @@ export class ShoppingModal extends Component {
           <Typography variant='h4'>My Shopping List:</Typography>
           <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
         </div>
-        <div id="shoppingContainer">
-          <ul>
-            {
-              Object.keys(this.state.need).map(name => {
-                return(
-                  this.getListElements(name)
-                )
-              })
-            }
-          </ul>
-        </div>  
+        <div id='tablediv'>
+          <TableContainer component='paper'>
+            <Table aria-label='Ingredient Table'>
+              <TableHead className='primaryBack'>
+                <TableRow>
+                  <TableCell><Typography variant='h6' color='secondary'>Ingredient</Typography></TableCell>
+                  <TableCell><Typography variant='h6' color='secondary'>Quantity</Typography></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {
+                  Object.keys(this.state.need).map(name => {
+                    return(
+                      <TableRow key={name} className='row'>
+                        <TableCell><Typography color='textPrimary'>{name}</Typography></TableCell>
+                        {
+                          Object.keys(this.state.need[name]).map(units => {
+                            return(
+                              <TableCell component="th" scope="row"><Typography>{this.state.need[name][units]} {units}</Typography></TableCell>
+                              )
+                            })
+                          }
+                      </TableRow>
+                    )
+                  })
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
         <Typography variant='h5' align='center'>Export List:</Typography>
         <div id="exportContainer">
           <Button variant='contained' onClick={this.handleCopy} startIcon={<FileCopy />}>Copy to Clipboard</Button>
