@@ -26,7 +26,7 @@ export class index extends Component {
     this.setState({
       mealName: '',
       mealNum: '', 
-      ingredients: [{ name: '', qty: '' }],
+      ingredients: [{ name: '', units: 'cup', qty: '' }],
       description: '' 
     })
   }
@@ -64,7 +64,7 @@ export class index extends Component {
     event.preventDefault()
     this.setState(prevState => { 
       return {
-        ingredients: [...prevState.ingredients, { name: '', qty: '' }]
+        ingredients: [...prevState.ingredients, { name: '', units: 'cup', qty: '' }]
       }
     })
   }
@@ -124,7 +124,7 @@ export class index extends Component {
                     <li className='ingredientContainer' index={index}>
                       <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleIngredientQtyChange} />
                       <FormControl>
-                        <InputLabel htmlFor="name-native-error">Name</InputLabel>
+                        <InputLabel htmlFor="units">Units</InputLabel>
                         <NativeSelect
                           className='uInput'
                           value={this.state.ingredients[index].units}
@@ -132,8 +132,8 @@ export class index extends Component {
                           name='units'
                         >
                           <optgroup label="Mass">
-                            <option value="g">gram</option>
                             <option value="kg">kilogram</option>
+                            <option value="g">gram</option>
                             <option value="oz">ounce</option>
                             <option value="lb">pound</option>
                           </optgroup>
