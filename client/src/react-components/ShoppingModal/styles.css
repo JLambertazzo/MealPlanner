@@ -16,10 +16,17 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 15px;
 }
 
 #exportContainer button {
   margin: 10px 5px;
+}
+
+#dateRangeContainer {
+  display: grid;
+  place-items: center;
+  padding: 15px;
 }
 
 #returnButton {

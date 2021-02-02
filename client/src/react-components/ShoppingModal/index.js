@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { uid } from 'react-uid'
 import { getUserById } from '../../actions/actions'
-import { Button, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
+import { Button, Typography, TableContainer, Table, TableHead, TableRow, TableCell, TableBody, FormControl, TextField } from '@material-ui/core'
 import { ChevronLeft, FileCopy, Print, Email } from '@material-ui/icons'
 import convert from 'convert-units'
 import './styles.css'
 
 export class ShoppingModal extends Component {
   state = {
-    need: {}
+    need: {},
+    time: 7
   }
 
   getData = () => {
@@ -23,8 +24,16 @@ export class ShoppingModal extends Component {
         return
       }
       const need = {}
+      const now = new Date()
+      let maxTime = new Date()
+      if (this.state.time && this.state.time >= 0) {
+        maxTime.setDate(maxTime.getDate() + (this.state.time++))
+      } else {
+        maxTime = new Date(8640000000000000)
+      }
       user.meals.forEach(meal => {
-        if (Date.now() < new Date(meal.date).getTime() || (new Date()).toDateString() === new Date(meal.date).toDateString()) {
+        const mealDate = new Date(meal.date)
+        if (mealDate < maxTime && (now < mealDate.getTime() || now.toDateString() === mealDate.toDateString())) {
           meal.ingredients.forEach(ingredient => {
             let [qty, units] = this.convertUnits(ingredient.qty, ingredient.units)
             if (!need[ingredient.name]) {
@@ -89,6 +98,13 @@ export class ShoppingModal extends Component {
 
   handleEmail = () => {
     window.open(`mailto:?subject=Groceries&body=${this.getText()}`, '_blank')
+  }
+
+  handleTimeChange = event => {
+    this.setState({
+      time: event.target.value
+    })
+    this.getData()
   }
 
   getListElements = name => {
@@ -175,6 +191,12 @@ export class ShoppingModal extends Component {
           <Button variant='contained' onClick={this.handleCopy} startIcon={<FileCopy />}>Copy to Clipboard</Button>
           <Button variant='contained' onClick={() => window.print()} startIcon={<Print />}>Print</Button>
           <Button variant='contained' onClick={this.handleEmail} startIcon={<Email />}>Share by Email</Button>
+        </div>
+        <Typography variant='h5' align='center'>Time Range to Shop For:</Typography>
+        <div id='dateRangeContainer'>
+          <FormControl>
+            <TextField type='number' defaultValue={7} label='Date Range' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleTimeChange} /> 
+          </FormControl>
         </div>
       </Modal>
     )
