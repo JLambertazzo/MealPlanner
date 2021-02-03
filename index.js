@@ -12,6 +12,26 @@ mongoose.set('useFindAndModify', false)
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 
+const validUrls = ['/', '/calendar', '/login', '/signup', '/profile']
+const authUrls = ['/calendar', '/profile']
+const unAuthUrls = ['/login', '/signup']
+
+const authenticate = (req, res, next) => {
+  if (!req.session.user && authUrls.includes(req.url)) {
+    res.status(301).redirect('/signup')
+  } else {
+    next()
+  }
+}
+
+const unauthenticate = (req, res, next) => {
+  if (req.session.user && unAuthUrls.includes(req.url)) {
+    res.status(301).redirect('/calendar')
+  } else {
+    next()
+  }
+}
+
 // set up body parse middleware and static folder
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -33,44 +53,17 @@ app.use(session({
 //api routes
 app.use(require('./routes/api'))
 
-app.get('/calendar', (req, res) => {
-  if (!req.session.user) {
-    res.status(301).redirect('/signup')
-  } else {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'))
-  }
-})
-
-app.get('/signup', (req, res) => {
-  if (req.session.user) {
-    res.status(301).redirect('/')
-  } else {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'))
-  }
-})
-
-app.get('/login', (req, res) => {
-  if (req.session.user) {
-    res.status(301).redirect('/')
-  } else {
-    res.sendFile(path.join(__dirname, '/client/build/index.html'))
-  }
-})
-
 app.get('/logout', (req, res) => {
-  req.session.destroy(error => {
-    if (error) {
-      log(error)
-      res.status(500).send('internal server error')
-    } else {
-      res.status(301).redirect('/')
-    }
-  })
+  if (req.session) {
+    req.session.destroy(err => {
+      console.log(err)
+    })
+  }
+  res.status(301).redirect('/')
 })
 
-app.get('*', (req, res) => {
-  const validPaths = ['/', '/calendar', '/login', '/signup']
-  if (!validPaths.includes(req.url)) {
+app.get('*', authenticate, unauthenticate, (req, res) => {
+  if (!validUrls.includes(req.url)) {
     res.status(404).send('404 not found :(')
   }
   res.sendFile(path.join(__dirname, '/client/build/index.html'))

@@ -122,7 +122,7 @@ export class NavBar extends Component {
               open={Boolean(this.state.userAnchorEl)}
               onClose={this.handleUserMenuClose}
             >
-              <MenuItem><a href='/calendar' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
+              <MenuItem><a href='/profile' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
               <MenuItem><a href='/logout' className={classes.iconTextMix}><ExitToApp />Log Out</a></MenuItem>
             </Menu>
           </div>

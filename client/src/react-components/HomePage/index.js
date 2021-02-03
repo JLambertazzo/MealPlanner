@@ -15,7 +15,7 @@ export class HomePage extends Component {
           <div id='title'>
             <div>
               <Typography variant='h1'>MealPlanner</Typography>
-              <Button variant='contained' color='primary' onClick={() => window.open('/calendar', '_self')}>Get Started</Button>
+              <Button variant='contained' color='primary' onClick={() => window.open('/calendar', '_self')}><Typography variant='h6' color='secondary'>Get Started</Typography></Button>
             </div>
             <div id='cards'>
               <Card>

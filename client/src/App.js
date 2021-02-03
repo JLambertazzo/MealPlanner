@@ -7,6 +7,7 @@ import React, { Component } from 'react'
 import HomePage from './react-components/HomePage'
 import Calendar from './react-components/Calendar'
 import AuthForm from './react-components/AuthForm'
+import Profile from './react-components/Profile'
 
 class App extends Component {
   state = {
@@ -26,6 +27,7 @@ class App extends Component {
             <Route exact path='/calendar' render={() => <Calendar uid={this.state.uid} />} />
             <Route exact path='/login' render={(props) => <AuthForm {...props} showLogin={true}/>} />
             <Route exact path='/signup' render={(props) => <AuthForm {...props} showLogin={false}/>} />
+            <Route exact path='/profile' render={() => <Profile uid={this.state.uid} />} />
           </Switch>
         </BrowserRouter>
       </ThemeProvider>
