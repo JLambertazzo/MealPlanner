@@ -192,10 +192,10 @@ export class ShoppingModal extends Component {
           <Button variant='contained' onClick={() => window.print()} startIcon={<Print />}>Print</Button>
           <Button variant='contained' onClick={this.handleEmail} startIcon={<Email />}>Share by Email</Button>
         </div>
-        <Typography variant='h5' align='center'>Time Range to Shop For:</Typography>
+        <Typography variant='h5' align='center'>Date Range to Shop For:</Typography>
         <div id='dateRangeContainer'>
           <FormControl>
-            <TextField type='number' defaultValue={7} label='Date Range' className='qInput' inputProps={{ type: 'number' }} onChange={this.handleTimeChange} /> 
+            <TextField type='number' defaultValue={7} label='Date Range' className='qInput' inputProps={{ type: 'number', min: 1 }} onChange={this.handleTimeChange} /> 
           </FormControl>
         </div>
       </Modal>
