@@ -33,14 +33,15 @@
   float: right;
 }
 
-#tablediv {
+.tablediv {
   display: grid;
   place-content: center;
   margin: 20px 0px;
 }
 
-#tablediv paper {
+.tablediv paper {
   border-radius: 5px;
+  overflow: hidden;
 }
 
 paper > table {

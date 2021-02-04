@@ -27,7 +27,7 @@ export class ShoppingModal extends Component {
       const now = new Date()
       let maxTime = new Date()
       if (this.state.time && this.state.time >= 0) {
-        maxTime.setDate(maxTime.getDate() + (this.state.time++))
+        maxTime.setDate(maxTime.getDate() + (this.state.time + 1))
       } else {
         maxTime = new Date(8640000000000000)
       }
@@ -156,7 +156,7 @@ export class ShoppingModal extends Component {
           <Typography variant='h4'>My Shopping List:</Typography>
           <Button onClick={this.handleReturn} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
         </div>
-        <div id='tablediv'>
+        <div className='tablediv'>
           <TableContainer component='paper'>
             <Table aria-label='Ingredient Table'>
               <TableHead className='primaryBack'>
