@@ -42,6 +42,7 @@
 .tablediv paper {
   border-radius: 5px;
   overflow: hidden;
+  min-width: 190px;
 }
 
 paper > table {
