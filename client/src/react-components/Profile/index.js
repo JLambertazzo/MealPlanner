@@ -44,7 +44,9 @@ export class Profile extends Component {
       } else {
         const meals = []
         user.meals.forEach(meal => {
-          meals.push(meal.name)
+         if (!meals.includes(meal.name)) {
+            meals.push(meal.name)
+          }
         })
         this.setState({ meals: meals  })
       }
@@ -55,7 +57,9 @@ export class Profile extends Component {
       } else {
         const ingredients = []
         user.ingredients.forEach(ingredient => {
-          ingredients.push(ingredient.name)
+          if (!ingredients.includes(ingredient.name)) {
+            ingredients.push(ingredient.name)
+          }
         })
         this.setState({ ingredients: ingredients })
       }
@@ -65,7 +69,7 @@ export class Profile extends Component {
 
   render () {
     return (
-      <div>
+      <div id='profileWrapper'>
         <NavBar uid={this.props.uid} />
         <div id='loading' className={this.state.isLoading ? '' : 'hide'}>
           <Typography variant='h1'>Loading...</Typography>

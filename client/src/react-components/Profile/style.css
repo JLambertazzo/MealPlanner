@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+#profileWrapper {
+  overflow: hidden;
+}
+
 #profileLeft {
   grid-column: 2;
   text-align: center;

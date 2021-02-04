@@ -14,7 +14,11 @@ export class index extends Component {
       units: 'cup',
       qty: ''
     }],
-    description: ''
+    description: '',
+    options: [
+      { title: 'option1' },
+      { title: 'option2' },
+    ]
   }
 
   handleReturn = () => {
