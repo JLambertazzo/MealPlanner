@@ -3,6 +3,7 @@ import Modal from 'react-modal'
 import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, NativeSelect, List, ListItem } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
+import { uid } from 'react-uid'
 import './MealModal.css'
 
 const handleReturn = (props) => {
@@ -19,21 +20,21 @@ const handleClose = (setMealName, setMealNum, setIngredients, setDescription) =>
 
 const handleIngredientQtyChange = (event, ingredients, setIngredients) => {
   const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
-  let newIngredients = [...ingredients]
+  const newIngredients = [...ingredients]
   newIngredients[index].qty = event.target.value
   setIngredients(newIngredients)
 }
 
 const handleIngredientUnitsChange = (event, ingredients, setIngredients) => {
   const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
-  let newIngredients = [...ingredients]
+  const newIngredients = [...ingredients]
   newIngredients[index].units = event.target.value
   setIngredients(newIngredients)
 }
 
 const handleIngredientNameChange = (event, ingredients, setIngredients) => {
   const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
-  let newIngredients = [...ingredients]
+  const newIngredients = [...ingredients]
   newIngredients[index].name = event.target.value
   setIngredients(newIngredients)
 }
@@ -58,7 +59,7 @@ const handleSubmit = (event, props, mealName, mealNum, ingredients, description)
   addMeal(payload, props.uid).then(() => handleReturn(props)).catch(error => console.log(error))
 }
 
-export default function MealModal(props) {
+export default function MealModal (props) {
   const [mealName, setMealName] = useState('')
   const [mealNum, setMealNum] = useState('')
   const [ingredients, setIngredients] = useState([{
@@ -97,43 +98,43 @@ export default function MealModal(props) {
         <FormControl className='input-field list-holder'>
           <Typography variant='h5'>Ingredients:</Typography>
           <List component='nav' aria-label='ingredient list'>
-          {
-            ingredients.map((ingredient, index) => {
-              return(
-                <div>
-                  <ListItem className='ingredientContainer' index={index}>
-                    <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)} />
-                    <FormControl>
-                      <InputLabel htmlFor="units">Units</InputLabel>
-                      <NativeSelect
-                        className='uInput'
-                        value={ingredient.units}
-                        onChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
-                        name='units'
-                      >
-                        <optgroup label="Mass">
-                          <option value="kg">kilogram</option>
-                          <option value="g">gram</option>
-                          <option value="oz">ounce</option>
-                          <option value="lb">pound</option>
-                        </optgroup>
-                        <optgroup label="Volume">
-                          <option value="ml">mL</option>
-                          <option value="l">L</option>
-                          <option value="tsp">teaspoon</option>
-                          <option value="Tbs">tablespoon</option>
-                          <option value="cup">cup</option>
-                          <option value="pnt">pint</option>
-                        </optgroup>
-                      </NativeSelect>
-                    </FormControl>
-                    <TextField className='nInput' label='Ingredient' onChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)} />
-                  </ListItem>
-                  <hr />
-                </div>
-              )
-            })
-          }
+            {
+              ingredients.map((ingredient, index) => {
+                return(
+                  <div key={uid(ingredient)}>
+                    <ListItem className='ingredientContainer' index={index}>
+                      <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)} />
+                      <FormControl>
+                        <InputLabel htmlFor="units">Units</InputLabel>
+                        <NativeSelect
+                          className='uInput'
+                          value={ingredient.units}
+                          onChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
+                          name='units'
+                        >
+                          <optgroup label='Mass'>
+                            <option value='kg'>kilogram</option>
+                            <option value='g'>gram</option>
+                            <option value='oz'>ounce</option>
+                            <option value='lb'>pound</option>
+                          </optgroup>
+                          <optgroup label='Volume'>
+                            <option value='ml'>mL</option>
+                            <option value='l'>L</option>
+                            <option value='tsp'>teaspoon</option>
+                            <option value='Tbs'>tablespoon</option>
+                            <option value='cup'>cup</option>
+                            <option value='pnt'>pint</option>
+                          </optgroup>
+                        </NativeSelect>
+                      </FormControl>
+                      <TextField className='nInput' label='Ingredient' onChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)} />
+                    </ListItem>
+                    <hr />
+                  </div>
+                )
+              })
+            }
           </List>
           <Button variant='contained' onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         </FormControl>
