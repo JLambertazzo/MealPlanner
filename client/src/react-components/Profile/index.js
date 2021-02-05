@@ -4,7 +4,6 @@ import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableCont
 import './style.css'
 import { getUserById } from '../../actions/actions'
 import { uid } from 'react-uid'
-import Footer from '../Footer'
 
 export class Profile extends Component {
   state = {

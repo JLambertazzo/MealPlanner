@@ -7,7 +7,7 @@ import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
 import NavBar from '../NavBar'
-import MealModal from '../MealModal'
+import MealModal from '../../components/calendar/MealModal'
 import ListModal from '../ListModal'
 import ShoppingModal from '../ShoppingModal'
 import IngredientModal from '../IngredientModal'
