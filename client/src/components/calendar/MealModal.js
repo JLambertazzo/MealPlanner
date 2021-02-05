@@ -76,11 +76,11 @@ export default function MealModal (props) {
       isOpen={props.isOpen}
       onRequestClose={props.exit}
       onAfterClose={() => handleClose(setMealName, setMealNum, setIngredients, setDescription)}
-      contentLabel="Meal Modal"
+      contentLabel='Meal Modal'
     >
       <div className='modalHeader'>
         <Typography variant='h4'>Add a meal for {props.date.toDateString()}</Typography>
-        <Button variant='contained' startIcon={<ChevronLeft />} onClick={(props) => handleReturn(props)}>Return</Button>
+        <Button variant='contained' startIcon={<ChevronLeft />} onClick={() => handleReturn(props)}>Return</Button>
       </div>
       <form id='mealModalForm' onSubmit={(event) => handleSubmit(event, props, mealName, mealNum, ingredients, description)}>
         <FormControl className="input-field">
