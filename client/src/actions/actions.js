@@ -87,7 +87,7 @@ export const addMeal = (payload, uid) => {
   }).catch(error => log(error))
 }
 
-export const setIngredients = (payload, uid) => {
+export const setUserIngredients = (payload, uid) => {
   const request = new Request(`/api/users/${uid}/ingredients`, {
     method: 'PATCH',
     body: JSON.stringify(payload),
