@@ -6,7 +6,7 @@ import { getUserById } from '../../actions/actions'
 import 'react-calendar/dist/Calendar.css'
 import './style.css'
 
-import NavBar from '../NavBar'
+import NavBar from '../../components/general/NavBar'
 import MealModal from '../../components/calendar/MealModal'
 import ListModal from '../ListModal'
 import ShoppingModal from '../ShoppingModal'

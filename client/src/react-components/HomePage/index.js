@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar'
+import NavBar from '../../components/general/NavBar'
 import Footer from '../Footer'
 import { Button, Card, CardActions, CardMedia, CardHeader, Typography, Divider, List, ListItem, ListItemText, ListItemAvatar } from '@material-ui/core'
 import { Add, Edit, Visibility, EventAvailable, MonetizationOn, Timer, Delete } from '@material-ui/icons'

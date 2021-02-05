@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar'
+import NavBar from '../../components/general/NavBar'
 import { login, createUser } from '../../actions/actions.js'
 import { Button, TextField, FormControl, Typography } from '@material-ui/core'
 import { Person, PersonAdd } from '@material-ui/icons'

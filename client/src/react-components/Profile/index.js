@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import NavBar from '../NavBar'
+import NavBar from '../../components/general/NavBar'
 import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableContainer } from '@material-ui/core'
 import './style.css'
 import { getUserById } from '../../actions/actions'
