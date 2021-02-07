@@ -28,7 +28,7 @@ const mongoChecker = (req, res, next) => {
 
 const idChecker = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.id)) {
-    log('invalid id')
+    log('invalid user id:', req.params.id)
     res.status(404).send()
     return
   }

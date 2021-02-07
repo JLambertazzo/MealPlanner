@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/JLambertazzo/MealPlanner#readme",
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
+    "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "bcrypt": "^5.0.0",
@@ -31,9 +31,9 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "immer": "^8.0.1",
-    "mongodb": "^3.6.3",
-    "mongoose": "^5.11.7",
-    "nodemon": "^2.0.6",
+    "mongodb": "^3.6.4",
+    "mongoose": "^5.11.15",
+    "nodemon": "^2.0.7",
     "react-router": "^5.2.0"
   }
 }
