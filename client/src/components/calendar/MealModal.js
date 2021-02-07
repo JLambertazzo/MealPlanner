@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography, NativeSelect, List, ListItem } from '@material-ui/core'
+import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
-import { Autocomplete } from '@material-ui/lab'
 import { addMeal } from '../../actions/actions'
-import { uid } from 'react-uid'
+import IngredientList from '../general/IngredientList'
 import './MealModal.css'
 
 export default function MealModal (props) {
@@ -16,7 +15,6 @@ export default function MealModal (props) {
     qty: ''
   }])
   const [description, setDescription] = useState('')
-  const [options, setOptions] = useState(['one', 'two'])
 
   Modal.setAppElement('#root')
   return (
@@ -46,52 +44,12 @@ export default function MealModal (props) {
         </FormControl>
         <FormControl className='input-field list-holder'>
           <Typography variant='h5'>Ingredients:</Typography>
-          <List component='nav' aria-label='ingredient list'>
-            {
-              ingredients.map((ingredient, index) => {
-                return(
-                  <div key={uid(ingredient)}>
-                    <ListItem className='ingredientContainer' index={index}>
-                      <TextField type='number' label='Quantity' className='qInput' inputProps={{ type: 'number' }} onChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)} />
-                      <FormControl>
-                        <InputLabel htmlFor="units">Units</InputLabel>
-                        <NativeSelect
-                          className='uInput'
-                          value={ingredient.units}
-                          onChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
-                          name='units'
-                        >
-                          <optgroup label='Mass'>
-                            <option value='kg'>kilogram</option>
-                            <option value='g'>gram</option>
-                            <option value='oz'>ounce</option>
-                            <option value='lb'>pound</option>
-                          </optgroup>
-                          <optgroup label='Volume'>
-                            <option value='ml'>mL</option>
-                            <option value='l'>L</option>
-                            <option value='tsp'>teaspoon</option>
-                            <option value='Tbs'>tablespoon</option>
-                            <option value='cup'>cup</option>
-                            <option value='pnt'>pint</option>
-                          </optgroup>
-                        </NativeSelect>
-                      </FormControl>
-                      <Autocomplete
-                        style={{ minWidth: '175px', margin: '5px' }}
-                        options={options}
-                        groupBy={() => 'Suggestions:'}
-                        disableClearable
-                        freeSolo
-                        renderInput={(params) => <TextField {...params} label='Ingredient' /> }
-                      />
-                    </ListItem>
-                    <hr />
-                  </div>
-                )
-              })
-            }
-          </List>
+          <IngredientList
+            ingredients={ingredients}
+            handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
+            handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
+            handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
+          />
           <Button variant='contained' onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         </FormControl>
         <FormControl className='input-field'>

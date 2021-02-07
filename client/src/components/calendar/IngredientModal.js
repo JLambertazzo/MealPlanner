@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { getUserById, setUserIngredients } from '../../actions/actions'
-import { Button, Typography, TextField, FormControl, NativeSelect, InputLabel } from '@material-ui/core'
+import { Button, Typography } from '@material-ui/core'
 import { Save, Add, ChevronLeft } from '@material-ui/icons'
-import { uid } from 'react-uid'
+import IngredientList from '../general/IngredientList'
 import './IngredientModal.css'
 
 export default function IngredientModal (props) {
@@ -22,45 +22,12 @@ export default function IngredientModal (props) {
         <Button onClick={props.exit} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
       </div>
       <div className='list-holder'>
-        <ul>
-          {
-            ingredients.map((ingredient, index) => {
-              return (
-                <div key={uid(ingredient)}>
-                  <li className='ingredientContainer' index={index}>
-                    <TextField label='Quantity' className='qInput' type='number' value={ingredient.qty} onChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)} />
-                    <FormControl>
-                      <InputLabel htmlFor="units">Units</InputLabel>
-                      <NativeSelect
-                        className='uInput'
-                        value={ingredients[index].units}
-                        onChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
-                        name='units'
-                      >
-                        <optgroup label='Mass'>
-                          <option value='kg'>kilogram</option>
-                          <option value='g'>gram</option>
-                          <option value='oz'>ounce</option>
-                          <option value='lb'>pound</option>
-                        </optgroup>
-                        <optgroup label='Volume'>
-                          <option value='ml'>mL</option>
-                          <option value='l'>L</option>
-                          <option value='tsp'>teaspoon</option>
-                          <option value='Tbs'>tablespoon</option>
-                          <option value='cup'>cup</option>
-                          <option value='pnt'>pint</option>
-                        </optgroup>
-                      </NativeSelect>
-                    </FormControl>
-                    <TextField label='Ingredient' className='nInput' type='text' value={ingredient.name} onChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)} />
-                  </li>
-                  <hr />
-                </div>
-              )
-            })
-          }
-        </ul>
+        <IngredientList
+          ingredients={ingredients}
+          handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
+          handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
+          handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
+        />
         <Button variant='contained' startIcon={<Add />} onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={saveData}>Save Data</Button>
       </div>
@@ -102,7 +69,15 @@ const handleIngredientUnitsChange = (event, ingredients, setIngredients) => {
 }
 
 const handleIngredientNameChange = (event, ingredients, setIngredients) => {
-  const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
+  const index = 0
+  // const index = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('index')
+  console.log(1, event.target.parentElement)
+  console.log(2, event.target.parentElement.parentElement)
+  console.log(3, event.target.parentElement.parentElement.parentElement)
+  console.log(4, event.target.parentElement.parentElement.parentElement.parentElement)
+  console.log(5, event.target.parentElement.parentElement.parentElement.parentElement.parentElement)
+  console.log(6, event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
+  console.log(7, event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
   const newIngredients = [...ingredients]
   newIngredients[index].name = event.target.value
   setIngredients(newIngredients)
