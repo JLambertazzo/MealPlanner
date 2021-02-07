@@ -18,39 +18,59 @@ export default function ListModal (props) {
     >
       <div className='modalHeader'>
         <Typography variant='h4'>Meals for {props.date.toDateString()}:</Typography>
+      </div>
+      {getModalBody(props, meals)}
+    </Modal>
+  )
+}
+
+const getModalBody = (props, meals) => {
+  if (meals.length === 0) {
+    return(
+      <div className='modalBody modalBodyEmpty'>
         <ButtonGroup id='controlButtons'>
           <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
           <Button variant='contained' onClick={props.exit} startIcon={<Close />}>Close</Button>
         </ButtonGroup>
       </div>
-      {meals.map(meal => {
-        return (
-          <Accordion key={uid(meal)}>
-            <AccordionSummary expandIcon={<ExpandMore />} ><Typography variant='h6'>{getMealText(meal.mealNum)} {meal.name}</Typography></AccordionSummary>
-            <AccordionDetails>
-              <div className='mealDetails'>
-                <Typography variant='h6'>Ingredients: </Typography>
-                <ul>
-                  {
-                    meal.ingredients.map(ingredient => {
-                      return (
-                        <li key={uid(ingredient)}>
-                          {ingredient.qty} {ingredient.units} of {ingredient.name}
-                        </li>)
-                    })
-                  }
-                </ul>
-              </div>
-              <div className='mealDetails'>
-                <Typography variant='h6'>Description:</Typography>
-                <ul>{meal.description}</ul>
-              </div>
-            </AccordionDetails>
-          </Accordion>
-        )
-      })}
-    </Modal>
-  )
+    )
+  } else {
+    return(
+      <div className='modalBody'>
+        {meals.map(meal => {
+          return (
+            <Accordion key={uid(meal)}>
+              <AccordionSummary expandIcon={<ExpandMore />} ><Typography variant='h6'>{getMealText(meal.mealNum)} {meal.name}</Typography></AccordionSummary>
+              <AccordionDetails>
+                <div className='mealDetails'>
+                  <Typography variant='h6'>Ingredients: </Typography>
+                  <ul>
+                    {
+                      meal.ingredients.map(ingredient => {
+                        return (
+                          <li key={uid(ingredient)}>
+                            {ingredient.qty} {ingredient.units} of {ingredient.name}
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+                <div className='mealDetails'>
+                  <Typography variant='h6'>Description:</Typography>
+                  <ul>{meal.description}</ul>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          )
+        })}
+        <ButtonGroup id='controlButtons'>
+          <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
+          <Button variant='contained' onClick={props.exit} startIcon={<Close />}>Close</Button>
+        </ButtonGroup>
+      </div>
+    )
+  }
 }
 
 const getMealsToday = (props, setMeals) => {

@@ -5,6 +5,8 @@
 #controlButtons {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 15px;
+  justify-content: center;
 }
 
 #controlButtons button {
@@ -63,4 +65,16 @@ summary:hover {
 
 .MuiAccordionDetails-root {
   flex-direction: column;
+}
+
+.modalBody {
+  width: 100%;
+  height: 90%;
+}
+
+.modalBodyEmpty {
+  border: dashed #c0c0c0 2px;
+  color: #c0c0c0;
+  display: grid;
+  place-items: center;
 }
