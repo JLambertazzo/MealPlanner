@@ -63,7 +63,7 @@ export default function NavBar (props) {
   }
 
   return (
-    <AppBar color='primary' position='static'>
+    <AppBar className={classes.navBar} position='static'>
       <Toolbar className='nav-wrapper'> 
         <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>MealPlanner</Typography></a>
         {getRightSide()}
@@ -90,6 +90,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexWrap: 'wrap'
+  },
+  navBar: {
+    background: '#303F9F !important',
+    color: '#f0f0f0 !important'
   }
 }))
 

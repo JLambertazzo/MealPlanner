@@ -80,4 +80,5 @@
 
 .nInput {
     margin: 5px !important;
+    min-width: 150px;
 }
