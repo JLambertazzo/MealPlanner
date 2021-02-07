@@ -22,7 +22,7 @@ export default function App () {
           <Route exact path='/calendar' render={() => <Calendar uid={uid} />} />
           <Route exact path='/login' render={(props) => <AuthForm {...props} showLogin />} />
           <Route exact path='/signup' render={(props) => <AuthForm {...props} />} />
-          <Route exact path='/profile' render={() => <Profile uid={this.state.uid} />} />
+          <Route exact path='/profile' render={() => <Profile uid={uid} />} />
         </Switch>
       </BrowserRouter>
     </ThemeProvider>

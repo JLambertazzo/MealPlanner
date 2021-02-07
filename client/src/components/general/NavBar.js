@@ -93,7 +93,8 @@ const useStyles = makeStyles((theme) => ({
   },
   navBar: {
     background: '#303F9F !important',
-    color: '#f0f0f0 !important'
+    color: '#f0f0f0 !important',
+    zIndex: '5'
   }
 }))
 

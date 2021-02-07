@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import NavBar from '../../components/general/NavBar'
 import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableContainer } from '@material-ui/core'
 import './Profile.css'
@@ -10,7 +10,12 @@ export default function Profile (props) {
   const [ingredients, setIngredients] = useState([])
   const [meals, setMeals] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const firstRender = useRef(true)
   useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
     getData(props.uid, setUsername, setIngredients, setMeals, setIsLoading)
   }, [props.uid])
 
