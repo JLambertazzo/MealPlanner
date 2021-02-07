@@ -46,6 +46,7 @@ export default function MealModal (props) {
           <Typography variant='h5'>Ingredients:</Typography>
           <IngredientList
             ingredients={ingredients}
+            uid={props.uid}
             handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
             handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
             handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
@@ -91,7 +92,7 @@ const handleIngredientUnitsChange = (event, ingredients, setIngredients) => {
 }
 
 const handleIngredientNameChange = (event, ingredients, setIngredients) => {
-  const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
+  const index = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('index')
   const newIngredients = [...ingredients]
   newIngredients[index].name = event.target.value
   setIngredients(newIngredients)

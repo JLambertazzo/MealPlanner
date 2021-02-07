@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Calendar from 'react-calendar'
 import { Button } from '@material-ui/core'
 import { List, Edit } from '@material-ui/icons'
@@ -13,7 +13,12 @@ import ShoppingModal from '../../components/calendar/ShoppingModal'
 import IngredientModal from '../../components/calendar/IngredientModal'
 
 export default function CalendarView (props) {
+  const firstUpdate = useRef(true)
   useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false
+      return
+    }
     getUserById(props.uid).then(user => {
       if (!user) {
         return

@@ -1,10 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { List, ListItem, FormControl, InputLabel, NativeSelect, TextField } from '@material-ui/core'
 import { Autocomplete } from '@material-ui/lab'
+import { getUserById } from '../../actions/actions'
 import { uid } from 'react-uid'
 
 export default function IngredientList (props) {
-  const [options, setOptions] = useState(['one', 'two'])
+  const [options, setOptions] = useState(['Loading...'])
+  useEffect(() => {
+    getUserById(props.uid).then(user => {
+      if (!user || user.ingredients.length === 0) {
+        setOptions(['None Found'])
+      } else {
+        setOptions(user.ingredients.map(ingredient => ingredient.name))
+      }
+    })
+  }, [props.uid])
   return (
     <List component='nav' aria-label='ingredient list'>
       {
@@ -18,6 +28,7 @@ export default function IngredientList (props) {
                   className='qInput'
                   inputProps={{ type: 'number' }}
                   onChange={props.handleQtyChange}
+                  value={ingredient.qty}
                 />
                 <FormControl>
                   <InputLabel htmlFor="units">Units</InputLabel>
@@ -49,6 +60,7 @@ export default function IngredientList (props) {
                   groupBy={() => 'Suggestions:'}
                   disableClearable
                   freeSolo
+                  defaultValue={ingredient.name}
                   renderInput={(params) => <TextField {...params} label='Ingredient' onChange={props.handleNameChange} /> }
                 />
               </ListItem>

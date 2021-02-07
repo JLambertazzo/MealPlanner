@@ -12,7 +12,7 @@ export default function IngredientModal (props) {
     <Modal
       id='ingredientModal'
       isOpen={props.isOpen}
-      onAfterOpen={getData}
+      onAfterOpen={() => getData(props, setIngredients)}
       onRequestClose={props.exit}
       onAfterClose={() => afterClose(setIngredients)}
       contentLabel="Ingredients Modal"
@@ -24,12 +24,13 @@ export default function IngredientModal (props) {
       <div className='list-holder'>
         <IngredientList
           ingredients={ingredients}
+          uid={props.uid}
           handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
           handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
           handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
         />
         <Button variant='contained' startIcon={<Add />} onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
-        <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={saveData}>Save Data</Button>
+        <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={() => saveData(props, ingredients)}>Save Data</Button>
       </div>
     </Modal>
   )
@@ -37,7 +38,7 @@ export default function IngredientModal (props) {
 
 const getData = (props, setIngredients) => {
   getUserById(props.uid).then(user => {
-    if (user.ingredients.length !== 0) {
+    if (user && user.ingredients.length !== 0) {
       setIngredients(user.ingredients)
     }
   }).catch(error => console.log(error))
@@ -69,15 +70,7 @@ const handleIngredientUnitsChange = (event, ingredients, setIngredients) => {
 }
 
 const handleIngredientNameChange = (event, ingredients, setIngredients) => {
-  const index = 0
-  // const index = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('index')
-  console.log(1, event.target.parentElement)
-  console.log(2, event.target.parentElement.parentElement)
-  console.log(3, event.target.parentElement.parentElement.parentElement)
-  console.log(4, event.target.parentElement.parentElement.parentElement.parentElement)
-  console.log(5, event.target.parentElement.parentElement.parentElement.parentElement.parentElement)
-  console.log(6, event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
-  console.log(7, event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement)
+  const index = event.target.parentElement.parentElement.parentElement.parentElement.getAttribute('index')
   const newIngredients = [...ingredients]
   newIngredients[index].name = event.target.value
   setIngredients(newIngredients)
