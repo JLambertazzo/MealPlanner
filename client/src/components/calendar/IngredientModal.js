@@ -1,21 +1,25 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { getUserById, setUserIngredients } from '../../actions/actions'
-import { Button, Typography } from '@material-ui/core'
+import { Button, Typography, Snackbar, SnackbarContent, makeStyles } from '@material-ui/core'
 import { Save, Add, ChevronLeft } from '@material-ui/icons'
 import IngredientList from '../general/IngredientList'
 import './IngredientModal.css'
 
 export default function IngredientModal (props) {
   const [ingredients, setIngredients] = useState([{ name: '', units: 'cup', qty: '' }])
+  const [successOpen, setSuccessOpen] = useState(false)
+  const [errorOpen, setErrorOpen] = useState(false)
+  
+  const classes = useStyles()
   return (
     <Modal
-      id='ingredientModal'
-      isOpen={props.isOpen}
-      onAfterOpen={() => getData(props, setIngredients)}
-      onRequestClose={props.exit}
-      onAfterClose={() => afterClose(setIngredients)}
-      contentLabel="Ingredients Modal"
+    id='ingredientModal'
+    isOpen={props.isOpen}
+    onAfterOpen={() => getData(props, setIngredients)}
+    onRequestClose={props.exit}
+    onAfterClose={() => afterClose(setIngredients)}
+    contentLabel="Ingredients Modal"
     >
       <div className='modalHeader'>
         <Typography variant='h4'>My Ingredients:</Typography>
@@ -28,13 +32,46 @@ export default function IngredientModal (props) {
           handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
           handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
           handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
-        />
+          />
         <Button variant='contained' startIcon={<Add />} onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
-        <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={() => saveData(props, ingredients)}>Save Data</Button>
+        <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={() => saveData(props, ingredients, setSuccessOpen, setErrorOpen)}>Save Data</Button>
+        <Snackbar
+          open={successOpen}
+          onClose={() => setSuccessOpen(false)}
+          autoHideDuration={3000}
+          anchorOrigin={{ 
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          >
+          <SnackbarContent message='Saved Ingredients!' className={classes.successSnackbar} />
+        </Snackbar>
+        <Snackbar
+          open={errorOpen}
+          onClose={() => setErrorOpen(false)}
+          autoHideDuration={3000}
+          anchorOrigin={{ 
+            vertical: 'bottom',
+            horizontal: 'center'
+          }}
+          >
+          <SnackbarContent message='Error Saving Ingredients...' className={classes.errorSnackbar} />
+        </Snackbar>
       </div>
     </Modal>
   )
 }
+
+const useStyles = makeStyles({
+  errorSnackbar: {
+    background: 'red !important',
+    color: '#f0f0f0 !important'
+  },
+  successSnackbar: {
+    background: 'green !important',
+    color: '#f0f0f0 !important'
+  }
+})
 
 const getData = (props, setIngredients) => {
   getUserById(props.uid).then(user => {
@@ -44,14 +81,18 @@ const getData = (props, setIngredients) => {
   }).catch(error => console.log(error))
 }
 
-const saveData = (props, ingredients) => {
+const saveData = (props, ingredients, setSuccessOpen, setErrorOpen) => {
   ingredients.forEach(ingredient => {
     if (ingredient.qty === '') {
       ingredient.qty = 0
     }
   })
   setUserIngredients({ ingredients: ingredients }, props.uid).then(res => {
-    console.log('saved successfully') // TODO display in frontend
+    if (res) {
+      setSuccessOpen(true)
+    } else {
+      setErrorOpen(true)
+    }
   }).catch(error => console.log(error))
 }
 
