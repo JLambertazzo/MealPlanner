@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { Button, Accordion, AccordionSummary, AccordionDetails, ButtonGroup, Typography } from '@material-ui/core'
-import { Add, Close, ExpandMore } from '@material-ui/icons'
+import { Add, Close, ExpandMore, Restore } from '@material-ui/icons'
 import { getUserById } from '../../actions/actions'
 import { uid } from 'react-uid'
 import './ListModal.css'
@@ -28,8 +28,9 @@ const getModalBody = (props, meals) => {
   if (meals.length === 0) {
     return(
       <div className='modalBody modalBodyEmpty'>
-        <ButtonGroup id='controlButtons'>
+        <ButtonGroup id='controlButtons' orientation='vertical'>
           <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
+          <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Restore />}>My Meals</Button>
           <Button variant='contained' onClick={props.exit} startIcon={<Close />}>Close</Button>
         </ButtonGroup>
       </div>
