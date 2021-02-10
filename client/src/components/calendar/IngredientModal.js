@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { getUserById, setUserIngredients } from '../../actions/actions'
-import { Button, Typography, Snackbar, SnackbarContent, makeStyles } from '@material-ui/core'
-import { Save, Add, ChevronLeft } from '@material-ui/icons'
+import { Button, Typography, Snackbar, SnackbarContent, makeStyles, IconButton } from '@material-ui/core'
+import { Save, Add, ChevronLeft, ErrorOutline, Close, CheckCircleOutline } from '@material-ui/icons'
 import IngredientList from '../general/IngredientList'
 import './IngredientModal.css'
 
@@ -38,24 +38,32 @@ export default function IngredientModal (props) {
         <Snackbar
           open={successOpen}
           onClose={() => setSuccessOpen(false)}
-          autoHideDuration={3000}
+          autoHideDuration={4000}
           anchorOrigin={{ 
             vertical: 'bottom',
             horizontal: 'center'
           }}
           >
-          <SnackbarContent message='Saved Ingredients!' className={classes.successSnackbar} />
+          <SnackbarContent
+            message={<Typography variant='body1'><CheckCircleOutline className={classes.snackbarIcon} />Error Saving Ingredients...</Typography>}
+            action={<IconButton className={classes.snackbarIcon} aria-label='close snackbar'><Close /></IconButton>}
+            className={classes.successSnackbar}
+          />
         </Snackbar>
         <Snackbar
           open={errorOpen}
           onClose={() => setErrorOpen(false)}
-          autoHideDuration={3000}
+          autoHideDuration={4000}
           anchorOrigin={{ 
             vertical: 'bottom',
             horizontal: 'center'
           }}
           >
-          <SnackbarContent message='Error Saving Ingredients...' className={classes.errorSnackbar} />
+          <SnackbarContent
+            message={<Typography variant='body1'><ErrorOutline className={classes.snackbarIcon} />Error Saving Ingredients...</Typography>}
+            action={<IconButton className={classes.snackbarIcon} aria-label='close snackbar'><Close /></IconButton>}
+            className={classes.errorSnackbar} 
+          />
         </Snackbar>
       </div>
     </Modal>
@@ -70,6 +78,11 @@ const useStyles = makeStyles({
   successSnackbar: {
     background: 'green !important',
     color: '#f0f0f0 !important'
+  },
+  snackbarIcon: {
+    verticalAlign: 'text-bottom',
+    marginBottom: '0 !important',
+    color: '#f0f0f0'
   }
 })
 
