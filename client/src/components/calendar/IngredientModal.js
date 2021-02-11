@@ -10,16 +10,16 @@ export default function IngredientModal (props) {
   const [ingredients, setIngredients] = useState([{ name: '', units: 'cup', qty: '' }])
   const [successOpen, setSuccessOpen] = useState(false)
   const [errorOpen, setErrorOpen] = useState(false)
-  
+
   const classes = useStyles()
   return (
     <Modal
-    id='ingredientModal'
-    isOpen={props.isOpen}
-    onAfterOpen={() => getData(props, setIngredients)}
-    onRequestClose={props.exit}
-    onAfterClose={() => afterClose(setIngredients)}
-    contentLabel="Ingredients Modal"
+      id='ingredientModal'
+      isOpen={props.isOpen}
+      onAfterOpen={() => getData(props, setIngredients)}
+      onRequestClose={props.exit}
+      onAfterClose={() => afterClose(setIngredients)}
+      contentLabel="Ingredients Modal"
     >
       <div className='modalHeader'>
         <Typography variant='h4'>My Ingredients:</Typography>
@@ -32,7 +32,7 @@ export default function IngredientModal (props) {
           handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
           handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
           handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
-          />
+        />
         <Button variant='contained' startIcon={<Add />} onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={() => saveData(props, ingredients, setSuccessOpen, setErrorOpen)}>Save Data</Button>
         <Snackbar

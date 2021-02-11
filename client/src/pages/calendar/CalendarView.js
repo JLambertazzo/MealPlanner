@@ -81,7 +81,7 @@ export default function CalendarView (props) {
         />
         <MealModal
           uid={props.uid}
-          isOpen={showMealModal} 
+          isOpen={showMealModal}
           exit={() => setShowMealModal(false)}
           date={selectedDate}
           showListModal={toListModal}

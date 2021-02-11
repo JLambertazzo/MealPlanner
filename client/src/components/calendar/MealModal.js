@@ -7,13 +7,14 @@ import IngredientList from '../general/IngredientList'
 import './MealModal.css'
 
 export default function MealModal (props) {
-  const [mealName, setMealName] = useState('')
-  const [mealNum, setMealNum] = useState('')
-  const [ingredients, setIngredients] = useState([{
+  const defaultIngredient = {
     name: '',
     units: 'cup',
     qty: ''
-  }])
+  }
+  const [mealName, setMealName] = useState('')
+  const [mealNum, setMealNum] = useState('')
+  const [ingredients, setIngredients] = useState([defaultIngredient])
   const [description, setDescription] = useState('')
 
   Modal.setAppElement('#root')
@@ -30,16 +31,16 @@ export default function MealModal (props) {
         <Button variant='contained' startIcon={<ChevronLeft />} onClick={() => handleReturn(props)}>Return</Button>
       </div>
       <form id='mealModalForm' onSubmit={(event) => handleSubmit(event, props, mealName, mealNum, ingredients, description)}>
-        <FormControl className="input-field">
+        <FormControl className='input-field'>
           <TextField label='Meal Name' onChange={(event) => setMealName(event.target.value)} required />
         </FormControl>
-        <FormControl className="input-field">
+        <FormControl className='input-field'>
           <InputLabel id='selectLabel' required>Meal:</InputLabel>
-          <Select labelId='selectLabel' name='mealNum' id="mealSelect" onChange={(event) => setMealNum(event.target.value)} required >
-            <MenuItem value="0">Breakfast</MenuItem>
-            <MenuItem value="1">Lunch</MenuItem>
-            <MenuItem value="2">Dinner</MenuItem>
-            <MenuItem value="3">Snack</MenuItem>
+          <Select labelId='selectLabel' name='mealNum' id='mealSelect' onChange={(event) => setMealNum(event.target.value)} required>
+            <MenuItem value='0'>Breakfast</MenuItem>
+            <MenuItem value='1'>Lunch</MenuItem>
+            <MenuItem value='2'>Dinner</MenuItem>
+            <MenuItem value='3'>Snack</MenuItem>
           </Select>
         </FormControl>
         <FormControl className='input-field list-holder'>

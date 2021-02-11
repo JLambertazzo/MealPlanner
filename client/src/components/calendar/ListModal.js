@@ -24,10 +24,10 @@ export default function ListModal (props) {
       </div>
       {getModalBody(props, meals, setShowMeals)}
       <ReuseModal
-         open={showMeals}
-         handleClose={() => setShowMeals(false)}
-         meals={allMeals}
-         handleSelect={meal => reuseMeal(props, meal, setMeals, setAllMeals)}
+        open={showMeals}
+        handleClose={() => setShowMeals(false)}
+        meals={allMeals}
+        handleSelect={meal => reuseMeal(props, meal, setMeals, setAllMeals)}
       />
     </Modal>
   )
@@ -35,7 +35,7 @@ export default function ListModal (props) {
 
 const getModalBody = (props, meals, setShowMeals) => {
   if (meals.length === 0) {
-    return(
+    return (
       <div className='modalBody modalBodyEmpty'>
         <ButtonGroup id='controlButtons' orientation='vertical'>
           <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
@@ -45,7 +45,7 @@ const getModalBody = (props, meals, setShowMeals) => {
       </div>
     )
   } else {
-    return(
+    return (
       <div className='modalBody'>
         {meals.map(meal => {
           return (
@@ -117,8 +117,9 @@ const getMealText = (mealNum) => {
 }
 
 const reuseMeal = (props, meal, setMeals, setAllMeals) => {
-  const payload = {...meal, date: props.date}
+  const validNum = meal.mealNum || 1
+  const payload = {...meal, date: props.date, mealNum: validNum}
   addMeal(payload, props.uid).then(() => {
     getMeals(props, setMeals, setAllMeals)
-  })
+  }).catch(error => console.log(error))
 }

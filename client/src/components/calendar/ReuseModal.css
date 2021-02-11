@@ -3,9 +3,21 @@
   color: #f0f0f0;
   box-shadow: black 0px 1px 3px 1px;
   min-width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
+
 
 #reuse-dialog-content {
   padding: 0;
-  max-height: 50%;
+  max-height: 40vh;
+}
+
+#reuse-meal-select {
+  min-width: 40px;
+}
+
+#reuse-meal-submit {
+  height: 56px;
 }
