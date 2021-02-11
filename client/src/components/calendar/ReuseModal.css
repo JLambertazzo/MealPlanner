@@ -1,0 +1,9 @@
+#reuse-dialog-title {
+  background: #303f9f;
+  color: #f0f0f0;
+  box-shadow: black 0px 1px 3px 1px;
+}
+
+#reuse-dialog-content {
+  padding: 0;
+}
