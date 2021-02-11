@@ -7,7 +7,7 @@ export default function ReuseModal (props) {
     <Dialog
         open={props.open}
         onClose={props.handleClose}
-        scroll="paper"
+        scroll='paper'
         aria-labelledby="reuse-dialog-title"
         aria-describedby="reuse-dialog-description"
       >
@@ -17,7 +17,11 @@ export default function ReuseModal (props) {
             {
               props.meals.map(meal => {
                 return (
-                  <ListItem button onClick={() => props.setValue(meal.name)} className='reuse-list-item'>
+                  <ListItem
+                    button
+                    onClick={() => props.handleSelect(meal)} 
+                    className='reuse-list-item'
+                  >
                     <ListItemText primary={meal.name}/>
                   </ListItem>
                 )

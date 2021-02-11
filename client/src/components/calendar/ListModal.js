@@ -3,14 +3,13 @@ import Modal from 'react-modal'
 import { Button, Accordion, AccordionSummary, AccordionDetails, ButtonGroup, Typography } from '@material-ui/core'
 import { Add, Close, ExpandMore, Restore } from '@material-ui/icons'
 import ReuseModal from './ReuseModal'
-import { getUserById } from '../../actions/actions'
+import { getUserById, addMeal } from '../../actions/actions'
 import { uid } from 'react-uid'
 import './ListModal.css'
 
 export default function ListModal (props) {
   const [meals, setMeals] = useState([])
   const [allMeals, setAllMeals] = useState([])
-  const [selectedMeal, setSelectedMeal] = useState(null)
   const [showMeals, setShowMeals] = useState(false)
   return (
     <Modal
@@ -28,7 +27,7 @@ export default function ListModal (props) {
          open={showMeals}
          handleClose={() => setShowMeals(false)}
          meals={allMeals}
-         setValue={value => setSelectedMeal(value)}
+         handleSelect={meal => reuseMeal(props, meal, setMeals, setAllMeals)}
       />
     </Modal>
   )
@@ -115,4 +114,11 @@ const getMealText = (mealNum) => {
   } else {
     return 'Snack:'
   }
+}
+
+const reuseMeal = (props, meal, setMeals, setAllMeals) => {
+  const payload = {...meal, date: props.date}
+  addMeal(payload, props.uid).then(() => {
+    getMeals(props, setMeals, setAllMeals)
+  })
 }
