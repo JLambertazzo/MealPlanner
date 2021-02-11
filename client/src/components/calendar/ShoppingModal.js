@@ -86,7 +86,7 @@ const getData = (props, time, setNeed) => {
     const now = new Date()
     let maxTime = new Date()
     if (time && time >= 0) {
-      maxTime.setDate(maxTime.getDate() + (this.state.time + 1))
+      maxTime.setDate(maxTime.getDate() + (time + 1))
     } else {
       maxTime = new Date(8640000000000000)
     }
@@ -113,6 +113,9 @@ const getData = (props, time, setNeed) => {
       }
     })
     setNeed(need)
+  }).catch(error => {
+    setNeed({ Error: {kg: ''} })
+    console.log(error)
   })
 }
 

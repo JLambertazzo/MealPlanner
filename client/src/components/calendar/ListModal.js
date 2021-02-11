@@ -117,7 +117,7 @@ const getMealText = (mealNum) => {
 }
 
 const reuseMeal = (props, meal, setMeals, setAllMeals) => {
-  const validNum = meal.mealNum || 1
+  const validNum = meal.mealNum === '' ? 1 : meal.mealNum
   const payload = {...meal, date: props.date, mealNum: validNum}
   addMeal(payload, props.uid).then(() => {
     getMeals(props, setMeals, setAllMeals)

@@ -7,14 +7,13 @@ import IngredientList from '../general/IngredientList'
 import './MealModal.css'
 
 export default function MealModal (props) {
-  const defaultIngredient = {
+  const [mealName, setMealName] = useState('')
+  const [mealNum, setMealNum] = useState('')
+  const [ingredients, setIngredients] = useState([{
     name: '',
     units: 'cup',
     qty: ''
-  }
-  const [mealName, setMealName] = useState('')
-  const [mealNum, setMealNum] = useState('')
-  const [ingredients, setIngredients] = useState([defaultIngredient])
+  }])
   const [description, setDescription] = useState('')
 
   Modal.setAppElement('#root')
