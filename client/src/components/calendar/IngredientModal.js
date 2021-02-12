@@ -45,7 +45,7 @@ export default function IngredientModal (props) {
           }}
           >
           <SnackbarContent
-            message={<Typography variant='body1'><CheckCircleOutline className={classes.snackbarIcon} />Error Saving Ingredients...</Typography>}
+            message={<Typography variant='body1'><CheckCircleOutline className={classes.snackbarIcon} />Successfully Saved Ingredients...</Typography>}
             action={<IconButton className={classes.snackbarIcon} aria-label='close snackbar'><Close /></IconButton>}
             className={classes.successSnackbar}
           />

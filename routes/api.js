@@ -94,7 +94,9 @@ router.post('/api/users', mongoChecker, async (req, res) => {
       username: req.body.username,
       password: req.body.password,
       meals: [],
-      ingredients: []
+      mealHistory: [],
+      ingredients: [],
+      ingredientHistory: []
     })
 
     try {
@@ -170,6 +172,14 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   }
   User.findById(req.params.id).then(result => {
     if (result) {
+      if (!result.meals.find(resMeal => resMeal.name === meal.name && sameIngredients(meal.ingredients, resMeal.ingredients))) {
+        result.mealHistory.push(meal)
+      }
+      ingredients.forEach(ingredient => {
+        if (!result.ingredientHistory.includes(ingredient.name)) {
+          result.ingredientHistory.push(ingredient.name)
+        }
+      })
       result.meals.push(meal)
       result.save()
       res.send(result)
@@ -186,6 +196,19 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   })
 })
 
+//helper function for adding to history
+const sameIngredients = (ingredients, resIngredients) => {
+  ingredients.forEach((ingredient, index) => {
+    if (!resIngredients[index] ||
+      ingredient.name !== resIngredients[index].name ||
+      ingredient.qty !== resIngredients[index].qty ||
+      ingredient.units !== resIngredients[index].units) {
+        return true
+    }
+  })
+  return false
+}
+
 // Set ingredients
 // expects:
 // {
@@ -198,6 +221,11 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
 router.patch('/api/users/:id/ingredients', mongoChecker, idChecker, (req, res) => {
   User.findByIdAndUpdate(req.params.id, { $set: { ingredients: req.body.ingredients }}).then(result => {
     if (result) {
+      req.body.ingredients.forEach(ingredient => {
+        if (!result.mealHistory.includes(ingredient.name)) {
+          result.mealHistory.push(ingredient.name)
+        }
+      })
       res.send(result)
     } else {
       res.status(404).send('resource not found')

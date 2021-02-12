@@ -49,7 +49,9 @@ const UserSchema = new mongoose.Schema({
     required: true
   },
   meals: [MealSchema],
-  ingredients: [ingredientsSchema]
+  mealHistory: [MealSchema],
+  ingredients: [ingredientsSchema],
+  ingredientHistory: [String]
 })
 
 UserSchema.pre('save', function (next) {

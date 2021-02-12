@@ -9,13 +9,13 @@ import './ListModal.css'
 
 export default function ListModal (props) {
   const [meals, setMeals] = useState([])
-  const [allMeals, setAllMeals] = useState([])
+  const [loadMeals, setLoadMeals] = useState([])
   const [showMeals, setShowMeals] = useState(false)
   return (
     <Modal
       id='listModal'
       isOpen={props.isOpen}
-      onAfterOpen={() => getMeals(props, setMeals, setAllMeals)}
+      onAfterOpen={() => getMeals(props, setMeals, setLoadMeals)}
       onRequestClose={props.exit}
       contentLabel='List Modal'
     >
@@ -26,8 +26,8 @@ export default function ListModal (props) {
       <ReuseModal
         open={showMeals}
         handleClose={() => setShowMeals(false)}
-        meals={allMeals}
-        handleSelect={meal => reuseMeal(props, meal, setMeals, setAllMeals)}
+        meals={loadMeals}
+        handleSelect={meal => reuseMeal(props, meal, setMeals, setLoadMeals)}
       />
     </Modal>
   )
@@ -39,7 +39,7 @@ const getModalBody = (props, meals, setShowMeals) => {
       <div className='modalBody modalBodyEmpty'>
         <ButtonGroup id='controlButtons' orientation='vertical'>
           <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
-          <Button variant='contained' onClick={() => setShowMeals(true)} startIcon={<Restore />}>My Meals</Button>
+          <Button variant='contained' onClick={() => setShowMeals(true)} startIcon={<Restore />}>Load Meal</Button>
           <Button variant='contained' onClick={props.exit} startIcon={<Close />}>Close</Button>
         </ButtonGroup>
       </div>
@@ -76,6 +76,7 @@ const getModalBody = (props, meals, setShowMeals) => {
         })}
         <ButtonGroup id='controlButtons'>
           <Button variant='contained' onClick={() => showMealModal(props)} startIcon={<Add />}>New Meal</Button>
+          <Button variant='contained' onClick={() => setShowMeals(true)} startIcon={<Restore />}>Load Meals</Button>
           <Button variant='contained' onClick={props.exit} startIcon={<Close />}>Close</Button>
         </ButtonGroup>
       </div>
@@ -83,7 +84,7 @@ const getModalBody = (props, meals, setShowMeals) => {
   }
 }
 
-const getMeals = (props, setMeals, setAllMeals) => {
+const getMeals = (props, setMeals, setLoadMeals) => {
   if (!props.uid) {
     return
   }
@@ -93,7 +94,7 @@ const getMeals = (props, setMeals, setAllMeals) => {
         const mealDate = new Date(element.date)
         return (mealDate.toDateString() === props.date.toDateString())
       })
-      setAllMeals(user.meals)
+      setLoadMeals(user.mealHistory)
       setMeals(mealsToday)
     }
   }).catch(error => console.log(error))
@@ -116,10 +117,10 @@ const getMealText = (mealNum) => {
   }
 }
 
-const reuseMeal = (props, meal, setMeals, setAllMeals) => {
+const reuseMeal = (props, meal, setMeals, setLoadMeals) => {
   const validNum = meal.mealNum === '' ? 1 : meal.mealNum
   const payload = {...meal, date: props.date, mealNum: validNum}
   addMeal(payload, props.uid).then(() => {
-    getMeals(props, setMeals, setAllMeals)
+    getMeals(props, setMeals, setLoadMeals)
   }).catch(error => console.log(error))
 }

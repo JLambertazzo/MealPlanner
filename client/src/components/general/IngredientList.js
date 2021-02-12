@@ -8,10 +8,10 @@ export default function IngredientList (props) {
   const [options, setOptions] = useState(['Loading...'])
   useEffect(() => {
     getUserById(props.uid).then(user => {
-      if (!user || user.ingredients.length === 0) {
+      if (!user || user.ingredientHistory.length === 0) {
         setOptions(['None Found'])
       } else {
-        setOptions(user.ingredients.map(ingredient => ingredient.name))
+        setOptions(user.ingredientHistory)
       }
     })
   }, [props.uid])
@@ -61,7 +61,7 @@ export default function IngredientList (props) {
                   disableClearable
                   freeSolo
                   defaultValue={ingredient.name}
-                  renderInput={(params) => <TextField {...params} label='Ingredient' onChange={props.handleNameChange} /> }
+                  renderInput={(params) => <TextField {...params} label='Ingredient' onSelect={props.handleNameChange} /> }
                 />
               </ListItem>
               <hr />
