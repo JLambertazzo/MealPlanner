@@ -25,7 +25,10 @@ export default function ReuseModal (props) {
                   onClick={() => props.handleSelect({...meal, mealNum: mealNum})}
                   className='reuse-list-item'
                 >
-                  <ListItemText primary={meal.name} />
+                  <ListItemText
+                    className='reuse-list-text'
+                    primary={meal.name}
+                    secondary={getMealSecondary(meal)} />
                 </ListItem>
               )
             })
@@ -59,3 +62,14 @@ export default function ReuseModal (props) {
     </Dialog>
   )
 }
+
+const getMealSecondary = (meal) => {
+  return(
+    <span>{meal.description}<br/>ingredients: {meal.ingredients.reduce((acc, curr, index) => {
+      if (index > 2) {
+        return acc
+      }
+      return acc = `${acc}${curr.name}, `
+  }, '')}</span>
+  )
+} 

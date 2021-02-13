@@ -8,10 +8,20 @@
   justify-content: space-between;
 }
 
-
 #reuse-dialog-content {
   padding: 0;
   max-height: 40vh;
+}
+
+.reuse-list-text {
+  display: block;
+  max-width: 25vw;
+}
+
+.reuse-list-text>span, .reuse-list-text>p {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #reuse-meal-select {
