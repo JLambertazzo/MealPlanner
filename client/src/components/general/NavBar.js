@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, IconButton } from '@material-ui/core'
-import { Person, ExitToApp, PersonAdd } from '@material-ui/icons'
+import { Person, ExitToApp, PersonAdd, CalendarToday } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import { getUserById } from '../../actions/actions'
@@ -55,6 +55,7 @@ export default function NavBar (props) {
             onClose={() => setUserAnchorEl(null)}
           >
             <MenuItem><a href='/profile' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
+            <MenuItem><a href='/calendar' className={classes.iconTextMix}><CalendarToday />My Calendar</a></MenuItem>
             <MenuItem><a href='/logout' className={classes.iconTextMix}><ExitToApp />Log Out</a></MenuItem>
           </Menu>
         </div>

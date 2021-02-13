@@ -22,15 +22,12 @@ export default function Profile (props) {
   return (
     <div id='profileWrapper'>
       <NavBar uid={props.uid} />
-      <div id='loading' className={isLoading ? '' : 'hide'}>
-        <Typography variant='h1'>Loading...</Typography>
-      </div>
       <div id='profileContent'>
         <div id='profileLeft' className='profileInfo'>
           <img src='favicon.ico' alt='temporary icon' />
           <Typography variant='h4'>{username}</Typography>
-          <Typography variant='body2'>{meals.length} meals created</Typography>
-          <Typography variant='body2'>{ingredients.length} ingredients used</Typography>
+          <Typography variant='body2'>{isLoading ? '[loading...]' : meals.length } meals created</Typography>
+          <Typography variant='body2'>{isLoading ? '[loading...]' : ingredients.length} ingredients used</Typography>
         </div>
         <div id='profileRight' class='profileInfo'>
           <div id='myMeals' className='tablediv'>
@@ -43,7 +40,7 @@ export default function Profile (props) {
                 </TableHead>
                 <TableBody>
                   {
-                    meals.map(meal => {
+                    isLoading ? 'Loading...' : meals.map(meal => {
                       return (
                         <TableRow className='row' key={uid(meal)}>
                           <TableCell><Typography color='textPrimary'>{meal}</Typography></TableCell>
@@ -65,7 +62,7 @@ export default function Profile (props) {
                 </TableHead>
                 <TableBody>
                   {
-                    ingredients.map(name => {
+                    isLoading ? 'Loading...' : ingredients.map(name => {
                       return (
                         <TableRow key={name} className='row'>
                           <TableCell><Typography color='textPrimary'>{name}</Typography></TableCell>
@@ -94,27 +91,23 @@ const getData = (uid, setUsername, setIngredients, setMeals, setIsLoading) => {
       return
     }
     setUsername(user.username)
-    if (user.meals.length === 0) {
+    if (user.mealHistory.length === 0) {
       setMeals(['None'])
     } else {
-      const meals = []
-      user.meals.forEach(meal => {
-        if (!meals.includes(meal.name)) {
-          meals.push(meal.name)
-        }
+      const mealHistory = []
+      user.mealHistory.forEach(meal => {
+        mealHistory.push(meal.name)
       })
-      setMeals(meals)
+      setMeals(mealHistory)
     }
-    if (user.ingredients.length === 0) {
+    if (user.ingredientHistory.length === 0) {
       setIngredients(['None'])
     } else {
-      const ingredients = []
-      user.ingredients.forEach(ingredient => {
-        if (!ingredients.includes(ingredient.name)) {
-          ingredients.push(ingredient.name)
-        }
+      const ingredientHistory = []
+      user.ingredientHistory.forEach(ingredient => {
+        ingredientHistory.push(ingredient.name)
       })
-      setIngredients(ingredients)
+      setIngredients(ingredientHistory)
     }
   })
   setIsLoading(false)
