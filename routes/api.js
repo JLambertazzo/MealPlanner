@@ -203,10 +203,10 @@ const sameIngredients = (ingredients, resIngredients) => {
       ingredient.name !== resIngredients[index].name ||
       ingredient.qty !== resIngredients[index].qty ||
       ingredient.units !== resIngredients[index].units) {
-        return true
+        return false
     }
   })
-  return false
+  return true
 }
 
 // Set ingredients
@@ -222,10 +222,11 @@ router.patch('/api/users/:id/ingredients', mongoChecker, idChecker, (req, res) =
   User.findByIdAndUpdate(req.params.id, { $set: { ingredients: req.body.ingredients }}).then(result => {
     if (result) {
       req.body.ingredients.forEach(ingredient => {
-        if (!result.mealHistory.includes(ingredient.name)) {
-          result.mealHistory.push(ingredient.name)
+        if (!result.ingredientHistory.includes(ingredient.name)) {
+          result.ingredientHistory.push(ingredient.name)
         }
       })
+      result.save()
       res.send(result)
     } else {
       res.status(404).send('resource not found')
