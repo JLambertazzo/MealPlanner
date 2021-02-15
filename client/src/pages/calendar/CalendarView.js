@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Calendar from 'react-calendar'
-import { Button, List, ListItem, ListItemText, Typography, Drawer } from '@material-ui/core'
-import { Edit } from '@material-ui/icons'
+import { List, ListItem, ListItemText, ListItemIcon, Typography, Drawer } from '@material-ui/core'
+import { Edit, ChevronRight, ChevronLeft } from '@material-ui/icons'
 import ListIcon from '@material-ui/icons/List'
 import { getUserById } from '../../actions/actions'
 import 'react-calendar/dist/Calendar.css'
@@ -14,6 +14,13 @@ import ShoppingModal from '../../components/calendar/ShoppingModal'
 import IngredientModal from '../../components/calendar/IngredientModal'
 
 export default function CalendarView (props) {
+  const [mealsByDate, setMealsByDate] = useState({})
+  const [showMealModal, setShowMealModal] = useState(false)
+  const [showListModal, setShowListModal] = useState(false)
+  const [showShoppingModal, setShowShoppingModal] = useState(false)
+  const [showIngredientModal, setShowIngredientModal] = useState(false)
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  const [showDrawer, setShowDrawer] = useState(false)
   const firstUpdate = useRef(true)
   useEffect(() => {
     if (firstUpdate.current) {
@@ -35,12 +42,9 @@ export default function CalendarView (props) {
       setMealsByDate(mealsByDate)
     })
   }, [props.uid])
-  const [mealsByDate, setMealsByDate] = useState({})
-  const [showMealModal, setShowMealModal] = useState(false)
-  const [showListModal, setShowListModal] = useState(false)
-  const [showShoppingModal, setShowShoppingModal] = useState(false)
-  const [showIngredientModal, setShowIngredientModal] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  useEffect(() => {
+    setShowDrawer(false)
+  }, [showMealModal, showListModal, showShoppingModal, showIngredientModal])
 
   const calendarContent = ({ date, view }) => {
     if (view === 'month' && props.uid) {
@@ -63,6 +67,37 @@ export default function CalendarView (props) {
       <NavBar uid={props.uid} />
       <div id='content'>
         <div id='main'>
+          <Drawer
+            id='calendar-action-drawer'
+            variant='permanent'
+            className={showDrawer ? 'full' : 'small'}
+          >
+            <List>
+              <ListItem button onClick={() => setShowDrawer(!showDrawer)}>
+                <ListItemIcon className='action-icon-container'>
+                  {showDrawer ? <ChevronLeft /> : <ChevronRight />}
+                </ListItemIcon>
+                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Close</Typography>}/>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button onClick={() => setShowShoppingModal(true)}>
+                <ListItemIcon className='action-icon-container'>
+                  <Edit />
+                </ListItemIcon>
+                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Shopping List</Typography>}/>
+              </ListItem>
+            </List>
+            <List>
+              <ListItem button onClick={() => setShowIngredientModal(true)}>
+                <ListItemIcon className='action-icon-container'>
+                  <ListIcon />
+                </ListItemIcon>
+                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>My Pantry</Typography>}/>
+              </ListItem>
+            </List>
+          </Drawer>
+          <div className={showDrawer ? 'shade' : 'shade hide'} onClick={() => setShowDrawer(false)}/>
           <Calendar
             className="custom-calendar-styles"
             calendarType='US'
@@ -123,6 +158,8 @@ const getTileContent = (meals) => {
                     <ListItemText primary={<Typography variant='body2'><b>{index === 2 ? '...' : meal.name}</b></Typography>} />
                   </ListItem>
                 )
+              } else {
+                return null
               }
             })
           }

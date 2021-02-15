@@ -31,6 +31,28 @@
   width: 100vw;
 }
 
+#calendar-action-drawer {
+  z-index: 3;
+  transition: width 1s;
+}
+
+#calendar-action-drawer>div {
+  padding-top: 80px;
+  transition: width 0.6s;
+}
+
+#calendar-action-drawer.small, #calendar-action-drawer.small>div {
+  width: 50px;
+}
+
+#calendar-action-drawer.full, #calendar-action-drawer.full>div {
+  width: 200px;
+}
+
+.action-icon-container {
+  min-width: 0 !important;
+}
+
 .hide {
   visibility: hidden;
 }
@@ -115,7 +137,15 @@
   width: 100%;
 }
 
+.ReactModalPortal>div {
+  z-index: 4;
+}
+
 @media only screen and (max-width: 1025px) {
+  #calendar-action-drawer.full, #calendar-action-drawer.full>div {
+    width: 150px;
+  }
+
   .calendar-list {
     padding: 0 4px !important;
   }
@@ -126,6 +156,29 @@
 }
 
 @media only screen and (max-width: 768px) {
+  #calendar-action-drawer.full {
+    width: 50px;
+  }
+  #calendar-action-drawer.full>div {
+    width: 200px;
+  }
+
+  .shade {
+    background: #a0a0a0;
+    opacity: 0.8;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    transition: opacity 0.4s;
+  }
+  
+  .shade.hide {
+    opacity: 0;
+  }
+
   .calendar-button-styles {
     flex-direction: column;
   }
