@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Calendar from 'react-calendar'
-import { Button } from '@material-ui/core'
-import { List, Edit } from '@material-ui/icons'
+import { Button, List, ListItem, ListItemText, Typography } from '@material-ui/core'
+import { Edit } from '@material-ui/icons'
+import ListIcon from '@material-ui/icons/List'
 import { getUserById } from '../../actions/actions'
 import 'react-calendar/dist/Calendar.css'
 import './CalendarView.css'
@@ -23,16 +24,18 @@ export default function CalendarView (props) {
       if (!user) {
         return
       }
-      const datesWithMeals = []
+      const mealsByDate = {}
       user.meals.forEach(meal => {
-        if (!datesWithMeals.includes(new Date(meal.date).toDateString())) {
-          datesWithMeals.push(new Date(meal.date).toDateString())
+        if (mealsByDate[new Date(meal.date).toDateString()]) {
+          mealsByDate[new Date(meal.date).toDateString()].push(meal)
+        } else {
+          mealsByDate[new Date(meal.date).toDateString()] = [meal]
         }
       })
-      setDatesWithMeals(datesWithMeals)
+      setMealsByDate(mealsByDate)
     })
   }, [props.uid])
-  const [datesWithMeals, setDatesWithMeals] = useState([])
+  const [mealsByDate, setMealsByDate] = useState({})
   const [showMealModal, setShowMealModal] = useState(false)
   const [showListModal, setShowListModal] = useState(false)
   const [showShoppingModal, setShowShoppingModal] = useState(false)
@@ -41,11 +44,7 @@ export default function CalendarView (props) {
 
   const calendarContent = ({ date, view }) => {
     if (view === 'month' && props.uid) {
-      if (datesWithMeals.includes(date.toDateString())) {
-        return (<div>.</div>)
-      } else {
-        return null
-      }
+      return getTileContent(mealsByDate[date.toDateString()])
     }
   }
 
@@ -65,10 +64,17 @@ export default function CalendarView (props) {
       <div id='content'>
         <div id='main'>
           <div>
-            <Calendar className="custom-calendar-styles" calendarType='US' onChange={(value) => handleChange(value, setShowListModal, setSelectedDate)} tileContent={calendarContent} minDetail='month' />
+            <Calendar
+              className="custom-calendar-styles"
+              calendarType='US'
+              onChange={(value) => handleChange(value, setShowListModal, setSelectedDate)}
+              tileContent={calendarContent}
+              tileClassName={'calendar-button-styles'}
+              minDetail='month'
+            />
           </div>
           <div id="buttonContainer" className={(showListModal || showMealModal || showShoppingModal || showIngredientModal ? 'hide' : '')}>
-            <Button color='primary' variant='contained' onClick={() => setShowShoppingModal(true)} startIcon={<List />}>My Shopping List</Button>
+            <Button color='primary' variant='contained' onClick={() => setShowShoppingModal(true)} startIcon={<ListIcon />}>My Shopping List</Button>
             <Button color='primary' variant='contained' onClick={() => setShowIngredientModal(true)} startIcon={<Edit />}>Edit My Pantry</Button>
           </div>
         </div>
@@ -104,4 +110,30 @@ export default function CalendarView (props) {
 const handleChange = (value, setShowListModal, setSelectedDate) => {
   setSelectedDate(value)
   setShowListModal(true)
+}
+
+const getTileContent = (meals) => {
+  if (meals) {
+    return(
+      <div>
+        <List className='calendar-list'>
+          {
+            meals.map((meal, index) => {
+              if (index < 3) {
+                return (  
+                  <ListItem className='calendar-list-item'>
+                    <ListItemText primary={<Typography variant='body2'><b>{index === 2 ? '...' : meal.name}</b></Typography>} />
+                  </ListItem>
+                )
+              }
+            })
+          }
+        </List>
+        <Typography className='meal-length-display' variant='body2'><b>{meals.length} meals</b></Typography>
+      </div>
+    )
+  } else {
+    console.log('null stuff')
+    return null
+  }
 }
