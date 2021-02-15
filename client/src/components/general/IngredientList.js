@@ -27,7 +27,7 @@ export default function IngredientList (props) {
                   label='Quantity'
                   className='qInput'
                   inputProps={{ type: 'number' }}
-                  onChange={props.handleQtyChange}
+                  onInput={props.handleQtyChange}
                   value={ingredient.qty}
                 />
                 <FormControl>

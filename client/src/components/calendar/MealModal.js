@@ -12,7 +12,7 @@ export default function MealModal (props) {
   const [ingredients, setIngredients] = useState([{
     name: '',
     units: 'cup',
-    qty: ''
+    qty: 0
   }])
   const [description, setDescription] = useState('')
 
@@ -35,7 +35,7 @@ export default function MealModal (props) {
         </FormControl>
         <FormControl className='input-field'>
           <InputLabel id='selectLabel' required>Meal:</InputLabel>
-          <Select labelId='selectLabel' name='mealNum' id='mealSelect' onChange={(event) => setMealNum(event.target.value)} required>
+          <Select labelId='selectLabel' defaultValue='0' name='mealNum' id='mealSelect' onChange={(event) => setMealNum(event.target.value)} required>
             <MenuItem value='0'>Breakfast</MenuItem>
             <MenuItem value='1'>Lunch</MenuItem>
             <MenuItem value='2'>Dinner</MenuItem>
@@ -73,11 +73,15 @@ const handleReturn = (props) => {
 const handleClose = (setMealName, setMealNum, setIngredients, setDescription) => {
   setMealName('')
   setMealNum('')
-  setIngredients([{ name: '', units: 'cup', qty: '' }])
+  setIngredients([{ name: '', units: 'cup', qty: 0 }])
   setDescription('')
 }
 
 const handleIngredientQtyChange = (event, ingredients, setIngredients) => {
+  if (!event.target.value.match(/\d+/) || parseInt(event.target.value) < 0) {
+    event.preventDefault()
+    return
+  }
   const index = event.target.parentElement.parentElement.parentElement.getAttribute('index')
   const newIngredients = [...ingredients]
   newIngredients[index].qty = event.target.value
@@ -100,7 +104,7 @@ const handleIngredientNameChange = (event, ingredients, setIngredients) => {
 
 const handleAddIngredient = (event, ingredients, setIngredients) => {
   event.preventDefault()
-  const newIngredients = [...ingredients, { name: '', units: 'cup', qty: '' }]
+  const newIngredients = [...ingredients, { name: '', units: 'cup', qty: 0 }]
   setIngredients(newIngredients)
 }
 
