@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Calendar from 'react-calendar'
 import { List, ListItem, ListItemText, ListItemIcon, Typography, Drawer } from '@material-ui/core'
-import { Edit, ChevronRight, ChevronLeft } from '@material-ui/icons'
+import { Edit, ChevronRight } from '@material-ui/icons'
 import ListIcon from '@material-ui/icons/List'
 import { getUserById } from '../../actions/actions'
 import 'react-calendar/dist/Calendar.css'
@@ -75,7 +75,7 @@ export default function CalendarView (props) {
             <List>
               <ListItem button onClick={() => setShowDrawer(!showDrawer)}>
                 <ListItemIcon className='action-icon-container'>
-                  {showDrawer ? <ChevronLeft /> : <ChevronRight />}
+                  <ChevronRight className={showDrawer ? 'drawer-control left' : 'drawer-control'} />
                 </ListItemIcon>
                 <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Close</Typography>}/>
               </ListItem>

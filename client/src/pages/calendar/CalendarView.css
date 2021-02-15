@@ -53,6 +53,14 @@
   min-width: 0 !important;
 }
 
+.drawer-control {
+  transition: all 0.6s !important;
+}
+
+.drawer-control.left {
+  transform: rotate(-180deg);
+}
+
 .hide {
   visibility: hidden;
 }
