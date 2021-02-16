@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Calendar from 'react-calendar'
-import { List, ListItem, ListItemText, ListItemIcon, Typography, Drawer } from '@material-ui/core'
-import { Edit, ChevronRight } from '@material-ui/icons'
-import ListIcon from '@material-ui/icons/List'
+import { Typography, List, ListItem, ListItemText } from '@material-ui/core'
 import { getUserById } from '../../actions/actions'
+import datetime from 'date-and-time'
 import 'react-calendar/dist/Calendar.css'
 import './CalendarView.css'
 
 import NavBar from '../../components/general/NavBar'
+import ActionDrawer from '../../components/calendar/ActionDrawer'
 import MealModal from '../../components/calendar/MealModal'
 import ListModal from '../../components/calendar/ListModal'
 import ShoppingModal from '../../components/calendar/ShoppingModal'
@@ -23,6 +23,7 @@ export default function CalendarView (props) {
   const [showDrawer, setShowDrawer] = useState(false)
   const firstUpdate = useRef(true)
   useEffect(() => {
+    console.log(window.innerWidth)
     if (firstUpdate.current) {
       firstUpdate.current = false
       return
@@ -67,32 +68,12 @@ export default function CalendarView (props) {
       <NavBar uid={props.uid} />
       <div id='content'>
         <div id='main'>
-          <Drawer
-            id='calendar-action-drawer'
-            variant='permanent'
-            className={showDrawer ? 'full' : 'small'}
-          >
-            <List>
-              <ListItem button onClick={() => setShowDrawer(!showDrawer)} className='action-list-item'>
-                <ListItemIcon className='action-icon-container'>
-                  <ChevronRight className={showDrawer ? 'drawer-control left' : 'drawer-control'} color='primary' />
-                </ListItemIcon>
-                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Close</Typography>}/>
-              </ListItem>
-              <ListItem button onClick={() => setShowShoppingModal(true)} className='action-list-item'>
-                <ListItemIcon className='action-icon-container'>
-                  <Edit color='primary' />
-                </ListItemIcon>
-                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Shopping List</Typography>}/>
-              </ListItem>
-              <ListItem button onClick={() => setShowIngredientModal(true)} className='action-list-item'>
-                <ListItemIcon className='action-icon-container'>
-                  <ListIcon  color='primary' />
-                </ListItemIcon>
-                <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>My Pantry</Typography>}/>
-              </ListItem>
-            </List>
-          </Drawer>
+          <ActionDrawer
+            showDrawer={showDrawer}
+            setShowDrawer={setShowDrawer}
+            setShowShoppingModal={setShowShoppingModal}
+            setShowIngredientModal={setShowIngredientModal} 
+          />
           <div className={showDrawer ? 'shade' : 'shade hide'} onClick={() => setShowDrawer(false)}/>
           <Calendar
             className="custom-calendar-styles"
@@ -100,6 +81,7 @@ export default function CalendarView (props) {
             onChange={(value) => handleChange(value, setShowListModal, setSelectedDate)}
             tileContent={calendarContent}
             tileClassName={'calendar-button-styles'}
+            formatShortWeekday={(locale, date) => datetime.format(date, (window.innerWidth > 768 ? 'dddd' : 'ddd'))}
             minDetail='month'
           />
         </div>
@@ -156,7 +138,7 @@ const getTileContent = (meals) => {
             })
           }
         </List>
-        <Typography className='meal-length-display' variant='body2'><b>{meals.length} meals</b></Typography>
+        <Typography className='meal-count-display' variant='body2'><b>{meals.length}<span className='meal-count-text'> meals</span></b></Typography>
       </div>
     )
   } else {
