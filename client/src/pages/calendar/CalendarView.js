@@ -41,7 +41,7 @@ export default function CalendarView (props) {
       })
       setMealsByDate(mealsByDate)
     })
-  }, [props.uid])
+  }, [props.uid, showMealModal, showListModal, showShoppingModal, showIngredientModal])
   useEffect(() => {
     setShowDrawer(false)
   }, [showMealModal, showListModal, showShoppingModal, showIngredientModal])
@@ -73,25 +73,21 @@ export default function CalendarView (props) {
             className={showDrawer ? 'full' : 'small'}
           >
             <List>
-              <ListItem button onClick={() => setShowDrawer(!showDrawer)}>
+              <ListItem button onClick={() => setShowDrawer(!showDrawer)} className='action-list-item'>
                 <ListItemIcon className='action-icon-container'>
-                  <ChevronRight className={showDrawer ? 'drawer-control left' : 'drawer-control'} />
+                  <ChevronRight className={showDrawer ? 'drawer-control left' : 'drawer-control'} color='primary' />
                 </ListItemIcon>
                 <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Close</Typography>}/>
               </ListItem>
-            </List>
-            <List>
-              <ListItem button onClick={() => setShowShoppingModal(true)}>
+              <ListItem button onClick={() => setShowShoppingModal(true)} className='action-list-item'>
                 <ListItemIcon className='action-icon-container'>
-                  <Edit />
+                  <Edit color='primary' />
                 </ListItemIcon>
                 <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>Shopping List</Typography>}/>
               </ListItem>
-            </List>
-            <List>
-              <ListItem button onClick={() => setShowIngredientModal(true)}>
+              <ListItem button onClick={() => setShowIngredientModal(true)} className='action-list-item'>
                 <ListItemIcon className='action-icon-container'>
-                  <ListIcon />
+                  <ListIcon  color='primary' />
                 </ListItemIcon>
                 <ListItemText className={showDrawer ? '' : 'hide'} primary={<Typography variant='body1'>My Pantry</Typography>}/>
               </ListItem>
@@ -106,10 +102,6 @@ export default function CalendarView (props) {
             tileClassName={'calendar-button-styles'}
             minDetail='month'
           />
-          {/* <div id="buttonContainer" className={(showListModal || showMealModal || showShoppingModal || showIngredientModal ? 'hide' : '')}>
-            <Button color='primary' variant='contained' onClick={() => setShowShoppingModal(true)} startIcon={<ListIcon />}>My Shopping List</Button>
-            <Button color='primary' variant='contained' onClick={() => setShowIngredientModal(true)} startIcon={<Edit />}>Edit My Pantry</Button>
-          </div> */}
         </div>
         <ListModal
           uid={props.uid}

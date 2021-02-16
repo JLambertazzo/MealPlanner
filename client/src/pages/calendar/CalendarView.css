@@ -33,16 +33,18 @@
 
 #calendar-action-drawer {
   z-index: 3;
-  transition: width 1s;
+  transition: width 0.6s;
 }
 
 #calendar-action-drawer>div {
   padding-top: 80px;
   transition: width 0.6s;
+  box-shadow: #e0e0e0 0 2px 10px 0;
+  background: #f5f5f5;
 }
 
 #calendar-action-drawer.small, #calendar-action-drawer.small>div {
-  width: 50px;
+  width: 60px;
 }
 
 #calendar-action-drawer.full, #calendar-action-drawer.full>div {
@@ -51,6 +53,10 @@
 
 .action-icon-container {
   min-width: 0 !important;
+}
+
+.action-list-item {
+  white-space: nowrap !important;
 }
 
 .drawer-control {
@@ -71,6 +77,7 @@
   border: none;
   display: flex;
   flex-direction: column;
+  background: #fafafa;
 }
 
 /* flexbox on hardcoded classes to use max height */
@@ -108,7 +115,7 @@
 
 /* For calendar button */
 .react-calendar__navigation button[disabled] {
-  background-color: white !important;
+  background-color: #fafafa !important;
   color: black;
 }
 
@@ -165,7 +172,7 @@
 
 @media only screen and (max-width: 768px) {
   #calendar-action-drawer.full {
-    width: 50px;
+    width: 60px;
   }
   #calendar-action-drawer.full>div {
     width: 200px;
