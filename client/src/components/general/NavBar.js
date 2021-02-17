@@ -26,7 +26,7 @@ export default function NavBar (props) {
             <ButtonGroup className='authButtons'>
               <Button variant='contained' onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
               <Button variant='contained' onClick={() => window.open('/login', '_self')}>Log In</Button>
-            </ButtonGroup> 
+            </ButtonGroup>
           </div>
           <div className={classes.mobileSection}>
             <IconButton edge='end' aria-controls='auth-menu' aria-haspopup='true' color='inherit' onClick={(event) => setAuthAnchorEl(event.target)}><MenuIcon /></IconButton>
@@ -65,7 +65,7 @@ export default function NavBar (props) {
 
   return (
     <AppBar className={classes.navBar} position='static'>
-      <Toolbar className='nav-wrapper'> 
+      <Toolbar className='nav-wrapper'>
         <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>MealPlanner</Typography></a>
         {getRightSide()}
       </Toolbar>
