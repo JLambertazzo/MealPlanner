@@ -83,6 +83,12 @@
   color: black;
 }
 
+/* weekday ellipsis on size change */
+.react-calendar__month-view__weekdays__weekday {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 .calendar-button-styles {
   display: flex;
   border: 1px solid #efefef !important;

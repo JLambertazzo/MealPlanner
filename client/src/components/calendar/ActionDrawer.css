@@ -11,7 +11,7 @@
 }
 
 #calendar-action-drawer.small, #calendar-action-drawer.small>div {
-  width: 60px;
+  width: 70px;
 }
 
 #calendar-action-drawer.full, #calendar-action-drawer.full>div {
@@ -27,22 +27,24 @@
 }
 
 .drawer-control {
+  transform: rotate(90deg);
   transition: all 0.6s !important;
 }
 
 .drawer-control.left {
-  transform: rotate(-180deg);
+  transform: rotate(-90deg);
 }
 
 @media only screen and (max-width: 1025px) {
   #calendar-action-drawer.full, #calendar-action-drawer.full>div {
-    width: 150px;
+    width: 200px;
+    box-shadow: none;
   }
 }
 
 @media only screen and (max-width: 768px) {
   #calendar-action-drawer.full {
-    width: 60px;
+    width: 70px;
   }
   #calendar-action-drawer.full>div {
     width: 200px;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
 import Calendar from 'react-calendar'
 import { Typography, List, ListItem, ListItemText } from '@material-ui/core'
 import { getUserById } from '../../actions/actions'
@@ -21,9 +21,9 @@ export default function CalendarView (props) {
   const [showIngredientModal, setShowIngredientModal] = useState(false)
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [showDrawer, setShowDrawer] = useState(false)
+  const width = useWidth()
   const firstUpdate = useRef(true)
   useEffect(() => {
-    console.log(window.innerWidth)
     if (firstUpdate.current) {
       firstUpdate.current = false
       return
@@ -81,7 +81,7 @@ export default function CalendarView (props) {
             onChange={(value) => handleChange(value, setShowListModal, setSelectedDate)}
             tileContent={calendarContent}
             tileClassName={'calendar-button-styles'}
-            formatShortWeekday={(locale, date) => datetime.format(date, (window.innerWidth > 768 ? 'dddd' : 'ddd'))}
+            formatShortWeekday={(locale, date) => datetime.format(date, (width > 768 ? 'dddd' : 'ddd'))}
             minDetail='month'
           />
         </div>
@@ -145,4 +145,17 @@ const getTileContent = (meals) => {
     console.log('null stuff')
     return null
   }
+}
+
+const useWidth = () => {
+  const [width, setWidth] = useState(0);
+  useLayoutEffect(() => {
+    function updateWidth() {
+      setWidth(window.innerWidth);
+    }
+    window.addEventListener('resize', updateWidth);
+    updateWidth();
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  return width;
 }
