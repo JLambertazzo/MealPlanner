@@ -88,10 +88,13 @@
   border: 1px solid #efefef !important;
 }
 
+.calendar-button-styles>div {
+  max-width: 95%;
+}
+
 .calendar-list {
   overflow: hidden;
   padding: 0 8px !important;
-  max-width: 80%;
 }
 
 .calendar-list-item {
@@ -164,8 +167,8 @@
 
   .meal-count-display {
     display: inherit;
-    font-size: 0.6rem !important;
-    padding: 0 2px !important;
+    font-size: 0.8rem !important;
+    padding: 0 3px !important;
   }
 }
 
