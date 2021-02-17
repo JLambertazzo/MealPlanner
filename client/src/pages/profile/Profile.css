@@ -3,7 +3,7 @@
 }
 
 #profileWrapper {
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 #profileLeft {
@@ -50,6 +50,11 @@
   margin: 15px;
   padding: 15px;
   border-radius: 15px;
+}
+
+/* override table style */
+.MuiTable-root {
+  min-width: 0;
 }
 
 @media only screen and (max-width: 500px) {

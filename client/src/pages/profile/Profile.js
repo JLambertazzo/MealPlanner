@@ -105,7 +105,7 @@ const getData = (uid, setUsername, setIngredients, setMeals, setIsLoading) => {
     } else {
       const ingredientHistory = []
       user.ingredientHistory.forEach(ingredient => {
-        ingredientHistory.push(ingredient.name)
+        ingredientHistory.push(ingredient)
       })
       setIngredients(ingredientHistory)
     }
