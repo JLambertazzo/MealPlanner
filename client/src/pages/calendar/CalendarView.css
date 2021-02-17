@@ -83,12 +83,6 @@
   color: black;
 }
 
-/* weekday ellipsis on size change */
-.react-calendar__month-view__weekdays__weekday {
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
 .calendar-button-styles {
   display: flex;
   border: 1px solid #efefef !important;
@@ -97,6 +91,7 @@
 .calendar-list {
   overflow: hidden;
   padding: 0 8px !important;
+  max-width: 80%;
 }
 
 .calendar-list-item {
@@ -113,7 +108,13 @@
   margin: 0;
 }
 
-.meal-length-display {
+.calendar-list-item p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.meal-count-display {
   display: none;
   padding: 0 4px !important;
   background: #303F9F;
@@ -161,7 +162,7 @@
     display: none;
   }
 
-  .meal-length-display {
+  .meal-count-display {
     display: inherit;
     font-size: 0.6rem !important;
     padding: 0 2px !important;
