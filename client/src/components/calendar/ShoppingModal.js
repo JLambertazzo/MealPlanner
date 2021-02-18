@@ -121,9 +121,9 @@ const getData = (props, time, setNeed) => {
 
 const convertUnits = (qty, units) => {
   if (['ml', 'l', 'tsp', 'Tbs', 'cup', 'pnt'].includes(units)) {
-    return [convert(qty).from(units).to('ml'), 'ml']
+    return [Math.round(convert(qty).from(units).to('ml')), 'ml']
   } else if (['kg', 'g', 'oz', 'lb'].includes(units)) {
-    return [convert(qty).from(units).to('kg'), 'kg']
+    return [Math.round(convert(qty).from(units).to('kg')), 'kg']
   } else {
     console.log('Error converting')
     return [qty, units]
