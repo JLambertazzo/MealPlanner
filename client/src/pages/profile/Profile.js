@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 import NavBar from '../../components/general/NavBar'
-import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableContainer } from '@material-ui/core'
+import { Typography, Table, TableBody, TableHead, TableRow, TableCell, TableContainer, IconButton } from '@material-ui/core'
+import { DeleteOutlineRounded } from '@material-ui/icons'
 import './Profile.css'
-import { getUserById } from '../../actions/actions'
+import { getUserById, deleteMealHistory, deleteIngredientHistory } from '../../actions/actions'
 import { uid } from 'react-uid'
 
 export default function Profile (props) {
@@ -18,6 +19,14 @@ export default function Profile (props) {
     }
     getData(props.uid, setUsername, setIngredients, setMeals, setIsLoading)
   }, [props.uid])
+
+  const handleDeleteMeal = (mid) => {
+    deleteMealHistory(props.uid, mid).then(getData(props.uid, setUsername, setIngredients, setMeals, setIsLoading))
+  }
+
+  const handleDeleteIngredient = (ingredient) => {
+    deleteIngredientHistory(props.uid, ingredient).then(getData(props.uid, setUsername, setIngredients, setMeals, setIsLoading))
+  }
 
   return (
     <div id='profileWrapper'>
@@ -36,6 +45,7 @@ export default function Profile (props) {
                 <TableHead className='primaryBack'>
                   <TableRow>
                     <TableCell><Typography variant='h6' color='secondary'>My Meals</Typography></TableCell>
+                    <TableCell />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -43,7 +53,8 @@ export default function Profile (props) {
                     isLoading ? 'Loading...' : meals.map(meal => {
                       return (
                         <TableRow className='row' key={uid(meal)}>
-                          <TableCell><Typography color='textPrimary'>{meal}</Typography></TableCell>
+                          <TableCell><Typography color='textPrimary'>{meal.name}</Typography></TableCell>
+                          <TableCell><IconButton className='delete-button' onClick={() => handleDeleteMeal(meal._id)}><DeleteOutlineRounded /></IconButton></TableCell>
                         </TableRow>
                       )
                     })
@@ -58,6 +69,7 @@ export default function Profile (props) {
                 <TableHead className='primaryBack'>
                   <TableRow>
                     <TableCell><Typography variant='h6' color='secondary'>My Ingredients</Typography></TableCell>
+                    <TableCell />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -66,6 +78,7 @@ export default function Profile (props) {
                       return (
                         <TableRow key={name} className='row'>
                           <TableCell><Typography color='textPrimary'>{name}</Typography></TableCell>
+                          <TableCell><IconButton className='delete-button' onClick={() => handleDeleteIngredient(name)}><DeleteOutlineRounded /></IconButton></TableCell>
                         </TableRow>
                       )
                     })
@@ -92,11 +105,11 @@ const getData = (uid, setUsername, setIngredients, setMeals, setIsLoading) => {
     }
     setUsername(user.username)
     if (user.mealHistory.length === 0) {
-      setMeals(['None'])
+      setMeals([{ name: 'None' }])
     } else {
       const mealHistory = []
       user.mealHistory.forEach(meal => {
-        mealHistory.push(meal.name)
+        mealHistory.push({ name: meal.name, _id: meal._id })
       })
       setMeals(mealHistory)
     }

@@ -136,3 +136,35 @@ export const deleteMeal = (uid, mid) => {
     return json
   }).catch(error => log(error))
 }
+
+export const deleteMealHistory = (uid, mid) => {
+  const request = new Request(`/api/users/${uid}/mealHistory/${mid}`, {
+    method: 'delete'
+  })
+
+  return fetch(request).then(res => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      log('error deleting meal')
+    }
+  }).then(json => {
+    return json
+  }).catch(error => log(error))
+}
+
+export const deleteIngredientHistory = (uid, ingredient) => {
+  const request = new Request(`/api/users/${uid}/ingredientHistory/${ingredient}`, {
+    method: 'delete'
+  })
+
+  return fetch(request).then(res => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      log('error deleting ingredient')
+    }
+  }).then(json => {
+    return json
+  }).catch(error => log(error))
+}

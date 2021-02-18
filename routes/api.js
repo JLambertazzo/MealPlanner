@@ -36,7 +36,7 @@ const idChecker = async (req, res, next) => {
 
 const mealIdChecker = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.mealId)) {
-    log('invalid id')
+    log('invalid meal id')
     res.status(404).send()
     return
   }
@@ -245,6 +245,53 @@ router.delete('/api/users/:id/meals/:mealId', mongoChecker, idChecker, mealIdChe
       return
     }
     user.meals = user.meals.filter(element => element._id.toString() !== req.params.mealId)
+    await user.save()
+    res.send(user)
+  } catch (error) {
+    log(error)
+    if (isMongoError(error)) {
+      res.status(500).send('internal server error')
+    } else {
+      res.status(400).send('bad request')
+    }
+  }
+})
+
+// Delete meal by mealId from mealhistory
+router.delete('/api/users/:id/mealHistory/:mealId', mongoChecker, idChecker, mealIdChecker, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (!user) {
+      res.status(404).send('resource not found')
+      return
+    }
+    const meal = user.mealHistory.id(req.params.mealId)
+    if (!meal) {
+      res.status(404).send('resource not found')
+      return
+    }
+    user.mealHistory = user.mealHistory.filter(element => element._id.toString() !== req.params.mealId)
+    await user.save()
+    res.send(user)
+  } catch (error) {
+    log(error)
+    if (isMongoError(error)) {
+      res.status(500).send('internal server error')
+    } else {
+      res.status(400).send('bad request')
+    }
+  }
+})
+
+// Delete ingredient from ingredienthistory
+router.delete('/api/users/:id/ingredientHistory/:ingredient', mongoChecker, idChecker, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (!user) {
+      res.status(404).send('resource not found')
+      return
+    }
+    user.ingredientHistory = user.ingredientHistory.filter(element => element !== req.params.ingredient)
     await user.save()
     res.send(user)
   } catch (error) {

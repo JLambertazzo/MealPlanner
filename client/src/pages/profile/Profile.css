@@ -57,6 +57,14 @@
   min-width: 0;
 }
 
+.row .delete-button {
+  visibility: hidden;
+}
+
+.row:hover .delete-button {
+  visibility: visible;
+}
+
 @media only screen and (max-width: 500px) {
   #profileContent {
     display: flex;
