@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { List, ListItem, FormControl, InputLabel, NativeSelect, TextField } from '@material-ui/core'
+import { List, ListItem, FormControl, InputLabel, NativeSelect, TextField, IconButton } from '@material-ui/core'
+import { Clear } from '@material-ui/icons'
 import { Autocomplete } from '@material-ui/lab'
 import { getUserById } from '../../actions/actions'
 import { uid } from 'react-uid'
@@ -63,6 +64,9 @@ export default function IngredientList (props) {
                   defaultValue={ingredient.name}
                   renderInput={(params) => <TextField {...params} label='Ingredient' onSelect={props.handleNameChange} /> }
                 />
+                <IconButton onClick={() => props.removeIngredient(index)}>
+                  <Clear />
+                </IconButton>
               </ListItem>
               <hr />
             </div>

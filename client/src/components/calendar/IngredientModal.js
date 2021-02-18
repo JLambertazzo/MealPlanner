@@ -32,6 +32,7 @@ export default function IngredientModal (props) {
           handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
           handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
           handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
+          removeIngredient={(index) => removeIngredient(index, ingredients, setIngredients)}
         />
         <Button variant='contained' startIcon={<Add />} onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         <Button id='saveButton' variant='contained' startIcon={<Save />} onClick={() => saveData(props, ingredients, setSuccessOpen, setErrorOpen)}>Save Data</Button>
@@ -137,4 +138,10 @@ const handleAddIngredient = (event, ingredients, setIngredients) => {
 
 const afterClose = (setIngredients) => {
   setIngredients([{ name: '', units: 'cup', qty: '' }])
+}
+
+const removeIngredient = (index, ingredients, setIngredients) => {
+  const newIngredients = [...ingredients]
+  newIngredients.splice(index, 1)
+  setIngredients(newIngredients)
 }

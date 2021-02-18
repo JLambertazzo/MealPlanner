@@ -49,6 +49,7 @@ export default function MealModal (props) {
             handleQtyChange={(event) => handleIngredientQtyChange(event, ingredients, setIngredients)}
             handleUnitsChange={(event) => handleIngredientUnitsChange(event, ingredients, setIngredients)}
             handleNameChange={(event) => handleIngredientNameChange(event, ingredients, setIngredients)}
+            removeIngredient={(index) => removeIngredient(index, ingredients, setIngredients)}
           />
           <Button variant='contained' onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         </FormControl>
@@ -119,4 +120,10 @@ const handleSubmit = (event, props, mealName, mealNum, ingredients, description)
     description: description
   }
   addMeal(payload, props.uid).then(() => handleReturn(props)).catch(error => console.log(error))
+}
+
+const removeIngredient = (index, ingredients, setIngredients) => {
+  const newIngredients = [...ingredients]
+  newIngredients.splice(index, 1)
+  setIngredients(newIngredients)
 }
