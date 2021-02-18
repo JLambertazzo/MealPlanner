@@ -73,6 +73,10 @@
     justify-content: center;
 }
 
+.input-field {
+    margin-top: 10px !important;
+}
+
 .qInput {
     margin: 5px !important;
     width: 100px;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, InputLabel, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, Button, TextField, MenuItem, Typography } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import IngredientList from '../general/IngredientList'
@@ -34,7 +34,6 @@ export default function MealModal (props) {
           <TextField label='Meal Name' onChange={(event) => setMealName(event.target.value)} required />
         </FormControl>
         <FormControl className='input-field'>
-          <InputLabel id='selectLabel' required>Meal:</InputLabel>
           <Select labelId='selectLabel' defaultValue='0' name='mealNum' id='mealSelect' onChange={(event) => setMealNum(event.target.value)} required>
             <MenuItem value='0'>Breakfast</MenuItem>
             <MenuItem value='1'>Lunch</MenuItem>
