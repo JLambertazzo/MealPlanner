@@ -83,6 +83,11 @@
   color: black;
 }
 
+/* Increased contrast for accessibility */
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #4d4d4d
+}
+
 .calendar-button-styles {
   display: flex;
   border: 1px solid #efefef !important;

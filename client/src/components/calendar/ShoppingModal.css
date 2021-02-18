@@ -2,6 +2,10 @@
   margin-top: 5vh;
 }
 
+#shoppingModal h3 {
+  font-size: 1.5rem !important;
+}
+
 #shoppingContainer {
   display: flex;
   flex-direction: column;
@@ -43,6 +47,14 @@
   border-radius: 5px;
   overflow: hidden;
   min-width: 190px;
+}
+
+.tablediv .MuiTypography-body1 {
+  font-size: 1.25rem;
+}
+
+.tablediv .MuiTypography-body2 {
+  font-size: 1rem;
 }
 
 paper > table {

@@ -21,7 +21,7 @@ export default function ListModal (props) {
       contentLabel='List Modal'
     >
       <div className='modalHeader'>
-        <Typography variant='h4'>Meals for {props.date.toDateString()}:</Typography>
+        <Typography variant='h2'>Meals for {props.date.toDateString()}:</Typography>
       </div>
       {getModalBody(props, meals, setShowMeals, setMeals, setLoadMeals)}
       <ReuseModal

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
-import { Select, FormControl, Button, TextField, MenuItem, Typography } from '@material-ui/core'
+import { Select, FormControl, Button, TextField, MenuItem, Typography, InputLabel } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
 import { addMeal } from '../../actions/actions'
 import IngredientList from '../general/IngredientList'
@@ -26,15 +26,16 @@ export default function MealModal (props) {
       contentLabel='Meal Modal'
     >
       <div className='modalHeader'>
-        <Typography variant='h4'>Add a meal for {props.date.toDateString()}</Typography>
+        <Typography variant='h2'>Add a meal for {props.date.toDateString()}</Typography>
         <Button variant='contained' startIcon={<ChevronLeft />} onClick={() => handleReturn(props)}>Return</Button>
       </div>
       <form id='mealModalForm' onSubmit={(event) => handleSubmit(event, props, mealName, mealNum, ingredients, description)}>
         <FormControl className='input-field'>
-          <TextField label='Meal Name' onChange={(event) => setMealName(event.target.value)} required />
+          <TextField label='Meal Name' id='meal-name' InputLabelProps={{ for: 'meal-name' }} onChange={(event) => setMealName(event.target.value)} required />
         </FormControl>
         <FormControl className='input-field'>
-          <Select labelId='selectLabel' defaultValue='0' name='mealNum' id='mealSelect' onChange={(event) => setMealNum(event.target.value)} required>
+          <InputLabel htmlFor='mealSelect' id='select-label'>For meal:</InputLabel>
+          <Select defaultValue='0' name='mealNum' id='mealSelect' labelId='select-label' inputProps={{ "aria-labelledby": 'select-label' }} onChange={(event) => setMealNum(event.target.value)} required>
             <MenuItem value='0'>Breakfast</MenuItem>
             <MenuItem value='1'>Lunch</MenuItem>
             <MenuItem value='2'>Dinner</MenuItem>
@@ -42,7 +43,7 @@ export default function MealModal (props) {
           </Select>
         </FormControl>
         <FormControl className='input-field list-holder'>
-          <Typography variant='h5'>Ingredients:</Typography>
+          <Typography variant='body'>Ingredients:</Typography>
           <IngredientList
             ingredients={ingredients}
             uid={props.uid}
@@ -54,7 +55,7 @@ export default function MealModal (props) {
           <Button variant='contained' onClick={(event) => handleAddIngredient(event, ingredients, setIngredients)}>Add Ingredient</Button>
         </FormControl>
         <FormControl className='input-field'>
-          <TextField label='Description' onChange={(event) => setDescription(event.target.value)} />
+          <TextField label='Description' id='meal-description' InputLabelProps={{ for: 'meal-description' }} onChange={(event) => setDescription(event.target.value)} />
         </FormControl>
         <div className='modalFooterButtons'>
           <Button startIcon={<Publish />} type='submit' variant='contained'>Submit</Button>

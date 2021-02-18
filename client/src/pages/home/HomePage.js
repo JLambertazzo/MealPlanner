@@ -14,13 +14,13 @@ export default function HomePage (props) {
         <div id='title'>
           <div>
             <Typography variant='h1'>MealPlanner</Typography>
-            <Button variant='contained' color='primary' onClick={() => window.open('/calendar', '_self')}><Typography variant='h6' color='secondary'>Get Started</Typography></Button>
+            <Button variant='contained' size='large' color='primary' onClick={() => window.open('/calendar', '_self')}><Typography variant='body1' font color='secondary'>Get Started</Typography></Button>
           </div>
           <div id='cards'>
             <Card>
               <CardHeader
                 avatar={<Add color='primary' />}
-                title={<Typography variant='h6'>Add Meals to Calendar</Typography>}
+                title={<Typography variant='body1'>Add Meals to Calendar</Typography>}
                 subheader={<Typography variant='body2' color='textSecondary'>Input details to plan out your meals!</Typography>}
               />
               <Divider />
@@ -29,6 +29,7 @@ export default function HomePage (props) {
                 component='img'
                 src='/addmeals.png'
                 title='add meals'
+                alt='adding meals to the calendar'
                 style={{ width: 'min(400px, 100vw)' }}
               />
               <Divider />
@@ -39,7 +40,7 @@ export default function HomePage (props) {
             <Card>
               <CardHeader
                 avatar={<Edit color='primary' />}
-                title={<Typography variant='h6'>Set Ingredients You Have</Typography>}
+                title={<Typography variant='body1'>Set Ingredients You Have</Typography>}
                 subheader={<Typography variant='body2' color='textSecondary'>Your shopping list will adjust accordingly!</Typography>}
               />
               <Divider />
@@ -47,6 +48,7 @@ export default function HomePage (props) {
                 component='img'
                 src='/setings.png'
                 title='set ingredients'
+                alt='setting ingredients you already have'
                 style={{ width: 'min(400px, 100vw)' }}
               />
               <Divider />
@@ -57,7 +59,7 @@ export default function HomePage (props) {
             <Card>
               <CardHeader
                 avatar={<Visibility color='primary' />}
-                title={<Typography variant='h6'>View Shopping List</Typography>}
+                title={<Typography variant='body1'>View Shopping List</Typography>}
                 subheader={<Typography variant='body2' color='textSecondary'>Ingredients are added as needed!</Typography>}
               />
               <Divider />
@@ -65,6 +67,7 @@ export default function HomePage (props) {
                 component='img'
                 src='/shoplist.png'
                 title='view shopping list'
+                alt='viewing the shopping list'
                 style={{ width: 'min(400px, 100vw)' }}
               />
               <Divider />
@@ -79,7 +82,7 @@ export default function HomePage (props) {
                 <EventAvailable color='primary' fontSize='large' />
               </ListItemAvatar>
               <ListItemText
-                primary={<Typography variant='h6'>Stick to a Plan!</Typography>}
+                primary={<Typography variant='body1'>Stick to a Plan!</Typography>}
                 secondary={<Typography variant='body2' color='textSecondary'>Whatever diet or meal plan you follow, we make it easy for you to stick to it</Typography>}
               />
             </ListItem>
@@ -89,7 +92,7 @@ export default function HomePage (props) {
                 <MonetizationOn color='primary' fontSize='large' />
               </ListItemAvatar>
               <ListItemText
-                primary={<Typography variant='h6'>Save Money!</Typography>}
+                primary={<Typography variant='body1'>Save Money!</Typography>}
                 secondary={<Typography variant='body2' color='textSecondary'>Easily plan out what you'll eat to avoid overspending</Typography>}
               />
             </ListItem>
@@ -99,7 +102,7 @@ export default function HomePage (props) {
                 <Timer color='primary' fontSize='large' />
               </ListItemAvatar>
               <ListItemText
-                primary={<Typography variant='h6'>Save Time!</Typography>}
+                primary={<Typography variant='body1'>Save Time!</Typography>}
                 secondary={<Typography variant='body2' color='textSecondary'>When you shop, you'll know exactly what to get. No more wandering the aisles</Typography>}
               />
             </ListItem>
@@ -109,7 +112,7 @@ export default function HomePage (props) {
                 <Delete color='primary' fontSize='large' />
               </ListItemAvatar>
               <ListItemText
-                primary={<Typography variant='h6'>Avoid Waste!</Typography>}
+                primary={<Typography variant='body1'>Avoid Waste!</Typography>}
                 secondary={<Typography variant='body2' color='textSecondary'>By planning out your meals, avoid buying things you won't eat</Typography>}
               />
             </ListItem>

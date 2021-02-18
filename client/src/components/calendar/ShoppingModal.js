@@ -20,16 +20,17 @@ export default function ShoppingModal (props) {
       contentLabel='Shopping List Modal'
     >
       <div className='modalHeader'>
-        <Typography variant='h4'>My Shopping List:</Typography>
+        <Typography variant='h2'>My Shopping List:</Typography>
         <Button onClick={props.exit} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
       </div>
+      <Typography variant='h3' align='center'>Needed Ingredients:</Typography>
       <div className='tablediv'>
         <TableContainer component='paper'>
           <Table aria-label='Ingredient Table'>
             <TableHead className='primaryBack'>
               <TableRow>
-                <TableCell><Typography variant='h6' color='secondary'>Ingredient</Typography></TableCell>
-                <TableCell><Typography variant='h6' color='secondary'>Quantity</Typography></TableCell>
+                <TableCell><Typography variant='body1' color='secondary'>Ingredient</Typography></TableCell>
+                <TableCell><Typography variant='body1' color='secondary'>Quantity</Typography></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -37,11 +38,11 @@ export default function ShoppingModal (props) {
                 Object.keys(need).map(name => {
                   return (
                     <TableRow key={name} className='row'>
-                      <TableCell><Typography color='textPrimary'>{name}</Typography></TableCell>
+                      <TableCell><Typography variant='body2' color='textPrimary'>{name}</Typography></TableCell>
                       {
                         Object.keys(need[name]).map(units => {
                           return (
-                            <TableCell component='th' scope='row' key={uid(units)}><Typography>{need[name][units]} {units}</Typography></TableCell>
+                            <TableCell component='th' scope='row' key={uid(units)}><Typography variant='body2'>{need[name][units]} {units}</Typography></TableCell>
                           )
                         })
                       }
@@ -53,13 +54,13 @@ export default function ShoppingModal (props) {
           </Table>
         </TableContainer>
       </div>
-      <Typography variant='h5' align='center'>Export List:</Typography>
+      <Typography variant='h3' align='center'>Export List:</Typography>
       <div id='exportContainer'>
         <Button variant='contained' onClick={() => handleCopy(need)} startIcon={<FileCopy />}>Copy to Clipboard</Button>
         <Button variant='contained' onClick={() => window.print()} startIcon={<Print />}>Print</Button>
         <Button variant='contained' onClick={() => handleEmail(need)} startIcon={<Email />}>Share by Email</Button>
       </div>
-      <Typography variant='h5' align='center'>Date Range to Shop For:</Typography>
+      <Typography variant='h3' align='center'>Date Range to Shop For:</Typography>
       <div id='dateRangeContainer'>
         <FormControl>
           <TextField
@@ -67,6 +68,8 @@ export default function ShoppingModal (props) {
             defaultValue={7}
             label='Date Range'
             className='qInput'
+            id='date-range'
+            InputLabelProps={{ for: 'date-range' }}
             inputProps={{ type: 'number', min: 1 }}
             onChange={(event) => handleTimeChange(event, props, time, setNeed, setTime)}
           />

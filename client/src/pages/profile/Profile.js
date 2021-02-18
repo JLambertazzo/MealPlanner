@@ -34,7 +34,7 @@ export default function Profile (props) {
       <div id='profileContent'>
         <div id='profileLeft' className='profileInfo'>
           <img src='favicon.ico' alt='temporary icon' />
-          <Typography variant='h4'>{username}</Typography>
+          <Typography variant='h2'>User: {username}</Typography>
           <Typography variant='body2'>{isLoading ? '[loading...]' : meals.length } meals created</Typography>
           <Typography variant='body2'>{isLoading ? '[loading...]' : ingredients.length} ingredients used</Typography>
         </div>
@@ -44,8 +44,8 @@ export default function Profile (props) {
               <Table aria-label='Meal Table'>
                 <TableHead className='primaryBack'>
                   <TableRow>
-                    <TableCell><Typography variant='h6' color='secondary'>My Meals</Typography></TableCell>
-                    <TableCell />
+                    <TableCell><Typography variant='h3' color='secondary'>My Meals</Typography></TableCell>
+                    <TableCell component='td' aria-label='None' />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -54,7 +54,7 @@ export default function Profile (props) {
                       return (
                         <TableRow className='row' key={uid(meal)}>
                           <TableCell><Typography color='textPrimary'>{meal.name}</Typography></TableCell>
-                          <TableCell><IconButton className='delete-button' onClick={() => handleDeleteMeal(meal._id)}><DeleteOutlineRounded /></IconButton></TableCell>
+                          <TableCell><IconButton aria-label='delete meal' className='delete-button' onClick={() => handleDeleteMeal(meal._id)}><DeleteOutlineRounded /></IconButton></TableCell>
                         </TableRow>
                       )
                     })
@@ -68,8 +68,8 @@ export default function Profile (props) {
               <Table aria-label='Ingredient Table'>
                 <TableHead className='primaryBack'>
                   <TableRow>
-                    <TableCell><Typography variant='h6' color='secondary'>My Ingredients</Typography></TableCell>
-                    <TableCell />
+                    <TableCell><Typography variant='h3' color='secondary'>My Ingredients</Typography></TableCell>
+                    <TableCell component='td' aria-label='None' />
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -78,7 +78,7 @@ export default function Profile (props) {
                       return (
                         <TableRow key={name} className='row'>
                           <TableCell><Typography color='textPrimary'>{name}</Typography></TableCell>
-                          <TableCell><IconButton className='delete-button' onClick={() => handleDeleteIngredient(name)}><DeleteOutlineRounded /></IconButton></TableCell>
+                          <TableCell><IconButton aria-label='delete ingredient' className='delete-button' onClick={() => handleDeleteIngredient(name)}><DeleteOutlineRounded /></IconButton></TableCell>
                         </TableRow>
                       )
                     })
@@ -95,11 +95,18 @@ export default function Profile (props) {
 
 const getData = (uid, setUsername, setIngredients, setMeals, setIsLoading) => {
   setIsLoading(true)
+  if (!uid) {
+    setUsername('not found')
+    setIngredients(['None'])
+    setMeals([{ name: 'None' }])
+    setIsLoading(false)
+    return
+  }
   getUserById(uid).then(user => {
     if (!user) {
-      setUsername('user not found')
+      setUsername('not found')
       setIngredients(['None'])
-      setMeals(['None'])
+      setMeals([{ name: 'None' }])
       setIsLoading(false)
       return
     }

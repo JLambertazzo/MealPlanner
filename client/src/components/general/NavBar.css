@@ -31,8 +31,12 @@ svg {
   margin-right: 5px;
 }
 
+.brand-logo h1 {
+  font-size: 2.3rem !important;
+}
+
 @media only screen and (max-width: 481px) {
-  .brand-logo h4 {
+  .brand-logo h1 {
     font-size: 1.85rem !important;
   }
 

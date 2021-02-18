@@ -52,9 +52,17 @@
   border-radius: 15px;
 }
 
+.profileInfo h2 {
+  font-size: 2.125rem !important;
+}
+
 /* override table style */
 .MuiTable-root {
   min-width: 0;
+}
+
+.primaryBack h3 {
+  font-size: 1.25rem !important;
 }
 
 .row .delete-button {

@@ -29,7 +29,15 @@ export default function NavBar (props) {
             </ButtonGroup>
           </div>
           <div className={classes.mobileSection}>
-            <IconButton edge='end' aria-controls='auth-menu' aria-haspopup='true' color='inherit' onClick={(event) => setAuthAnchorEl(event.target)}><MenuIcon /></IconButton>
+            <IconButton
+              edge='end'
+              aria-label='Navigation Menu'
+              aria-controls='auth-menu'
+              aria-haspopup='true'
+              color='inherit'
+              onClick={(event) => setAuthAnchorEl(event.target)}>
+                <MenuIcon />
+            </IconButton>
             <Menu
               id='auth-menu'
               anchorEl={authAnchorEl}
@@ -66,7 +74,7 @@ export default function NavBar (props) {
   return (
     <AppBar className={classes.navBar} position='static'>
       <Toolbar className='nav-wrapper'>
-        <a href='/' id='logo' className='brand-logo'><Typography variant='h4'>MealPlanner</Typography></a>
+        <a href='/' id='logo' className='brand-logo'><Typography variant='h1'>MealPlanner</Typography></a>
         {getRightSide()}
       </Toolbar>
     </AppBar>

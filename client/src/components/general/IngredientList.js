@@ -27,14 +27,17 @@ export default function IngredientList (props) {
                   type='number'
                   label='Quantity'
                   className='qInput'
+                  id={`qinput-${index}`}
+                  InputLabelProps={{ for: `qinput-${index}` }}
                   inputProps={{ type: 'number' }}
                   onInput={props.handleQtyChange}
                   value={ingredient.qty}
                 />
                 <FormControl>
-                  <InputLabel htmlFor="units">Units</InputLabel>
+                  <InputLabel htmlFor={`uinput-${index}`}>Units</InputLabel>
                   <NativeSelect
                     className='uInput'
+                    id={`uinput-${index}`}
                     value={ingredient.units}
                     onChange={props.handleUnitsChange}
                     name='units'
@@ -64,7 +67,7 @@ export default function IngredientList (props) {
                   defaultValue={ingredient.name}
                   renderInput={(params) => <TextField {...params} label='Ingredient' onSelect={props.handleNameChange} /> }
                 />
-                <IconButton onClick={() => props.removeIngredient(index)}>
+                <IconButton aria-label='remove entry' onClick={() => props.removeIngredient(index)}>
                   <Clear />
                 </IconButton>
               </ListItem>

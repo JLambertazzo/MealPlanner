@@ -10,8 +10,7 @@ export default function ReuseModal (props) {
       open={props.open}
       onClose={props.handleClose}
       scroll='paper'
-      aria-labelledby="reuse-dialog-title"
-      aria-describedby="reuse-dialog-description"
+      aria-label="reuse previous meals"
     >
       <DialogTitle id="reuse-dialog-title">Select Meal</DialogTitle>
       <DialogContent dividers id='reuse-dialog-content'>
@@ -37,11 +36,11 @@ export default function ReuseModal (props) {
       </DialogContent>
       <DialogActions>
         <FormControl variant="filled">
-          <InputLabel id="reuse-meal-label">Meal</InputLabel>
+          <InputLabel id='reuse-select-label' htmlFor='reuse-meal-select'>Meal</InputLabel>
           <Select
             variant='outlined'
-            labelId="reuse-meal-label"
             id='reuse-meal-select'
+            aria-labelledby='reuse-select-label'
             value={mealNum}
             onChange={(event) => setMealNum(event.target.value)}
           >

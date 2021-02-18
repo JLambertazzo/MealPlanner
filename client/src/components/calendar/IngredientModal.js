@@ -22,7 +22,7 @@ export default function IngredientModal (props) {
       contentLabel="Ingredients Modal"
     >
       <div className='modalHeader'>
-        <Typography variant='h4'>My Ingredients:</Typography>
+        <Typography variant='h2'>My Ingredients:</Typography>
         <Button onClick={props.exit} variant='contained' startIcon={<ChevronLeft />}>Return</Button>
       </div>
       <div className='list-holder'>

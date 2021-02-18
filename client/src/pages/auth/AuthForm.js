@@ -16,12 +16,12 @@ export default function AuthForm (props) {
         className='container'
         onSubmit={props.showLogin ? (event) => handleLogin(event, username, pass) : (event) => handleSignup(event, username, pass, confPass)}
       >
-        <Typography variant='h4'>{props.showLogin ? <Person /> : <PersonAdd />} {props.showLogin ? 'Log In' : 'Sign Up'}</Typography>
+        <Typography variant='h2'>{props.showLogin ? <Person /> : <PersonAdd />} {props.showLogin ? 'Log In' : 'Sign Up'}</Typography>
         <FormControl className='input-field'>
-          <TextField label='Username' onChange={(event) => setUsername(event.target.value)} inputProps={{ minLength: 5 }} required />
+          <TextField label='Username' id='username-input' InputLabelProps={{ for: 'username-input' }} onChange={(event) => setUsername(event.target.value)} inputProps={{ minLength: 5 }} required />
         </FormControl>
         <FormControl className='input-field'>
-          <TextField label='Password' type='password' onChange={(event) => setPass(event.target.value)} inputProps={{ minLength: 8 }} required />
+          <TextField label='Password' id='pass-input' InputLabelProps={{ for: 'pass-input' }} type='password' onChange={(event) => setPass(event.target.value)} inputProps={{ minLength: 8 }} required />
         </FormControl>
         {getConfPassField(props, setConfPass)}
         <FormControl className='input-field'>
@@ -42,6 +42,8 @@ const getConfPassField = (props, setConfPass) => {
           onChange={(event) => setConfPass(event.target.value)}
           inputProps={{ minLength: 8 }}
           required
+          id='confpass-input'
+          InputLabelProps={{ for: 'confpass-input' }}
         />
       </FormControl>)
   }
