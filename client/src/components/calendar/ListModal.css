@@ -54,6 +54,11 @@ summary:hover {
   }
 }
 
+.delete-button {
+  background: #f44336;
+  color: #f0f0f0;
+}
+
 .mealDetails {
   display: flex;
   flex-direction: column;

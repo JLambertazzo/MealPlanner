@@ -121,7 +121,7 @@ const handleChange = (value, setShowListModal, setSelectedDate) => {
 
 const getTileContent = (meals) => {
   if (meals) {
-    return(
+    return (
       <div>
         <List className='calendar-list'>
           {
@@ -142,7 +142,6 @@ const getTileContent = (meals) => {
       </div>
     )
   } else {
-    console.log('null stuff')
     return null
   }
 }

@@ -121,13 +121,9 @@ export const setUserIngredients = (payload, uid) => {
   }).catch(error => log(error))
 }
 
-export const deleteMeal = (payload, uid, mid) => {
+export const deleteMeal = (uid, mid) => {
   const request = new Request(`/api/users/${uid}/meals/${mid}`, {
-    method: 'delete',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    method: 'delete'
   })
 
   return fetch(request).then(res => {
@@ -135,26 +131,6 @@ export const deleteMeal = (payload, uid, mid) => {
       return res.json()
     } else {
       log('error deleting meal')
-    }
-  }).then(json => {
-    return json
-  }).catch(error => log(error))
-}
-
-export const deleteIngredient = (payload, uid, iid) => {
-  const request = new Request(`/api/users/${uid}/ingredients/${iid}`, {
-    method: 'delete',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  })
-
-  return fetch(request).then(res => {
-    if (res.ok) {
-      return res.json()
-    } else {
-      log('error deleting ingredient')
     }
   }).then(json => {
     return json

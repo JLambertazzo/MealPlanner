@@ -9,7 +9,6 @@ const { ObjectID } = require('mongodb')
 const { User } = require('../db/user')
 
 const bodyParse = require('body-parser')
-const { mongo } = require('mongoose')
 router.use(bodyParse.json())
 
 function isMongoError (error) {
@@ -37,15 +36,6 @@ const idChecker = async (req, res, next) => {
 
 const mealIdChecker = async (req, res, next) => {
   if (!ObjectID.isValid(req.params.mealId)) {
-    log('invalid id')
-    res.status(404).send()
-    return
-  }
-  next()
-}
-
-const ingredientIdChecker = async (req, res, next) => {
-  if (!ObjectID.isValid(req.params.ingredientId)) {
     log('invalid id')
     res.status(404).send()
     return
@@ -196,14 +186,14 @@ router.post('/api/users/:id/meals', mongoChecker, idChecker, (req, res) => {
   })
 })
 
-//helper function for adding to history
+// helper function for adding to history
 const sameIngredients = (ingredients, resIngredients) => {
   ingredients.forEach((ingredient, index) => {
     if (!resIngredients[index] ||
       ingredient.name !== resIngredients[index].name ||
       ingredient.qty !== resIngredients[index].qty ||
       ingredient.units !== resIngredients[index].units) {
-        return false
+      return false
     }
   })
   return true
@@ -219,7 +209,7 @@ const sameIngredients = (ingredients, resIngredients) => {
 //   }]
 // }
 router.patch('/api/users/:id/ingredients', mongoChecker, idChecker, (req, res) => {
-  User.findByIdAndUpdate(req.params.id, { $set: { ingredients: req.body.ingredients }}).then(result => {
+  User.findByIdAndUpdate(req.params.id, { $set: { ingredients: req.body.ingredients } }).then(result => {
     if (result) {
       req.body.ingredients.forEach(ingredient => {
         if (!result.ingredientHistory.includes(ingredient.name)) {
@@ -255,32 +245,6 @@ router.delete('/api/users/:id/meals/:mealId', mongoChecker, idChecker, mealIdChe
       return
     }
     user.meals = user.meals.filter(element => element._id.toString() !== req.params.mealId)
-    await user.save()
-    res.send(user)
-  } catch (error) {
-    log(error)
-    if (isMongoError(error)) {
-      res.status(500).send('internal server error')
-    } else {
-      res.status(400).send('bad request')
-    }
-  }
-})
-
-// Delete ingredient by in ingredientsId
-router.delete('/api/users/:id/ingredients/:ingredientId', mongoChecker, idChecker, ingredientIdChecker, async (req, res) => {
-  try {
-    const user = await User.findById(req.params.id)
-    if (!user) {
-      res.status(404).send('resource not found')
-      return
-    }
-    const ingredient = user.ingredients.id(req.params.ingredientId)
-    if (!ingredient) {
-      res.status(404).send('resource not found')
-      return
-    }
-    user.ingredients = user.ingredients.filter(element => element._id.toString() !== req.params.ingredientId)
     await user.save()
     res.send(user)
   } catch (error) {

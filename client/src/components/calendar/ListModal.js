@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { Button, Accordion, AccordionSummary, AccordionDetails, ButtonGroup, Typography } from '@material-ui/core'
-import { Add, Close, ExpandMore, Restore } from '@material-ui/icons'
+import { Add, Close, ExpandMore, Restore, Delete } from '@material-ui/icons'
 import ReuseModal from './ReuseModal'
-import { getUserById, addMeal } from '../../actions/actions'
+import { getUserById, addMeal, deleteMeal } from '../../actions/actions'
 import { uid } from 'react-uid'
 import './ListModal.css'
 
@@ -11,6 +11,7 @@ export default function ListModal (props) {
   const [meals, setMeals] = useState([])
   const [loadMeals, setLoadMeals] = useState([])
   const [showMeals, setShowMeals] = useState(false)
+
   return (
     <Modal
       id='listModal'
@@ -22,7 +23,7 @@ export default function ListModal (props) {
       <div className='modalHeader'>
         <Typography variant='h4'>Meals for {props.date.toDateString()}:</Typography>
       </div>
-      {getModalBody(props, meals, setShowMeals)}
+      {getModalBody(props, meals, setShowMeals, setMeals, setLoadMeals)}
       <ReuseModal
         open={showMeals}
         handleClose={() => setShowMeals(false)}
@@ -33,7 +34,7 @@ export default function ListModal (props) {
   )
 }
 
-const getModalBody = (props, meals, setShowMeals) => {
+const getModalBody = (props, meals, setShowMeals, setMeals, setLoadMeals) => {
   if (meals.length === 0) {
     return (
       <div className='modalBody modalBodyEmpty'>
@@ -50,7 +51,7 @@ const getModalBody = (props, meals, setShowMeals) => {
         {meals.map(meal => {
           return (
             <Accordion key={uid(meal)}>
-              <AccordionSummary expandIcon={<ExpandMore />} ><Typography variant='h6'>{getMealText(meal.mealNum)} {meal.name}</Typography></AccordionSummary>
+              <AccordionSummary expandIcon={<ExpandMore />}><Typography variant='h6'>{getMealText(meal.mealNum)} {meal.name}</Typography></AccordionSummary>
               <AccordionDetails>
                 <div className='mealDetails'>
                   <Typography variant='h6'>Ingredients: </Typography>
@@ -70,6 +71,9 @@ const getModalBody = (props, meals, setShowMeals) => {
                   <Typography variant='h6'>Description:</Typography>
                   <ul>{meal.description}</ul>
                 </div>
+                <Button onClick={() => handleDeleteMeal(props, meal._id, setMeals, setLoadMeals)} className='delete-button' startIcon={<Delete />} variant='contained'>
+                  Delete
+                </Button>
               </AccordionDetails>
             </Accordion>
           )
@@ -119,8 +123,14 @@ const getMealText = (mealNum) => {
 
 const reuseMeal = (props, meal, setMeals, setLoadMeals) => {
   const validNum = meal.mealNum === '' ? 1 : meal.mealNum
-  const payload = {...meal, date: props.date, mealNum: validNum}
+  const payload = { ...meal, date: props.date, mealNum: validNum }
   addMeal(payload, props.uid).then(() => {
     getMeals(props, setMeals, setLoadMeals)
   }).catch(error => console.log(error))
+}
+
+const handleDeleteMeal = (props, mid, setMeals, setLoadMeals) => {
+  deleteMeal(props.uid, mid).then(res => {
+    getMeals(props, setMeals, setLoadMeals)
+  })
 }
