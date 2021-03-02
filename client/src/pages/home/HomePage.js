@@ -27,7 +27,7 @@ export default function HomePage (props) {
               <CardMedia
                 className='focusimg'
                 component='img'
-                src='/addmeals.png'
+                src='/addmeals.webp'
                 title='add meals'
                 alt='adding meals to the calendar'
                 style={{ width: 'min(400px, 100vw)' }}
@@ -46,7 +46,7 @@ export default function HomePage (props) {
               <Divider />
               <CardMedia
                 component='img'
-                src='/setings.png'
+                src='/setings.webp'
                 title='set ingredients'
                 alt='setting ingredients you already have'
                 style={{ width: 'min(400px, 100vw)' }}
@@ -65,7 +65,7 @@ export default function HomePage (props) {
               <Divider />
               <CardMedia
                 component='img'
-                src='/shoplist.png'
+                src='/shoplist.webp'
                 title='view shopping list'
                 alt='viewing the shopping list'
                 style={{ width: 'min(400px, 100vw)' }}
