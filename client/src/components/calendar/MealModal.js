@@ -69,7 +69,19 @@ export default function MealModal (props) {
 
 const test = () => {
   const ing = prompt('Enter Ingredient Name (no spaces)')
-  getIngredientNutriments(ing).then(console.log)
+  let data = {}
+  getIngredientNutriments(ing).then(res => {
+    data = {
+      carbs: res.carbohydrates_100g + res.carbohydrates_unit,
+      energy: res.energy_100g + res.energy_unit,
+      fat: res.fat_100g + res.fat_unit,
+      proteins: res.proteins_100g + res.proteins_unit,
+      saturated_fat: res["saturated-fat_100g"] + res["saturated-fat_unit"],
+      sodium: res.sodium_100g + res.sodium_unit,
+      sugars: res.sugars_100g + res.sugars_unit,
+    }
+    console.table(data)
+  }).catch(console.error)
 }
 
 const handleReturn = (props) => {
