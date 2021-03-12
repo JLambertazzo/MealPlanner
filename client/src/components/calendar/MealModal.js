@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { Select, FormControl, Button, TextField, MenuItem, Typography, InputLabel } from '@material-ui/core'
 import { Close, ChevronLeft, Publish } from '@material-ui/icons'
-import { addMeal } from '../../actions/actions'
+import { addMeal, getIngredientNutriments } from '../../actions/actions'
 import IngredientList from '../general/IngredientList'
 import './MealModal.css'
 
@@ -60,10 +60,16 @@ export default function MealModal (props) {
         <div className='modalFooterButtons'>
           <Button startIcon={<Publish />} type='submit' variant='contained'>Submit</Button>
           <Button startIcon={<Close />} variant='contained' onClick={props.exit}>Cancel</Button>
+          <Button startIcon={<Close />} variant='contained' onClick={test}>TEST</Button>
         </div>
       </form>
     </Modal>
   )
+}
+
+const test = () => {
+  const ing = prompt('Enter Ingredient Name (no spaces)')
+  getIngredientNutriments(ing).then(console.log)
 }
 
 const handleReturn = (props) => {

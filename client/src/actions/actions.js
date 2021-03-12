@@ -168,3 +168,17 @@ export const deleteIngredientHistory = (uid, ingredient) => {
     return json
   }).catch(error => log(error))
 }
+
+export const getIngredientNutriments = (ingredient) => {
+  const request = new Request(`https://ca.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=${ingredient}&json=true`)
+
+  return fetch(request).then(res => {
+    if (res.ok) {
+      return res.json()
+    } else {
+      log('error getting ingredient info')
+    }
+  }).then(json => {
+    return json.products[0].nutriments
+  }).catch(log)
+}
