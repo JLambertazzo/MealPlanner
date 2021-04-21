@@ -182,3 +182,23 @@ export const getIngredientNutriments = (ingredient) => {
     return json.products[0].nutriments
   }).catch(log)
 }
+
+/*
+ *
+ * Unit Conversion & Operations
+ * Planning:
+ *  Data we are getting to start from is every ingredient has values per x grams and secondary measures like mL or whole pieces etc.
+ *  First, we need to be able to grab nutrition values by gram, if we do everything through grams then it should be fine
+ *  Issue is we sort of have to force *per gram* count. User can enter an mL value but if the ingredient isn't by mL then we
+ *  show an icon and say "data not found, try using grams" or something. Also using this we now have 3 types of units to use, that is
+ *  [grams, mL, whole], note whole should show nothing lol. SO here is the plan:
+ * 
+ *  - Sample data will be stored with everything as per gram
+ *  - We need a function to get data for a gram (helper)
+ *  - We need a function to get data for specific grams
+ *  - We need a function to check if we can get by mL (helper)
+ *  - We need a function to get data and FIX THE DATA FOR DESIRED ML (hard)
+ *  - We need a function to check if we can get by whole (helper)
+ *  - We need a function to get data by and FIX THE DATA FOR WHOLE (hard)
+ * 
+ */
