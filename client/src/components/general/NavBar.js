@@ -3,18 +3,19 @@ import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, IconB
 import { Person, ExitToApp, PersonAdd, CalendarToday } from '@material-ui/icons'
 import { makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
-import { getUserById } from '../../actions/actions'
+import { getUserById, reduxLogOut } from '../../actions/actions'
+import { useSelector, useDispatch } from 'react-redux'
 import './NavBar.css'
 
-export default function NavBar (props) {
-  const [uid, setUid] = useState(null)
-  useEffect(() => {
-    setUid(props.uid)
-    getName(props.uid).then(res => setUsername(res))
-  }, [props.uid])
+export default function NavBar () {
+  const uid = useSelector(state => state.uid)
+  const dispatch = useDispatch()
   const [userAnchorEl, setUserAnchorEl] = useState(null)
   const [authAnchorEl, setAuthAnchorEl] = useState(null)
   const [username, setUsername] = useState('Profile')
+  useEffect(() => {
+    setName(uid).then(setUsername)
+  }, [])
 
   const classes = useStyles()
 
@@ -36,7 +37,7 @@ export default function NavBar (props) {
               aria-haspopup='true'
               color='inherit'
               onClick={(event) => setAuthAnchorEl(event.target)}>
-                <MenuIcon />
+              <MenuIcon />
             </IconButton>
             <Menu
               id='auth-menu'
@@ -64,7 +65,7 @@ export default function NavBar (props) {
           >
             <MenuItem><a href='/profile' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
             <MenuItem><a href='/calendar' className={classes.iconTextMix}><CalendarToday />My Calendar</a></MenuItem>
-            <MenuItem><a href='/logout' className={classes.iconTextMix}><ExitToApp />Log Out</a></MenuItem>
+            <MenuItem><a href='/logout' className={classes.iconTextMix} onClick={() => dispatch(reduxLogOut())}><ExitToApp />Log Out</a></MenuItem>
           </Menu>
         </div>
       )
@@ -107,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }))
 
-const getName = (uid) => {
+const setName = (uid) => {
   if (!uid) {
     return Promise.resolve('Profile')
   }
@@ -117,5 +118,5 @@ const getName = (uid) => {
     } else {
       return 'Profile'
     }
-  })
+  }).catch(console.error)
 }

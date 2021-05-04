@@ -1,6 +1,6 @@
 const log = console.log
 
-export const checkLoggedIn = (app) => {
+export const checkLoggedIn = () => {
   return fetch('/api/checkloggedin').then(res => {
     if (res.ok) {
       return res.json()
@@ -8,8 +8,8 @@ export const checkLoggedIn = (app) => {
       return { uid: null }
     }
   }).then(json => {
-    app.setState({ uid: json.uid })
-    return json.uid
+    console.log('json.uid:' + json.uid)
+    return json
   }).catch(error => log(error))
 }
 
@@ -62,8 +62,10 @@ export const login = (payload) => {
       return res.json()
     } else {
       log('error logging in')
+      return null
     }
   }).then(json => {
+    console.log(json)
     return json
   }).catch(error => log(error))
 }
@@ -181,4 +183,17 @@ export const getIngredientNutriments = (ingredient) => {
   }).then(json => {
     return json.products[0].nutriments
   }).catch(log)
+}
+
+export const reduxLogIn = (uid) => {
+  return {
+    type: 'LOGIN',
+    payload: uid
+  }
+}
+
+export const reduxLogOut = () => {
+  return {
+    type: 'LOGOUT'
+  }
 }

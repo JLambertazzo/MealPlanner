@@ -50,13 +50,13 @@ app.use(session({
   unset: 'destroy'
 }))
 
-//api routes
+// api routes
 app.use(require('./routes/api'))
 
 app.get('/logout', (req, res) => {
   if (req.session) {
     req.session.destroy(err => {
-      console.log(err)
+      console.error('error: ' + err)
     })
   }
   res.status(301).redirect('/')

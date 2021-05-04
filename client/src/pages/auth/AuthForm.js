@@ -1,20 +1,24 @@
 import React, { useState } from 'react'
 import NavBar from '../../components/general/NavBar'
-import { login, createUser } from '../../actions/actions.js'
+import { useHistory } from 'react-router-dom'
+import { login, createUser, reduxLogIn } from '../../actions/actions.js'
 import { Button, TextField, FormControl, Typography } from '@material-ui/core'
 import { Person, PersonAdd } from '@material-ui/icons'
+import { useDispatch } from 'react-redux'
 import './AuthForm.css'
 
 export default function AuthForm (props) {
   const [username, setUsername] = useState('')
   const [pass, setPass] = useState('')
   const [confPass, setConfPass] = useState('')
+  const dispatch = useDispatch()
+  const history = useHistory()
   return (
     <div id='authForm'>
       <NavBar />
       <form
         className='container'
-        onSubmit={props.showLogin ? (event) => handleLogin(event, username, pass) : (event) => handleSignup(event, username, pass, confPass)}
+        onSubmit={props.showLogin ? (event) => handleLogin(event, username, pass, dispatch, history) : (event) => handleSignup(event, username, pass, confPass, dispatch, history)}
       >
         <Typography variant='h2'>{props.showLogin ? <Person /> : <PersonAdd />} {props.showLogin ? 'Log In' : 'Sign Up'}</Typography>
         <FormControl className='input-field'>
@@ -49,21 +53,24 @@ const getConfPassField = (props, setConfPass) => {
   }
 }
 
-const handleLogin = async (event, username, pass) => {
+const handleLogin = async (event, username, pass, dispatch, history) => {
   event.preventDefault()
   const payload = {
     username: username,
     password: pass
   }
   try {
-    await login(payload)
-    window.open('/calendar', '_self')
+    const user = await login(payload)
+    dispatch(reduxLogIn(user._id))
+    console.log('logged in')
   } catch (error) {
-    console.log(error)
+    console.log('error l: ' + error)
+  } finally {
+    history.push('/calendar')
   }
 }
 
-const handleSignup = async (event, username, pass, confPass) => {
+const handleSignup = async (event, username, pass, confPass, dispatch, history) => {
   event.preventDefault()
   if (pass !== confPass) {
     return
@@ -74,9 +81,11 @@ const handleSignup = async (event, username, pass, confPass) => {
   }
   try {
     await createUser(payload)
-    await login(payload)
-    window.open('/calendar', '_self')
+    const user = await login(payload)
+    dispatch(reduxLogIn(user._id))
   } catch (error) {
-    console.log(error)
+    console.log('error s: ' + error)
+  } finally {
+    history.push('/calendar')
   }
 }

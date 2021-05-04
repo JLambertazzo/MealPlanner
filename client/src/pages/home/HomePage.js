@@ -8,7 +8,7 @@ import './HomePage.css'
 export default function HomePage (props) {
   return (
     <div id='home'>
-      <NavBar uid={props.uid} />
+      <NavBar />
       <div id='homeContent'>
         <div id='back' />
         <div id='title'>
