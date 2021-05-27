@@ -66,7 +66,7 @@ app.get('*', authenticate, unauthenticate, (req, res) => {
   if (!validUrls.includes(req.url)) {
     res.status(404).send('404 not found :(')
   }
-  res.sendFile('./index.html')
+  res.sendFile('./client/build/index.html')
 })
 
 const port = process.env.PORT || 5000
