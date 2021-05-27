@@ -35,7 +35,7 @@ const unauthenticate = (req, res, next) => {
 // set up body parse middleware and static folder
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, '/client/build')))
+app.use(express.static(path.join(__dirname, '/client/public')))
 
 app.use(session({
   secret: 'a hardcoded secret',
@@ -66,7 +66,7 @@ app.get('*', authenticate, unauthenticate, (req, res) => {
   if (!validUrls.includes(req.url)) {
     res.status(404).send('404 not found :(')
   }
-  res.sendFile(path.join(__dirname, '/client/build/index.html'))
+  res.sendFile(path.join(__dirname, './index.html'))
 })
 
 const port = process.env.PORT || 5000
