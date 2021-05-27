@@ -7,6 +7,7 @@
     "start": "node index.js",
     "test": "nodemon index.js",
     "setup": "npm install && cd client && npm install && cd ..",
+    "build": "node ./buildScript",
     "build-run": "cd client && npm run build && cd .. && node index.js",
     "build-test": "cd client && npm run build && cd .. && nodemon index.js",
     "heroku-postbuild": "cd client && npm install && npm run build"

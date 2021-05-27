@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/7301623e-eafa-4f6d-94a5-652a77d2b253/resourceGroups/the-meal-planner-rg/providers/Microsoft.Web/sites/the-meal-planner",
+  "appService.deploySubpath": "."
+}
