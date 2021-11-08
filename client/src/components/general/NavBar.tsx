@@ -5,18 +5,19 @@ import { makeStyles } from '@material-ui/core/styles'
 import MenuIcon from '@material-ui/icons/Menu'
 import { getUserById } from '../../actions/actions'
 import './NavBar.css'
+import { ClassNameMap } from '@material-ui/styles'
 
-export default function NavBar (props) {
-  const [uid, setUid] = useState(null)
+export default function NavBar (props: { uid: string }) {
+  const [uid, setUid] = useState<string | null>(null)
   useEffect(() => {
     setUid(props.uid)
     getName(props.uid).then(res => setUsername(res))
   }, [props.uid])
-  const [userAnchorEl, setUserAnchorEl] = useState(null)
-  const [authAnchorEl, setAuthAnchorEl] = useState(null)
+  const [userAnchorEl, setUserAnchorEl] = useState<Element | null>(null)
+  const [authAnchorEl, setAuthAnchorEl] = useState<Element | null>(null)
   const [username, setUsername] = useState('Profile')
 
-  const classes = useStyles()
+  const classes: ClassNameMap<any> = useStyles()
 
   const getRightSide = () => {
     if (!uid) {
@@ -35,7 +36,7 @@ export default function NavBar (props) {
               aria-controls='auth-menu'
               aria-haspopup='true'
               color='inherit'
-              onClick={(event) => setAuthAnchorEl(event.target)}>
+              onClick={(event) => setAuthAnchorEl(event.target as Element)}>
                 <MenuIcon />
             </IconButton>
             <Menu
@@ -54,7 +55,7 @@ export default function NavBar (props) {
     } else {
       return (
         <div style={{ marginLeft: 'auto' }}>
-          <Button id='menuAnchor' variant='contained' color='secondary' aria-controls='user-menu' aria-haspopup='true' startIcon={<Person />} onClick={(event) => setUserAnchorEl(event.target)}>{username}</Button>
+          <Button id='menuAnchor' variant='contained' color='secondary' aria-controls='user-menu' aria-haspopup='true' startIcon={<Person />} onClick={(event) => setUserAnchorEl(event.target as Element)}>{username}</Button>
           <Menu
             id='user-menu'
             anchorEl={userAnchorEl}
@@ -103,11 +104,11 @@ const useStyles = makeStyles((theme) => ({
   navBar: {
     background: '#303F9F !important',
     color: '#f0f0f0 !important',
-    zIndex: '5'
+    zIndex: 5
   }
 }))
 
-const getName = (uid) => {
+const getName = (uid: string) => {
   if (!uid) {
     return Promise.resolve('Profile')
   }
