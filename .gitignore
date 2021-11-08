@@ -6,6 +6,10 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 package-lock.json
+build
+
+# ignore js files
+*.js
 
 #local database
 localdb

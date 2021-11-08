@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "new-start": "tsc && node ./build/index.js",
     "test": "nodemon index.js",
     "setup": "npm install && cd client && npm install && cd ..",
     "build-run": "cd client && npm run build && cd .. && node index.js",
