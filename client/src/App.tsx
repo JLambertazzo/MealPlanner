@@ -1,5 +1,5 @@
 import "./App.css";
-import { checkLoggedInTest } from "./actions/actions";
+import { checkLoggedIn } from "./actions/actions";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./themes/default";
@@ -12,7 +12,7 @@ import Profile from "./pages/profile/Profile";
 export default function App() {
   const [uid, setUid] = useState("");
   useEffect(() => {
-    checkLoggedInTest(setUid);
+    checkLoggedIn(setUid);
   }, []);
   return (
     <ThemeProvider theme={theme}>
