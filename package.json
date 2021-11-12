@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "new-start": "tsc && node ./build/index.js",
+    "start": "tsc && node ./build/index.js",
     "new-run": "cd client && npm run build && cd .. && npm run new-start",
     "test": "nodemon index.js",
     "setup": "npm install && cd client && npm install && cd ..",
