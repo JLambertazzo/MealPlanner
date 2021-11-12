@@ -1,12 +1,15 @@
 import React, { FormEvent, useState } from "react";
 import NavBar from "../../components/general/NavBar";
-import { login, createUser } from "../../actions/actions.js";
+import { login, createUser } from "../../actions/actions";
 import { Button, TextField, FormControl, Typography } from "@material-ui/core";
 import { Person, PersonAdd } from "@material-ui/icons";
+import { useHistory } from 'react-router-dom'
 import "./AuthForm.css";
+import { User } from "../../types/dbtypes";
 
 interface Props {
   uid: string;
+  setUid: (uid: string) => void
   showLogin: boolean;
 }
 
@@ -14,6 +17,59 @@ export default function AuthForm(props: Props) {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [confPass, setConfPass] = useState("");
+  const history = useHistory();
+
+  const loginSuccess = (res?: User) => {
+    if (res && res._id) {
+      props.setUid(res._id)
+      history.push('/calendar')
+    }
+  }
+
+  const handleLogin = async (
+    event: FormEvent,
+    username: string,
+    pass: string,
+  ) => {
+    event.preventDefault();
+    const payload = {
+      username: username,
+      password: pass,
+    };
+    try {
+      const res = await login(payload);
+      return res
+    } catch (error) {
+      console.log(error);
+      return undefined
+    }
+  };
+  
+  const handleSignup = async (
+    event: FormEvent,
+    username: string,
+    pass: string,
+    confPass: string
+  ) => {
+    event.preventDefault();
+    if (pass !== confPass) {
+      return;
+    }
+    const payload = {
+      username: username,
+      password: pass,
+    };
+    try {
+      await createUser(payload);
+      const res = await login(payload);
+      console.log('sing+log res is', res)
+      return res
+    } catch (error) {
+      console.log(error);
+      return undefined
+    }
+  };
+
   return (
     <div id="authForm">
       <NavBar uid={props.uid} />
@@ -21,8 +77,8 @@ export default function AuthForm(props: Props) {
         className="container"
         onSubmit={
           props.showLogin
-            ? (event) => handleLogin(event, username, pass)
-            : (event) => handleSignup(event, username, pass, confPass)
+            ? (event) => handleLogin(event, username, pass).then(loginSuccess)
+            : (event) => handleSignup(event, username, pass, confPass).then(loginSuccess)
         }
       >
         <Typography variant="h2">
@@ -79,46 +135,5 @@ const getConfPassField = (props: Props, setConfPass: (s: string) => void) => {
         />
       </FormControl>
     );
-  }
-};
-
-const handleLogin = async (
-  event: FormEvent,
-  username: string,
-  pass: string
-) => {
-  event.preventDefault();
-  const payload = {
-    username: username,
-    password: pass,
-  };
-  try {
-    await login(payload);
-    window.open("/calendar", "_self");
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-const handleSignup = async (
-  event: FormEvent,
-  username: string,
-  pass: string,
-  confPass: string
-) => {
-  event.preventDefault();
-  if (pass !== confPass) {
-    return;
-  }
-  const payload = {
-    username: username,
-    password: pass,
-  };
-  try {
-    await createUser(payload);
-    await login(payload);
-    window.open("/calendar", "_self");
-  } catch (error) {
-    console.log(error);
   }
 };

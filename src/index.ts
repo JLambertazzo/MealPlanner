@@ -4,6 +4,7 @@ import { Request, Response, NextFunction } from "express";
 
 const log = console.log;
 
+require('dotenv').config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");

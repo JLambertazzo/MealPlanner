@@ -23,13 +23,13 @@ export default function App() {
           <Route
             exact
             path="/login"
-            render={(props) => <AuthForm {...props} uid={uid} showLogin />}
+            render={(props) => <AuthForm {...props} uid={uid} setUid={setUid} showLogin />}
           />
           <Route
             exact
             path="/signup"
             render={(props) => (
-              <AuthForm {...props} uid={uid} showLogin={false} />
+              <AuthForm {...props} uid={uid} setUid={setUid} showLogin={false} />
             )}
           />
           <Route exact path="/profile" render={() => <Profile uid={uid} />} />

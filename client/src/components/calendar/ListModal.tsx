@@ -208,7 +208,7 @@ const reuseMeal = (
   //TODO test this pls
   //@ts-ignore
   const validNum = meal.mealNum === "" ? 1 : meal.mealNum;
-  const payload = { ...meal, date: props.date, mealNum: validNum };
+  const payload = { ...meal, date: props.date.toDateString(), mealNum: validNum };
   addMeal(payload, props.uid)
     .then(() => {
       getMeals(props, setMeals, setLoadMeals);
@@ -222,7 +222,7 @@ const handleDeleteMeal = (
   setMeals: (meals: Meal[]) => void,
   setLoadMeals: (meals: Meal[]) => void
 ) => {
-  deleteMeal(props.uid, mid).then((res) => {
+  deleteMeal(props.uid, mid || '').then((res) => {
     getMeals(props, setMeals, setLoadMeals);
   });
 };
