@@ -40,7 +40,8 @@ export default function IngredientList(props: Props) {
       {props.ingredients.map((ingredient, index) => {
         return (
           <div key={uid(ingredient)}>
-            <ListItem className="ingredientContainer" key={index}>
+            {/* @ts-ignore */}
+            <ListItem className="ingredientContainer" index={index}>
               <TextField
                 type="number"
                 label="Quantity"

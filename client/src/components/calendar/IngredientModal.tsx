@@ -210,9 +210,9 @@ const handleIngredientQtyChange = (
       event.target as Element
     ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
   );
-  if (index) {
+  if (!isNaN(index) && index >= 0) {
     const newIngredients = [...ingredients];
-    newIngredients[index].qty = +(event.target as HTMLInputElement).value;
+    newIngredients[index-1].qty = +(event.target as HTMLInputElement).value;
     setIngredients(newIngredients);
   }
 };

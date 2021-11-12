@@ -209,11 +209,13 @@ const handleIngredientQtyChange = (
       event.target as HTMLInputElement
     ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
   );
-  const newIngredients = [...ingredients];
-  newIngredients[index].qty = parseInt(
-    (event.target as HTMLInputElement).value
-  );
-  setIngredients(newIngredients);
+  if (index >= 0) {
+    const newIngredients = [...ingredients];
+    newIngredients[index].qty = parseInt(
+      (event.target as HTMLInputElement).value
+    );
+    setIngredients(newIngredients);
+  }
 };
 
 const handleIngredientUnitsChange = (
