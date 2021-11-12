@@ -157,7 +157,7 @@ export default function MealModal(props: Props) {
 }
 
 const test = () => {
-  const ing = prompt("Enter Ingredient Name (no spaces)");
+  const ing = prompt("Enter Ingredient Name (no spaces)") || '';
   let data = {};
   getIngredientNutriments(ing)
     .then((res) => {

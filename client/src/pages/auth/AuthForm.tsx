@@ -1,9 +1,9 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import NavBar from "../../components/general/NavBar";
 import { login, createUser } from "../../actions/actions";
 import { Button, TextField, FormControl, Typography } from "@material-ui/core";
 import { Person, PersonAdd } from "@material-ui/icons";
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import "./AuthForm.css";
 import { User } from "../../types/dbtypes";
 
@@ -17,7 +17,13 @@ export default function AuthForm(props: Props) {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [confPass, setConfPass] = useState("");
+  const [showLogin, setShowLogin] = useState(props.showLogin)
   const history = useHistory();
+  const location = useLocation();
+
+  useEffect(() => {
+    setShowLogin(location.pathname.includes('login'))
+  }, [location])
 
   const loginSuccess = (res?: User) => {
     if (res && res._id) {
@@ -26,11 +32,7 @@ export default function AuthForm(props: Props) {
     }
   }
 
-  const handleLogin = async (
-    event: FormEvent,
-    username: string,
-    pass: string,
-  ) => {
+  const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
     const payload = {
       username: username,
@@ -45,12 +47,7 @@ export default function AuthForm(props: Props) {
     }
   };
   
-  const handleSignup = async (
-    event: FormEvent,
-    username: string,
-    pass: string,
-    confPass: string
-  ) => {
+  const handleSignup = async (event: FormEvent) => {
     event.preventDefault();
     if (pass !== confPass) {
       return;
@@ -70,20 +67,39 @@ export default function AuthForm(props: Props) {
     }
   };
 
+  const getConfPassField = () => {
+    if (!showLogin) {
+      return (
+        <FormControl className="input-field">
+          <TextField
+            label="Confirm Password"
+            type="password"
+            onChange={(event) => setConfPass(event.target.value)}
+            inputProps={{ minLength: 8 }}
+            required
+            id="confpass-input"
+            // @ts-ignore
+            InputLabelProps={{ for: "confpass-input" }}
+          />
+        </FormControl>
+      );
+    }
+  };
+
   return (
     <div id="authForm">
       <NavBar uid={props.uid} />
       <form
         className="container"
         onSubmit={
-          props.showLogin
-            ? (event) => handleLogin(event, username, pass).then(loginSuccess)
-            : (event) => handleSignup(event, username, pass, confPass).then(loginSuccess)
+          showLogin
+            ? (event) => handleLogin(event).then(loginSuccess)
+            : (event) => handleSignup(event).then(loginSuccess)
         }
       >
         <Typography variant="h2">
-          {props.showLogin ? <Person /> : <PersonAdd />}{" "}
-          {props.showLogin ? "Log In" : "Sign Up"}
+          {showLogin ? <Person /> : <PersonAdd />}{" "}
+          {showLogin ? "Log In" : "Sign Up"}
         </Typography>
         <FormControl className="input-field">
           <TextField
@@ -108,32 +124,13 @@ export default function AuthForm(props: Props) {
             required
           />
         </FormControl>
-        {getConfPassField(props, setConfPass)}
+        {getConfPassField()}
         <FormControl className="input-field">
           <Button type="submit" variant="contained">
-            {props.showLogin ? "Log In" : "Sign Up"}
+            {showLogin ? "Log In" : "Sign Up"}
           </Button>
         </FormControl>
       </form>
     </div>
   );
 }
-
-const getConfPassField = (props: Props, setConfPass: (s: string) => void) => {
-  if (!props.showLogin) {
-    return (
-      <FormControl className="input-field">
-        <TextField
-          label="Confirm Password"
-          type="password"
-          onChange={(event) => setConfPass(event.target.value)}
-          inputProps={{ minLength: 8 }}
-          required
-          id="confpass-input"
-          // @ts-ignore
-          InputLabelProps={{ for: "confpass-input" }}
-        />
-      </FormControl>
-    );
-  }
-};

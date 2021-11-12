@@ -6,6 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { getUserById } from '../../actions/actions'
 import './NavBar.css'
 import { ClassNameMap } from '@material-ui/styles'
+import { useHistory, Link } from 'react-router-dom'
 
 export default function NavBar (props: { uid: string }) {
   const [uid, setUid] = useState<string | null>(null)
@@ -17,6 +18,8 @@ export default function NavBar (props: { uid: string }) {
   const [authAnchorEl, setAuthAnchorEl] = useState<Element | null>(null)
   const [username, setUsername] = useState('Profile')
 
+  const history = useHistory()
+
   const classes: ClassNameMap<any> = useStyles()
 
   const getRightSide = () => {
@@ -25,8 +28,8 @@ export default function NavBar (props: { uid: string }) {
         <div id='authButtons'>
           <div className={classes.desktopSection}>
             <ButtonGroup className='authButtons'>
-              <Button variant='contained' onClick={() => window.open('/signup', '_self')}>Sign Up</Button>
-              <Button variant='contained' onClick={() => window.open('/login', '_self')}>Log In</Button>
+              <Button variant='contained' onClick={() => history.push('/signup')}>Sign Up</Button>
+              <Button variant='contained' onClick={() => history.push('/login')}>Log In</Button>
             </ButtonGroup>
           </div>
           <div className={classes.mobileSection}>
@@ -46,8 +49,8 @@ export default function NavBar (props: { uid: string }) {
               open={Boolean(authAnchorEl)}
               onClose={() => setAuthAnchorEl(null)}
             >
-              <MenuItem><a href='/login' className={classes.iconTextMix}><Person />Log In</a></MenuItem>
-              <MenuItem><a href='/signup' className={classes.iconTextMix}><PersonAdd />Sign Up</a></MenuItem>
+              <MenuItem><Link to='/login' className={classes.iconTextMix}><Person />Log In</Link></MenuItem>
+              <MenuItem><Link to='/signup' className={classes.iconTextMix}><PersonAdd />Sign Up</Link></MenuItem>
             </Menu>
           </div>
         </div>
@@ -63,8 +66,8 @@ export default function NavBar (props: { uid: string }) {
             open={Boolean(userAnchorEl)}
             onClose={() => setUserAnchorEl(null)}
           >
-            <MenuItem><a href='/profile' className={classes.iconTextMix}><Person />My Profile</a></MenuItem>
-            <MenuItem><a href='/calendar' className={classes.iconTextMix}><CalendarToday />My Calendar</a></MenuItem>
+            <MenuItem><Link to='/profile' className={classes.iconTextMix}><Person />My Profile</Link></MenuItem>
+            <MenuItem><Link to='/calendar' className={classes.iconTextMix}><CalendarToday />My Calendar</Link></MenuItem>
             <MenuItem><a href='/logout' className={classes.iconTextMix}><ExitToApp />Log Out</a></MenuItem>
           </Menu>
         </div>
@@ -75,7 +78,7 @@ export default function NavBar (props: { uid: string }) {
   return (
     <AppBar className={classes.navBar} position='static'>
       <Toolbar className='nav-wrapper'>
-        <a href='/' id='logo' className='brand-logo'><Typography variant='h1'>MealPlanner</Typography></a>
+        <Link to='/' id='logo' className='brand-logo'><Typography variant='h1'>MealPlanner</Typography></Link>
         {getRightSide()}
       </Toolbar>
     </AppBar>

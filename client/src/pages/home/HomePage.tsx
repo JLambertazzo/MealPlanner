@@ -24,12 +24,15 @@ import {
   Delete,
 } from "@material-ui/icons";
 import "./HomePage.css";
+import { useHistory } from 'react-router-dom'
 
 interface Props {
   uid: string;
 }
 
 export default function HomePage(props: Props) {
+  const history = useHistory()
+
   return (
     <div id="home">
       <NavBar uid={props.uid} />
@@ -42,7 +45,7 @@ export default function HomePage(props: Props) {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => window.open("/calendar", "_self")}
+              onClick={() => history.push("/calendar")}
             >
               <Typography variant="body1" color="secondary">
                 Get Started
@@ -76,7 +79,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => window.open("/calendar", "_self")}
+                  onClick={() => history.push("/calendar")}
                 >
                   Try it yourself!
                 </Button>
@@ -109,7 +112,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => window.open("/calendar", "_self")}
+                  onClick={() => history.push("/calendar")}
                 >
                   Try it yourself!
                 </Button>
@@ -140,7 +143,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => window.open("/calendar", "_self")}
+                  onClick={() => history.push("/calendar")}
                 >
                   Try it yourself!
                 </Button>
