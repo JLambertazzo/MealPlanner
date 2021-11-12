@@ -6,6 +6,20 @@
   font-size: 1.5rem !important;
 }
 
+.shoppingControls {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.shoppingControls>* {
+  margin: 0px 5px;
+}
+
+#range-select {
+  font-family: inherit;
+}
+
 #shoppingContainer {
   display: flex;
   flex-direction: column;

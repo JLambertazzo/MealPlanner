@@ -11,8 +11,8 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  FormControl,
-  TextField,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import { ChevronLeft, FileCopy, Print, Email } from "@material-ui/icons";
 import convert, { Time, Unit } from "convert-units";
@@ -54,9 +54,21 @@ export default function ShoppingModal(props: Props) {
           Return
         </Button>
       </div>
-      <Typography variant="h3" align="center">
-        Needed Ingredients:
-      </Typography>
+      <div className="shoppingControls">
+        <Typography variant="h3" align="center">
+          Ingredients Needed for  
+        </Typography>
+        <Select
+          id="range-select"
+          value={time}
+          label="Range"
+          onChange={(event) => setTime(event.target.value as number)}
+        >
+          <MenuItem value={7}>1 Week</MenuItem>
+          <MenuItem value={14}>2 Weeks</MenuItem>
+          <MenuItem value={31}>1 Month</MenuItem>
+        </Select>
+      </div>
       <div className="tablediv">
         {/* @ts-ignore SEE IF THIS WORKS TEST */}
         <TableContainer component="paper">
@@ -125,26 +137,6 @@ export default function ShoppingModal(props: Props) {
         >
           Share by Email
         </Button>
-      </div>
-      <Typography variant="h3" align="center">
-        Date Range to Shop For:
-      </Typography>
-      <div id="dateRangeContainer">
-        <FormControl>
-          <TextField
-            type="number"
-            defaultValue={7}
-            label="Date Range"
-            className="qInput"
-            id="date-range"
-            // @ts-ignore
-            InputLabelProps={{ for: "date-range" }}
-            inputProps={{ type: "number", min: 1 }}
-            onChange={(event) =>
-              handleTimeChange(event, props, time, setNeed, setTime)
-            }
-          />
-        </FormControl>
       </div>
     </Modal>
   );
