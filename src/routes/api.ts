@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 
 const { log } = console;
 const express = require("express");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const router = express.Router();
 

@@ -3,7 +3,7 @@
 import { NextFunction } from "express";
 
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const ingredientsSchema = new mongoose.Schema({
   name: {
