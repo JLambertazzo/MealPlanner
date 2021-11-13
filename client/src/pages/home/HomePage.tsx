@@ -45,7 +45,7 @@ export default function HomePage(props: Props) {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => history.push("/calendar")}
+              onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
             >
               <Typography variant="body1" color="secondary">
                 Get Started
@@ -79,7 +79,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push("/calendar")}
+                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>
@@ -112,7 +112,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push("/calendar")}
+                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>
@@ -143,7 +143,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push("/calendar")}
+                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>
