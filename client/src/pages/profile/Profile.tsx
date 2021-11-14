@@ -9,16 +9,16 @@ import {
   TableCell,
   TableContainer,
   IconButton,
-} from "@material-ui/core";
-import { DeleteOutlineRounded } from "@material-ui/icons";
+} from "@mui/material";
+import { DeleteOutlineRounded } from "@mui/icons-material";
 import "./Profile.css";
 import {
   getUserById,
   deleteMealHistory,
   deleteIngredientHistory,
 } from "../../actions/actions";
-import { uid } from "react-uid";
 import { Ingredient, Meal } from "../../types/dbtypes";
+import { useFormControl } from "@mui/material";
 
 interface Props {
   uid: string;
@@ -31,10 +31,6 @@ export default function Profile(props: Props) {
   const [isLoading, setIsLoading] = useState(true);
   const firstRender = useRef(true);
   useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
     getData(props.uid, setUsername, setIngredients, setMeals, setIsLoading);
   }, [props.uid]);
 
@@ -82,9 +78,9 @@ export default function Profile(props: Props) {
                 <TableBody>
                   {isLoading
                     ? "Loading..."
-                    : meals.map((meal) => {
+                    : meals.map((meal, index) => {
                         return (
-                          <TableRow className="row" key={uid(meal)}>
+                          <TableRow className="row" key={index}>
                             <TableCell>
                               <Typography color="textPrimary">
                                 {meal.name}
@@ -192,6 +188,7 @@ const getData = (
       setIsLoading(false);
       return;
     }
+    console.log('our user', user)
     setUsername(user.username);
     if (user.mealHistory.length === 0) {
       setMeals([

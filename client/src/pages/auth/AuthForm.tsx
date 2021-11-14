@@ -1,8 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import NavBar from "../../components/general/NavBar";
 import { login, createUser } from "../../actions/actions";
-import { Button, TextField, FormControl, Typography } from "@material-ui/core";
-import { Person, PersonAdd } from "@material-ui/icons";
+import { Button, TextField, FormControl, Typography } from "@mui/material";
+import { Person, PersonAdd } from "@mui/icons-material";
 import { useHistory, useLocation } from 'react-router-dom'
 import "./AuthForm.css";
 import { User } from "../../types/dbtypes";

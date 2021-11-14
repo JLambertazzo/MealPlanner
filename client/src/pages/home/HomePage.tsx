@@ -13,7 +13,7 @@ import {
   ListItem,
   ListItemText,
   ListItemAvatar,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   Add,
   Edit,
@@ -22,7 +22,7 @@ import {
   MonetizationOn,
   Timer,
   Delete,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import "./HomePage.css";
 import { useHistory } from 'react-router-dom'
 

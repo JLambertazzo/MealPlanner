@@ -7,12 +7,12 @@ import {
   ListItemText,
   Typography,
   Divider,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   PublishTwoTone,
   KitchenTwoTone,
   ShoppingBasketTwoTone,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import "./ActionDrawer.css";
 
 interface Props {

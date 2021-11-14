@@ -7,8 +7,8 @@ import {
   AccordionDetails,
   ButtonGroup,
   Typography,
-} from "@material-ui/core";
-import { Add, Close, ExpandMore, Restore, Delete } from "@material-ui/icons";
+} from "@mui/material";
+import { Add, Close, ExpandMore, Restore, Delete } from "@mui/icons-material";
 import ReuseModal from "./ReuseModal";
 import { getUserById, addMeal, deleteMeal } from "../../actions/actions";
 import { uid } from "react-uid";

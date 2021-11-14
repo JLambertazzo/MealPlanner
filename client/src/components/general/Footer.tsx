@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Typography } from '@material-ui/core'
+import { AppBar, Typography } from '@mui/material'
 import './Footer.css'
 
 export default function Footer () {

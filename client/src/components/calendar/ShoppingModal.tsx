@@ -13,8 +13,8 @@ import {
   TableBody,
   Select,
   MenuItem,
-} from "@material-ui/core";
-import { ChevronLeft, FileCopy, Print, Email } from "@material-ui/icons";
+} from "@mui/material";
+import { ChevronLeft, FileCopy, Print, Email } from "@mui/icons-material";
 import convert, { Time, Unit } from "convert-units";
 import "./ShoppingModal.css";
 import { Ingredient, Meal } from "../../types/dbtypes";

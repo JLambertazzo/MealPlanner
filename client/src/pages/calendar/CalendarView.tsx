@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
 import Calendar from "react-calendar";
-import { Typography, List, ListItem, ListItemText } from "@material-ui/core";
+import { Typography, List, ListItem, ListItemText } from "@mui/material";
 import { getUserById } from "../../actions/actions";
 import datetime from "date-and-time";
 import "react-calendar/dist/Calendar.css";

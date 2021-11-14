@@ -25,9 +25,6 @@
   },
   "homepage": "https://github.com/JLambertazzo/MealPlanner#readme",
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/icons": "^4.11.2",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@types/convert-units": "^2.3.5",
     "@types/date-and-time": "^0.13.0",
     "@types/react-calendar": "^3.4.3",

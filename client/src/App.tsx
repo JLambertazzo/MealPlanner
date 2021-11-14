@@ -1,7 +1,7 @@
 import "./App.css";
 import { checkLoggedIn } from "./actions/actions";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import theme from "./themes/default";
 import React, { useState, useEffect } from "react";
 import HomePage from "./pages/home/HomePage";

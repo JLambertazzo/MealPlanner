@@ -6,9 +6,8 @@ import {
   Typography,
   Snackbar,
   SnackbarContent,
-  makeStyles,
   IconButton,
-} from "@material-ui/core";
+} from "@mui/material";
 import {
   Save,
   Add,
@@ -16,10 +15,11 @@ import {
   ErrorOutline,
   Close,
   CheckCircleOutline,
-} from "@material-ui/icons";
+} from "@mui/icons-material";
 import IngredientList from "../general/IngredientList";
 import "./IngredientModal.css";
 import { Ingredient } from "../../types/dbtypes";
+import { makeStyles } from '@mui/styles'
 
 interface Props {
   uid: string;
@@ -102,8 +102,9 @@ export default function IngredientModal(props: Props) {
           <SnackbarContent
             message={
               <Typography variant="body1">
-                <CheckCircleOutline className={classes.snackbarIcon} />
+                <CheckCircleOutline className={classes.snackbarIcon}>
                 Successfully Saved Ingredients...
+                </CheckCircleOutline>
               </Typography>
             }
             action={
