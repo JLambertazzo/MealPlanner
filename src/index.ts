@@ -36,6 +36,14 @@ const unauthenticate = (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
+function requireHTTPS(req: Request, res: Response, next: NextFunction) {
+  // The 'x-forwarded-proto' check is for Heroku
+  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
+    return res.redirect('https://' + req.get('host') + req.url);
+  }
+  next();
+}
+
 // set up body parse middleware and static folder
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -68,7 +76,7 @@ app.get("/logout", (req: Request, res: Response) => {
   res.status(301).redirect("/");
 });
 
-app.get("*", authenticate, unauthenticate, (req: Request, res: Response) => {
+app.get("*", requireHTTPS, authenticate, unauthenticate, (req: Request, res: Response) => {
   if (!validUrls.includes(req.url)) {
     res.status(404).send("404 not found :(");
   }

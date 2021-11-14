@@ -1,4 +1,4 @@
-import React, { useState, MouseEvent, KeyboardEvent } from "react";
+import React, { useState } from "react";
 import Modal from "react-modal";
 import {
   Button,
@@ -18,7 +18,7 @@ import { Meal } from "../../types/dbtypes";
 interface Props {
   uid: string;
   isOpen: boolean;
-  exit: (e?: MouseEvent<Element> | KeyboardEvent<Element>) => void;
+  exit: () => void;
   date: Date;
   showMealModal: () => void;
 }
