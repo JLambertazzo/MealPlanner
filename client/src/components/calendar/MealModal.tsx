@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState, MouseEvent, FormEvent } from "react";
+import React, { useState, FormEvent } from "react";
 import Modal from "react-modal";
 import {
   Select,
@@ -18,7 +18,7 @@ import { Ingredient } from "../../types/dbtypes";
 interface Props {
   uid: string;
   isOpen: boolean;
-  exit: (e?: MouseEvent<Element> | KeyboardEvent<Element>) => void;
+  exit: () => void;
   showListModal: () => void;
   date: Date;
 }
