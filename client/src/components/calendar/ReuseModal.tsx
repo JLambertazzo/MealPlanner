@@ -13,7 +13,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-} from "@material-ui/core";
+} from "@mui/material";
 import { uid } from "react-uid";
 import "./ReuseModal.css";
 import { Ingredient, Meal } from "../../types/dbtypes";

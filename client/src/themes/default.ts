@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createTheme } from '@mui/material/styles'
 
-const defaultTheme = createMuiTheme({
+const defaultTheme = createTheme({
   palette: {
     primary: {
       light: '#666ad1',

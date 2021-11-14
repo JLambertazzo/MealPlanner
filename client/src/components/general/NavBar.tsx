@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, IconButton } from '@material-ui/core'
-import { Person, ExitToApp, PersonAdd, CalendarToday } from '@material-ui/icons'
-import { makeStyles } from '@material-ui/core/styles'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Button, Menu, MenuItem, AppBar, Toolbar, Typography, ButtonGroup, IconButton } from '@mui/material'
+import { Person, ExitToApp, PersonAdd, CalendarToday } from '@mui/icons-material'
+import { makeStyles, ClassNameMap } from '@mui/styles'
+import MenuIcon from '@mui/icons-material/Menu'
 import { getUserById } from '../../actions/actions'
 import './NavBar.css'
-import { ClassNameMap } from '@material-ui/styles'
 import { useHistory, Link } from 'react-router-dom'
 
 export default function NavBar (props: { uid: string }) {
@@ -85,7 +84,7 @@ export default function NavBar (props: { uid: string }) {
   )
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme: any) => ({
   desktopSection: {
     display: 'none',
     [theme.breakpoints.up('md')]: {

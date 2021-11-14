@@ -8,8 +8,8 @@ import {
   MenuItem,
   Typography,
   InputLabel,
-} from "@material-ui/core";
-import { Close, ChevronLeft, Publish } from "@material-ui/icons";
+} from "@mui/material";
+import { Close, ChevronLeft, Publish } from "@mui/icons-material";
 import { addMeal, getIngredientNutriments } from "../../actions/actions";
 import IngredientList from "../general/IngredientList";
 import "./MealModal.css";
@@ -92,7 +92,7 @@ export default function MealModal(props: Props) {
             id="mealSelect"
             labelId="select-label"
             inputProps={{ "aria-labelledby": "select-label" }}
-            onChange={(event) => setMealNum(event.target.value as number)}
+            onChange={(event) => setMealNum(parseInt(event.target.value) || 0)}
             required
           >
             <MenuItem value="0">Breakfast</MenuItem>

@@ -7,11 +7,10 @@ import {
   NativeSelect,
   TextField,
   IconButton,
-} from "@material-ui/core";
-import { Clear } from "@material-ui/icons";
-import { Autocomplete } from "@material-ui/lab";
+  Autocomplete,
+} from "@mui/material";
+import { Clear } from "@mui/icons-material";
 import { getUserById } from "../../actions/actions";
-import { uid } from "react-uid";
 
 import { Ingredient, User } from "../../types/dbtypes";
 
@@ -39,7 +38,7 @@ export default function IngredientList(props: Props) {
     <List component="nav" aria-label="ingredient list">
       {props.ingredients.map((ingredient, index) => {
         return (
-          <div key={uid(ingredient)}>
+          <div key={index}>
             {/* @ts-ignore */}
             <ListItem className="ingredientContainer" index={index}>
               <TextField
