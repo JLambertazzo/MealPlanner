@@ -226,7 +226,7 @@ const handleIngredientUnitsChange = (
   const index = parseInt(
     (
       event.target as HTMLInputElement
-    ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
+    ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
   );
   const newIngredients = [...ingredients];
   newIngredients[index].units = (event.target as HTMLInputElement).value;

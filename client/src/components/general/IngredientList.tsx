@@ -2,9 +2,6 @@ import React, { useState, useEffect, FormEvent } from "react";
 import {
   List,
   ListItem,
-  FormControl,
-  InputLabel,
-  NativeSelect,
   TextField,
   IconButton,
   Autocomplete,
@@ -12,7 +9,7 @@ import {
 import { Clear } from "@mui/icons-material";
 import { getUserById } from "../../actions/actions";
 
-import { Ingredient, User } from "../../types/dbtypes";
+import { Ingredient } from "../../types/dbtypes";
 
 interface Props {
   uid: string;
@@ -23,8 +20,28 @@ interface Props {
   removeIngredient: (index: number) => void;
 }
 
+const massMeasures = ['kg', 'g', 'oz', 'lb']
+const volMeasures = ['ml', 'l', 'tsp', 'Tbs', 'cup', 'pnt']
+const defaultUnitOptions = [
+  {label: 'unit', id: 0},
+  ...massMeasures.map((unit, index) => ({label: unit, id: index + 1})),
+  ...volMeasures.map((unit, index) => ({label: unit, id: index + massMeasures.length + 1})),
+]
+const getUnitGroup = (unit: string) => {
+  if (unit === "unit") {
+    return "Generic"
+  } else if (massMeasures.includes(unit)) {
+    return "Mass"
+  } else if (volMeasures.includes(unit)) {
+    return "Volume"
+  } else {
+    return "My Units"
+  }
+}
+
 export default function IngredientList(props: Props) {
   const [options, setOptions] = useState(["Loading..."]);
+  const [unitOptions, setUnitOptions] = useState(defaultUnitOptions)
   useEffect(() => {
     getUserById(props.uid).then((user) => {
       if (!user || user.ingredientHistory.length === 0) {
@@ -51,31 +68,22 @@ export default function IngredientList(props: Props) {
                 onInput={props.handleQtyChange}
                 value={ingredient.qty}
               />
-              <FormControl>
-                <InputLabel htmlFor={`uinput-${index}`}>Units</InputLabel>
-                <NativeSelect
-                  className="uInput"
-                  id={`uinput-${index}`}
-                  value={ingredient.units}
-                  onChange={props.handleUnitsChange}
-                  name="units"
-                >
-                  <optgroup label="Mass">
-                    <option value="kg">kilogram</option>
-                    <option value="g">gram</option>
-                    <option value="oz">ounce</option>
-                    <option value="lb">pound</option>
-                  </optgroup>
-                  <optgroup label="Volume">
-                    <option value="ml">mL</option>
-                    <option value="l">L</option>
-                    <option value="tsp">teaspoon</option>
-                    <option value="Tbs">tablespoon</option>
-                    <option value="cup">cup</option>
-                    <option value="pnt">pint</option>
-                  </optgroup>
-                </NativeSelect>
-              </FormControl>
+              <Autocomplete
+                style={{ minWidth: "175px", margin: "5px" }}
+                className="uInput"
+                id={`uinput-${index}`}
+                options={unitOptions}
+                groupBy={(option) => getUnitGroup(option.label)}
+                freeSolo
+                disableClearable
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="Unit"
+                    onSelect={props.handleUnitsChange}
+                  />
+                )}
+              />
               <Autocomplete
                 style={{ minWidth: "175px", margin: "5px" }}
                 options={options}
