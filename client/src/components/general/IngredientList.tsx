@@ -41,13 +41,21 @@ const getUnitGroup = (unit: string) => {
 
 export default function IngredientList(props: Props) {
   const [options, setOptions] = useState(["Loading..."]);
-  const [unitOptions, setUnitOptions] = useState(defaultUnitOptions)
+  const [unitOptions, setUnitOptions] = useState<{label: string, id: number}[]>([])
   useEffect(() => {
     getUserById(props.uid).then((user) => {
       if (!user || user.ingredientHistory.length === 0) {
         setOptions(["None Found"]);
       } else {
         setOptions(user.ingredientHistory);
+      }
+      if (user && user.unitHistory && user.unitHistory.length > 0) {
+        setUnitOptions([
+          ...defaultUnitOptions,
+          ...user.unitHistory.map((unit: string, index: number) => ({label: unit, id: index + defaultUnitOptions.length}))
+        ])
+      } else {
+        setUnitOptions(defaultUnitOptions)
       }
     });
   }, [props.uid]);

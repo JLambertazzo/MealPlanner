@@ -13,11 +13,12 @@ const { User } = require("../db/user");
 
 import session from "express-session";
 import { Document, Model, Error } from "mongoose";
-import { Ingredient, Meal, User, UserDoc, UserModel } from "../types/dbtypes";
+import { Ingredient, Meal, User as UserType } from "../types/dbtypes";
+import { isDefaultMeasurement } from "../utils/units";
 
 declare module "express-session" {
   export interface SessionData {
-    user: User;
+    user: UserType;
   }
 }
 
@@ -80,7 +81,7 @@ router.get(
   idChecker,
   (req: Request, res: Response) => {
     User.findById(req.params.id)
-      .then((result: User) => {
+      .then((result: UserType) => {
         if (result) {
           res.send(result);
         } else {
@@ -115,8 +116,8 @@ router.post("/api/users", mongoChecker, async (req: Request, res: Response) => {
       mealHistory: [],
       ingredients: [],
       ingredientHistory: [],
+      unitHistory: [],
     });
-
     try {
       const otherUsers = await User.findOne({ username: req.body.username });
       if (otherUsers) {
@@ -193,7 +194,7 @@ router.post(
       description: req.body.description || "",
     };
     User.findById(req.params.id)
-      .then((result: User) => {
+      .then((result: UserType) => {
         if (result) {
           if (
             !result.meals.find(
@@ -207,6 +208,9 @@ router.post(
           ingredients.forEach((ingredient) => {
             if (!result.ingredientHistory.includes(ingredient.name)) {
               result.ingredientHistory.push(ingredient.name);
+            }
+            if (!result.unitHistory.includes(ingredient.units) && !isDefaultMeasurement(ingredient.units)) {
+              result.unitHistory.push(ingredient.units);
             }
           });
           result.meals.push(meal);
@@ -264,11 +268,14 @@ router.patch(
     User.findByIdAndUpdate(req.params.id, {
       $set: { ingredients: req.body.ingredients },
     })
-      .then((result: User) => {
+      .then((result: UserType) => {
         if (result) {
           req.body.ingredients.forEach((ingredient: Ingredient) => {
             if (!result.ingredientHistory.includes(ingredient.name)) {
               result.ingredientHistory.push(ingredient.name);
+            }
+            if (!result.unitHistory.includes(ingredient.units) && !isDefaultMeasurement(ingredient.units)) {
+              result.unitHistory.push(ingredient.units);
             }
           });
           //@ts-ignore HERE TOO

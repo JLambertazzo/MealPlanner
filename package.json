@@ -8,7 +8,7 @@
     "build": "tsc",
     "postinstall": "npm run build",
     "run": "tsc && node ./build/index.js",
-    "build-run": "cd client && npm run build && cd .. && npm start",
+    "build-run": "cd client && npm run build && cd .. && npm run run",
     "test": "nodemon index.js",
     "setup": "npm install && cd client && npm install && cd ..",
     "build-test": "cd client && npm run build && cd .. && nodemon index.js",

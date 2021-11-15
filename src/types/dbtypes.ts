@@ -24,6 +24,7 @@ export interface User {
   mealHistory: Meal[];
   ingredients: Ingredient[];
   ingredientHistory: string[];
+  unitHistory: string[];
 }
 
 export interface UserDoc extends Document<User> {}

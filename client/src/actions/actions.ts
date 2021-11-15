@@ -19,6 +19,7 @@ export const checkLoggedIn = (setUid: (uid: string) => void) => {
 };
 
 export const createUser = (payload: { username: string; password: string }) => {
+  console.log('sending post to /api/users')
   const request = new Request("/api/users", {
     method: "post",
     body: JSON.stringify(payload),
