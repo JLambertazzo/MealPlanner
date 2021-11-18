@@ -53,17 +53,17 @@
   height: 100%;
 }
 
-.react-calendar__month-view>div {
+.react-calendar__month-view > div {
   height: 100%;
 }
 
-.react-calendar__month-view>div>div {
+.react-calendar__month-view > div > div {
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.react-calendar__month-view>div>div>div:last-child {
+.react-calendar__month-view > div > div > div:last-child {
   flex-grow: 1;
 }
 /* ============================================== */
@@ -85,7 +85,7 @@
 
 /* Increased contrast for accessibility */
 .react-calendar__month-view__days__day--neighboringMonth {
-  color: #4d4d4d
+  color: #4d4d4d;
 }
 
 .calendar-button-styles {
@@ -93,7 +93,7 @@
   border: 1px solid #efefef !important;
 }
 
-.calendar-button-styles>div {
+.calendar-button-styles > div {
   max-width: 95%;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .calendar-list-item {
-  background: #303F9F;
+  background: #303f9f;
   color: #f0f0f0;
   border-radius: 15px;
   width: 100%;
@@ -112,7 +112,7 @@
   margin: 1px;
 }
 
-.calendar-list-item>div {
+.calendar-list-item > div {
   margin: 0;
 }
 
@@ -125,13 +125,13 @@
 .meal-count-display {
   display: none;
   padding: 0 4px !important;
-  background: #303F9F;
+  background: #303f9f;
   color: #f0f0f0;
   border-radius: 15px;
   width: 100%;
 }
 
-.ReactModalPortal>div {
+.ReactModalPortal > div {
   z-index: 4;
 }
 
@@ -157,7 +157,7 @@
     z-index: 2;
     transition: opacity 0.4s;
   }
-  
+
   .shade.hide {
     opacity: 0;
   }
@@ -165,7 +165,7 @@
   .calendar-button-styles {
     flex-direction: column;
   }
-  
+
   .calendar-list {
     display: none;
   }
@@ -181,4 +181,34 @@
   .meal-count-text {
     display: none;
   }
+}
+
+/* Circle around today's date */
+.react-calendar__tile--now abbr {
+  background-color: #303f9f;
+  color: white;
+  border-radius: 50%;
+  padding: 0.5em;
+}
+
+/* Remove default colors */
+.react-calendar__tile--now {
+  background-color: inherit;
+}
+
+.react-calendar__tile--now:enabled:hover {
+  background-color: #e6e6e6;
+}
+
+.react-calendar__tile--active {
+  background: inherit;
+  color: black;
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: black;
+}
+
+.react-calendar__tile--active:enabled:focus {
+  background: inherit;
 }
