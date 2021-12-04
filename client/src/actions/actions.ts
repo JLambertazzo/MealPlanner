@@ -70,6 +70,9 @@ export const login = (payload: { username: string; password: string }) => {
 };
 
 export const getUserById = (uid: string) => {
+  if (!uid) {
+    return new Promise<undefined>((resolve, reject) => undefined)
+  }
   return fetch(`/api/users/${uid}`)
     .then((res) => {
       if (res.ok) {

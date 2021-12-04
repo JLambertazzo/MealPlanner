@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import Calendar from "react-calendar";
 import { Typography, List, ListItem, ListItemText } from "@mui/material";
 import { getUserById } from "../../actions/actions";
@@ -27,12 +27,7 @@ export default function CalendarView(props: Props) {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showDrawer, setShowDrawer] = useState(false);
   const width = useWidth();
-  const firstUpdate = useRef(true);
   useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
     getUserById(props.uid).then((user) => {
       if (!user) {
         return;

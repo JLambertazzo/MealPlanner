@@ -64,7 +64,6 @@ export default function IngredientList(props: Props) {
   }, [props.ingredients])
   return (
     <List component="nav" aria-label="ingredient list">
-      <div>len: {props.ingredients.length}</div>
       {props.ingredients.map((ingredient, index) => {
         return (
           <div key={index}>
