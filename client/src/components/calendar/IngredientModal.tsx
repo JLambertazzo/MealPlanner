@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 import Modal from "react-modal";
 import { getUserById, setUserIngredients } from "../../actions/actions";
 import {
@@ -34,14 +34,108 @@ export default function IngredientModal(props: Props) {
   const [successOpen, setSuccessOpen] = useState(false);
   const [errorOpen, setErrorOpen] = useState(false);
 
+  useEffect(() => {
+    if (props.isOpen && props.uid) {
+      console.log('getting')
+      getUserById(props.uid)
+        .then((user) => {
+          if (user && user.ingredients.length !== 0) {
+            console.log('SETTING', user.ingredients)
+            setIngredients(user.ingredients);
+          }
+        })
+        .catch((error) => console.log(error));
+    } else {
+      console.log('no')
+    }
+  }, [props.isOpen, props.uid, setIngredients])
+
+  useEffect(() => {
+    console.log('ingredients is', ingredients)
+  }, [ingredients])
+
+  const saveData = () => {
+    console.log(ingredients)
+    const filteredIngredients = ingredients.filter((ing) => ing.name !== "")
+    if (filteredIngredients.length === 0) {
+      return
+    }
+    setUserIngredients({ ingredients: ingredients }, props.uid)
+      .then((res) => {
+        if (res) {
+          setSuccessOpen(true);
+        } else {
+          setErrorOpen(true);
+        }
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const handleIngredientQtyChange = (event: FormEvent) => {
+    const index = parseInt(
+      (
+        event.target as Element
+      ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
+    );
+    if (!isNaN(index) && index >= 0) {
+      const newIngredients = [...ingredients];
+      newIngredients[index].qty = +(event.target as HTMLInputElement).value;
+      setIngredients(newIngredients);
+    }
+  };
+
+  const handleIngredientUnitsChange = (event: FormEvent) => {
+    const index = parseInt(
+      (
+        event.target as HTMLInputElement
+      ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
+    );
+    if (!isNaN(index) && index >= 0) {
+      const newIngredients = [...ingredients];
+      newIngredients[index].units = (event.target as HTMLInputElement).value;
+      setIngredients(newIngredients);
+    }
+  };
+
+  const handleIngredientNameChange = (event: FormEvent) => {
+    const index = parseInt(
+      (
+        event.target as HTMLInputElement
+      ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+        "index"
+      ) || "-1"
+    );
+    if (!isNaN(index) && index >= 0) {
+      const newIngredients = [...ingredients];
+      newIngredients[index].name = (event.target as HTMLInputElement).value;
+      console.log(newIngredients[index].name)
+      console.log(newIngredients)
+      setIngredients(newIngredients);
+    }
+  };
+  
+  const handleAddIngredient = (event: FormEvent) => {
+    event.preventDefault();
+    setIngredients([...ingredients, { name: "", units: "cup", qty: 0 }]);
+  };
+  
+  const afterClose = () => {
+    setIngredients([{ name: "", units: "cup", qty: 0 }]);
+  };
+  
+  const removeIngredient = (index: number) => {
+    const newIngredients = [...ingredients];
+    newIngredients.splice(index, 1);
+    setIngredients(newIngredients);
+  };
+
   const classes = useStyles();
   return (
     <Modal
       id="ingredientModal"
       isOpen={props.isOpen}
-      onAfterOpen={() => getData(props, setIngredients)}
       onRequestClose={props.exit}
-      onAfterClose={() => afterClose(setIngredients)}
+      onAfterClose={afterClose}
       contentLabel="Ingredients Modal"
     >
       <div className="modalHeader">
@@ -59,23 +153,23 @@ export default function IngredientModal(props: Props) {
           ingredients={ingredients}
           uid={props.uid}
           handleQtyChange={(event) =>
-            handleIngredientQtyChange(event, ingredients, setIngredients)
+            handleIngredientQtyChange(event)
           }
           handleUnitsChange={(event) =>
-            handleIngredientUnitsChange(event, ingredients, setIngredients)
+            handleIngredientUnitsChange(event)
           }
           handleNameChange={(event) =>
-            handleIngredientNameChange(event, ingredients, setIngredients)
+            handleIngredientNameChange(event)
           }
           removeIngredient={(index) =>
-            removeIngredient(index, ingredients, setIngredients)
+            removeIngredient(index)
           }
         />
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={(event) =>
-            handleAddIngredient(event, ingredients, setIngredients)
+            handleAddIngredient(event)
           }
         >
           Add Ingredient
@@ -84,9 +178,7 @@ export default function IngredientModal(props: Props) {
           id="saveButton"
           variant="contained"
           startIcon={<Save />}
-          onClick={() =>
-            saveData(props, ingredients, setSuccessOpen, setErrorOpen)
-          }
+          onClick={saveData}
         >
           Save Data
         </Button>
@@ -102,15 +194,15 @@ export default function IngredientModal(props: Props) {
           <SnackbarContent
             message={
               <Typography variant="body1">
-                <CheckCircleOutline className={classes.snackbarIcon}>
-                Successfully Saved Ingredients...
-                </CheckCircleOutline>
+                <CheckCircleOutline className={classes.snackbarIcon} />
+                Successfully Saved Ingredients!
               </Typography>
             }
             action={
               <IconButton
                 className={classes.snackbarIcon}
                 aria-label="close snackbar"
+                onClick={() => setSuccessOpen(false)}
               >
                 <Close />
               </IconButton>
@@ -165,114 +257,3 @@ const useStyles = makeStyles({
     color: "#f0f0f0",
   },
 });
-
-const getData = (
-  props: Props,
-  setIngredients: (ingredients: Ingredient[]) => void
-) => {
-  getUserById(props.uid)
-    .then((user) => {
-      if (user && user.ingredients.length !== 0) {
-        setIngredients(user.ingredients);
-      }
-    })
-    .catch((error) => console.log(error));
-};
-
-const saveData = (
-  props: Props,
-  ingredients: Ingredient[],
-  setSuccessOpen: (b: boolean) => void,
-  setErrorOpen: (b: boolean) => void
-) => {
-  // ingredients.forEach((ingredient) => {
-  //   if (ingredient.qty === "") {
-  //     ingredient.qty = 0;
-  //   }
-  // }); TODO test if this is necessary
-  setUserIngredients({ ingredients: ingredients }, props.uid)
-    .then((res) => {
-      if (res) {
-        setSuccessOpen(true);
-      } else {
-        setErrorOpen(true);
-      }
-    })
-    .catch((error) => console.log(error));
-};
-
-const handleIngredientQtyChange = (
-  event: FormEvent,
-  ingredients: Ingredient[],
-  setIngredients: (ingredients: Ingredient[]) => void
-) => {
-  const index = parseInt(
-    (
-      event.target as Element
-    ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
-  );
-  if (!isNaN(index) && index >= 0) {
-    const newIngredients = [...ingredients];
-    newIngredients[index-1].qty = +(event.target as HTMLInputElement).value;
-    setIngredients(newIngredients);
-  }
-};
-
-const handleIngredientUnitsChange = (
-  event: FormEvent,
-  ingredients: Ingredient[],
-  setIngredients: (i: Ingredient[]) => void
-) => {
-  const index = parseInt(
-    (
-      event.target as HTMLInputElement
-    ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
-  );
-  if (index) {
-    const newIngredients = [...ingredients];
-    newIngredients[index].units = (event.target as HTMLInputElement).value;
-    setIngredients(newIngredients);
-  }
-};
-
-const handleIngredientNameChange = (
-  event: FormEvent,
-  ingredients: Ingredient[],
-  setIngredients: (i: Ingredient[]) => void
-) => {
-  const index = parseInt(
-    (
-      event.target as HTMLInputElement
-    ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
-      "index"
-    ) || "-1"
-  );
-  if (index) {
-    const newIngredients = [...ingredients];
-    newIngredients[index].name = (event.target as HTMLInputElement).value;
-    setIngredients(newIngredients);
-  }
-};
-
-const handleAddIngredient = (
-  event: FormEvent,
-  ingredients: Ingredient[],
-  setIngredients: (i: Ingredient[]) => void
-) => {
-  event.preventDefault();
-  setIngredients([...ingredients, { name: "", units: "cup", qty: 0 }]);
-};
-
-const afterClose = (setIngredients: (i: Ingredient[]) => void) => {
-  setIngredients([{ name: "", units: "cup", qty: 0 }]);
-};
-
-const removeIngredient = (
-  index: number,
-  ingredients: Ingredient[],
-  setIngredients: (i: Ingredient[]) => void
-) => {
-  const newIngredients = [...ingredients];
-  newIngredients.splice(index, 1);
-  setIngredients(newIngredients);
-};

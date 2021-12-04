@@ -59,8 +59,12 @@ export default function IngredientList(props: Props) {
       }
     });
   }, [props.uid]);
+  useEffect(() => {
+    console.log('ingredients is', props.ingredients)
+  }, [props.ingredients])
   return (
     <List component="nav" aria-label="ingredient list">
+      <div>len: {props.ingredients.length}</div>
       {props.ingredients.map((ingredient, index) => {
         return (
           <div key={index}>
@@ -81,6 +85,7 @@ export default function IngredientList(props: Props) {
                 className="uInput"
                 id={`uinput-${index}`}
                 options={unitOptions}
+                value={ingredient.units}
                 groupBy={(option) => getUnitGroup(option.label)}
                 freeSolo
                 disableClearable
@@ -88,6 +93,7 @@ export default function IngredientList(props: Props) {
                   <TextField
                     {...params}
                     label="Unit"
+                    value={ingredient.units}
                     onSelect={props.handleUnitsChange}
                   />
                 )}
@@ -98,11 +104,12 @@ export default function IngredientList(props: Props) {
                 groupBy={() => "Suggestions:"}
                 disableClearable
                 freeSolo
-                defaultValue={ingredient.name}
+                value={ingredient.name}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="Ingredient"
+                    value={ingredient.name}
                     onSelect={props.handleNameChange}
                   />
                 )}

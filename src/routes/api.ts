@@ -265,6 +265,7 @@ router.patch(
   mongoChecker,
   idChecker,
   (req: Request, res: Response) => {
+    console.log('YOU HAVE', req.body.ingredients)
     User.findByIdAndUpdate(req.params.id, {
       $set: { ingredients: req.body.ingredients },
     })
