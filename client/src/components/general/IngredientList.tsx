@@ -59,9 +59,7 @@ export default function IngredientList(props: Props) {
       }
     });
   }, [props.uid]);
-  useEffect(() => {
-    console.log('ingredients is', props.ingredients)
-  }, [props.ingredients])
+  
   return (
     <List component="nav" aria-label="ingredient list">
       {props.ingredients.map((ingredient, index) => {

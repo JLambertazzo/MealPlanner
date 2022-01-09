@@ -50,10 +50,6 @@ export default function IngredientModal(props: Props) {
     }
   }, [props.isOpen, props.uid, setIngredients])
 
-  useEffect(() => {
-    console.log('ingredients is', ingredients)
-  }, [ingredients])
-
   const saveData = () => {
     console.log(ingredients)
     const filteredIngredients = ingredients.filter((ing) => ing.name !== "")

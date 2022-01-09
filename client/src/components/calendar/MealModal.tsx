@@ -197,9 +197,15 @@ const handleIngredientQtyChange = (
   ingredients: Ingredient[],
   setIngredients: (i: Ingredient[]) => void
 ) => {
+  if ((event.target as HTMLInputElement).value === "") {
+
+  }
   if (
-    !(event.target as HTMLInputElement).value.match(/^\d+\.\d+$/) ||
-    parseFloat((event.target as HTMLInputElement).value) < 0
+    (event.target as HTMLInputElement).value !== "" &&
+    (
+      !(event.target as HTMLInputElement).value.match(/^\d+\.?\d*$/) ||
+      parseFloat((event.target as HTMLInputElement).value) < 0
+    )
   ) {
     event.preventDefault();
     return;
@@ -211,7 +217,7 @@ const handleIngredientQtyChange = (
   );
   if (index >= 0) {
     const newIngredients = [...ingredients];
-    newIngredients[index].qty = parseInt(
+    newIngredients[index].qty = parseFloat(
       (event.target as HTMLInputElement).value
     );
     setIngredients(newIngredients);
