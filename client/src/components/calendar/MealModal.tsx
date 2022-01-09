@@ -198,8 +198,8 @@ const handleIngredientQtyChange = (
   setIngredients: (i: Ingredient[]) => void
 ) => {
   if (
-    !(event.target as HTMLInputElement).value.match(/\d+/) ||
-    parseInt((event.target as HTMLInputElement).value) < 0
+    !(event.target as HTMLInputElement).value.match(/^\d+\.\d+$/) ||
+    parseFloat((event.target as HTMLInputElement).value) < 0
   ) {
     event.preventDefault();
     return;
