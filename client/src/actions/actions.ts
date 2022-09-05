@@ -1,9 +1,10 @@
 import { Ingredient, Meal } from "../types/dbtypes";
 
 const log = console.log;
+const api_url = process.env.API_URL || "http://localhost:8080";
 
 export const checkLoggedIn = (setUid: (uid: string) => void) => {
-  return fetch("/api/checkloggedin")
+  return fetch(`${api_url}/api/checkloggedin`)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -19,8 +20,8 @@ export const checkLoggedIn = (setUid: (uid: string) => void) => {
 };
 
 export const createUser = (payload: { username: string; password: string }) => {
-  console.log('sending post to /api/users')
-  const request = new Request("/api/users", {
+  console.log("sending posted stuff to /api/users");
+  const request = new Request(`${api_url}/api/users`, {
     method: "post",
     body: JSON.stringify(payload),
     headers: {
@@ -29,9 +30,11 @@ export const createUser = (payload: { username: string; password: string }) => {
   });
 
   return fetch(request)
-    .then((res) => {
+    .then(async (res) => {
+      const asText = await res.text();
+      console.log("WHATS", res.status, asText);
       if (res.ok) {
-        return res.json();
+        return await res.json();
       } else if (res.status === 401) {
         alert(
           "User creation is disabled here... To try with custom accounts please run the app locally using the instructions on the github repo. To try the app here please use the example account. \n username: example \n password: password"
@@ -47,7 +50,7 @@ export const createUser = (payload: { username: string; password: string }) => {
 };
 
 export const login = (payload: { username: string; password: string }) => {
-  const request = new Request("/api/login", {
+  const request = new Request(`${api_url}/api/login`, {
     method: "post",
     body: JSON.stringify(payload),
     headers: {
@@ -71,9 +74,9 @@ export const login = (payload: { username: string; password: string }) => {
 
 export const getUserById = (uid: string) => {
   if (!uid) {
-    return new Promise<undefined>((resolve, reject) => undefined)
+    return new Promise<undefined>((resolve, reject) => undefined);
   }
-  return fetch(`/api/users/${uid}`)
+  return fetch(`${api_url}/api/users/${uid}`)
     .then((res) => {
       if (res.ok) {
         return res.json();
@@ -88,7 +91,7 @@ export const getUserById = (uid: string) => {
 };
 
 export const addMeal = (payload: Meal, uid: string) => {
-  const request = new Request(`/api/users/${uid}/meals`, {
+  const request = new Request(`${api_url}/api/users/${uid}/meals`, {
     method: "post",
     body: JSON.stringify(payload),
     headers: {
@@ -114,7 +117,7 @@ export const setUserIngredients = (
   payload: { ingredients: Ingredient[] },
   uid: string
 ) => {
-  const request = new Request(`/api/users/${uid}/ingredients`, {
+  const request = new Request(`${api_url}/api/users/${uid}/ingredients`, {
     method: "PATCH",
     body: JSON.stringify(payload),
     headers: {
@@ -138,7 +141,7 @@ export const setUserIngredients = (
 };
 
 export const deleteMeal = (uid: string, mid: string) => {
-  const request = new Request(`/api/users/${uid}/meals/${mid}`, {
+  const request = new Request(`${api_url}/api/users/${uid}/meals/${mid}`, {
     method: "delete",
   });
 
@@ -157,9 +160,12 @@ export const deleteMeal = (uid: string, mid: string) => {
 };
 
 export const deleteMealHistory = (uid: string, mid: string) => {
-  const request = new Request(`/api/users/${uid}/mealHistory/${mid}`, {
-    method: "delete",
-  });
+  const request = new Request(
+    `${api_url}/api/users/${uid}/mealHistory/${mid}`,
+    {
+      method: "delete",
+    }
+  );
 
   return fetch(request)
     .then((res) => {
@@ -177,7 +183,7 @@ export const deleteMealHistory = (uid: string, mid: string) => {
 
 export const deleteIngredientHistory = (uid: string, ingredient: string) => {
   const request = new Request(
-    `/api/users/${uid}/ingredientHistory/${ingredient}`,
+    `${api_url}/api/users/${uid}/ingredientHistory/${ingredient}`,
     {
       method: "delete",
     }

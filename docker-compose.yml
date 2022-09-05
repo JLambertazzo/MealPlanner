@@ -1,0 +1,14 @@
+services:
+  mp-client:
+    build:
+      context: client
+    ports:
+      - 8081:8081
+    depends_on:
+      - mp-server
+  mp-server:
+    build:
+      context: .
+    ports:
+      - 8080:8080
+  

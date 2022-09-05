@@ -1,10 +1,12 @@
 "use strict";
 
 import { Request, Response, NextFunction } from "express";
+import { get, has } from "lodash";
+import cors from "cors";
 
 const log = console.log;
 
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
@@ -21,7 +23,7 @@ const authUrls = ["/calendar", "/profile"];
 const unAuthUrls = ["/login", "/signup"];
 
 const authenticate = (req: Request, res: Response, next: NextFunction) => {
-  if (!req.session.user && authUrls.includes(req.url)) {
+  if (!has(req, ["session", "user"]) && authUrls.includes(req.url)) {
     res.status(301).redirect("/signup");
   } else {
     next();
@@ -29,7 +31,7 @@ const authenticate = (req: Request, res: Response, next: NextFunction) => {
 };
 
 const unauthenticate = (req: Request, res: Response, next: NextFunction) => {
-  if (req.session.user && unAuthUrls.includes(req.url)) {
+  if (has(req, ["session", "user"]) && unAuthUrls.includes(req.url)) {
     res.status(301).redirect("/calendar");
   } else {
     next();
@@ -38,8 +40,12 @@ const unauthenticate = (req: Request, res: Response, next: NextFunction) => {
 
 function requireHTTPS(req: Request, res: Response, next: NextFunction) {
   // The 'x-forwarded-proto' check is for Heroku
-  if (!req.secure && req.get('x-forwarded-proto') !== 'https' && process.env.NODE_ENV !== "development") {
-    return res.redirect('https://' + req.get('host') + req.url);
+  if (
+    !req.secure &&
+    req.get("x-forwarded-proto") !== "https" &&
+    process.env.NODE_ENV !== "development"
+  ) {
+    return res.redirect("https://" + req.get("host") + req.url);
   }
   next();
 }
@@ -48,6 +54,11 @@ function requireHTTPS(req: Request, res: Response, next: NextFunction) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "../client/build")));
+app.use(
+  cors({
+    origin: "http://localhost:8081",
+  })
+);
 
 app.use(
   session({
@@ -68,22 +79,28 @@ app.use(
 app.use(require("./routes/api"));
 
 app.get("/logout", (req: Request, res: Response) => {
-  if (req.session) {
-    req.session.destroy((err) => {
+  if (has(req, "session")) {
+    get(req, "session").destroy((err: unknown) => {
       console.log(err);
     });
   }
   res.status(301).redirect("/");
 });
 
-app.get("*", requireHTTPS, authenticate, unauthenticate, (req: Request, res: Response) => {
-  if (!validUrls.includes(req.url)) {
-    res.status(404).send("404 not found :(");
+app.get(
+  "*",
+  requireHTTPS,
+  authenticate,
+  unauthenticate,
+  (req: Request, res: Response) => {
+    if (!validUrls.includes(req.url)) {
+      res.status(404).send("404 not found :(");
+    }
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
   }
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
-});
+);
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
   log(`listening on port ${port}`);
 });

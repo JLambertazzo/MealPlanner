@@ -4,17 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node build/index.js",
-    "build": "tsc",
-    "postinstall": "npm run build",
-    "run": "tsc && node ./build/index.js",
-    "build-run": "cd client && npm run build && cd .. && npm run run",
-    "test": "nodemon index.js",
-    "setup": "npm install && cd client && npm install && cd ..",
-    "build-test": "cd client && npm run build && cd .. && nodemon index.js",
-    "heroku-postbuild": "cd client && npm install && npm run build",
-    "watch-run": "nodemon -w src --exec \"tsc && node ./build/index.js\" -e ts",
-    "dev": "concurrently \"npm run watch-run\" \"cd client && npm run watch-build\""
+    "docker:build": "docker build . -t jlambertazzo/mp-server",
+    "docker:run": "docker run -p 8080:8080 -d jlambertazzo/mp-server",
+    "docker:api:up": "npm run docker:build && npm run docker:run",
+    "docker:app:up": "docker-compose up --build",
+    "docker:app:down": "docker-compose down"
   },
   "repository": {
     "type": "git",
@@ -28,20 +22,25 @@
   "homepage": "https://github.com/JLambertazzo/MealPlanner#readme",
   "dependencies": {
     "@types/convert-units": "^2.3.5",
+    "@types/cors": "^2.8.12",
     "@types/date-and-time": "^0.13.0",
+    "@types/lodash": "^4.14.184",
     "@types/react-calendar": "^3.4.3",
     "@types/react-dom": "^17.0.11",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^6.4.0",
     "connect-mongo": "^3.2.0",
+    "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "immer": "^9.0.6",
+    "lodash": "^4.17.21",
     "mongodb": "^3.6.4",
     "mongoose": "^5.11.15",
-    "react-router": "^5.2.0"
+    "react-router": "^5.2.0",
+    "ts-node": "^10.9.1"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
