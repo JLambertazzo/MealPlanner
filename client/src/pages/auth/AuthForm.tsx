@@ -3,13 +3,13 @@ import NavBar from "../../components/general/NavBar";
 import { login, createUser } from "../../actions/actions";
 import { Button, TextField, FormControl, Typography } from "@mui/material";
 import { Person, PersonAdd } from "@mui/icons-material";
-import { useHistory, useLocation } from 'react-router-dom'
+import { useNavigate, useLocation } from "react-router-dom";
 import "./AuthForm.css";
 import { User } from "../../types/dbtypes";
 
 interface Props {
   uid: string;
-  setUid: (uid: string) => void
+  setUid: (uid: string) => void;
   showLogin: boolean;
 }
 
@@ -17,20 +17,20 @@ export default function AuthForm(props: Props) {
   const [username, setUsername] = useState("");
   const [pass, setPass] = useState("");
   const [confPass, setConfPass] = useState("");
-  const [showLogin, setShowLogin] = useState(props.showLogin)
-  const history = useHistory();
+  const [showLogin, setShowLogin] = useState(props.showLogin);
+  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    setShowLogin(location.pathname.includes('login'))
-  }, [location])
+    setShowLogin(location.pathname.includes("login"));
+  }, [location]);
 
   const loginSuccess = (res?: User) => {
     if (res && res._id) {
-      props.setUid(res._id)
-      history.push('/calendar')
+      props.setUid(res._id);
+      navigate("/calendar");
     }
-  }
+  };
 
   const handleLogin = async (event: FormEvent) => {
     event.preventDefault();
@@ -40,13 +40,13 @@ export default function AuthForm(props: Props) {
     };
     try {
       const res = await login(payload);
-      return res
+      return res;
     } catch (error) {
       console.log(error);
-      return undefined
+      return undefined;
     }
   };
-  
+
   const handleSignup = async (event: FormEvent) => {
     event.preventDefault();
     if (pass !== confPass) {
@@ -59,11 +59,11 @@ export default function AuthForm(props: Props) {
     try {
       await createUser(payload);
       const res = await login(payload);
-      console.log('sing+log res is', res)
-      return res
+      console.log("sing+log res is", res);
+      return res;
     } catch (error) {
       console.log(error);
-      return undefined
+      return undefined;
     }
   };
 

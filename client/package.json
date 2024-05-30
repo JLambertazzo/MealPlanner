@@ -7,7 +7,6 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.1.0",
     "@mui/material": "^5.1.0",
-    "@mui/styles": "^5.1.0",
     "@mui/system": "^5.1.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@types/react-router-dom": "^5.3.2",

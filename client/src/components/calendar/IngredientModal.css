@@ -9,3 +9,19 @@
 .list-holder button {
   margin-bottom: 10px;
 }
+
+.errorSnackbar {
+  background: red !important;
+  color: #f0f0f0 !important;
+}
+
+.successSnackbar {
+  background: green !important;
+  color: #f0f0f0 !important;
+}
+
+.snackbarIcon {
+  vertical-align: text-bottom;
+  margin-bottom: 0 !important;
+  color: #f0f0f0;
+}

@@ -24,14 +24,14 @@ import {
   Delete,
 } from "@mui/icons-material";
 import "./HomePage.css";
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   uid: string;
 }
 
 export default function HomePage(props: Props) {
-  const history = useHistory()
+  const navigate = useNavigate();
 
   return (
     <div id="home">
@@ -45,7 +45,7 @@ export default function HomePage(props: Props) {
               variant="contained"
               size="large"
               color="primary"
-              onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
+              onClick={() => navigate(props.uid ? "/calendar" : "/signup")}
             >
               <Typography variant="body1" color="secondary">
                 Get Started
@@ -79,7 +79,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
+                  onClick={() => navigate(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>
@@ -112,7 +112,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
+                  onClick={() => navigate(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>
@@ -143,7 +143,7 @@ export default function HomePage(props: Props) {
                 <Button
                   variant="contained"
                   size="small"
-                  onClick={() => history.push(props.uid ? "/calendar" : "/signup")}
+                  onClick={() => navigate(props.uid ? "/calendar" : "/signup")}
                 >
                   Try it yourself!
                 </Button>

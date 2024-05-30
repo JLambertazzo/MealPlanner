@@ -19,7 +19,6 @@ import {
 import IngredientList from "../general/IngredientList";
 import "./IngredientModal.css";
 import { Ingredient } from "../../types/dbtypes";
-import { makeStyles } from '@mui/styles'
 
 interface Props {
   uid: string;
@@ -36,25 +35,25 @@ export default function IngredientModal(props: Props) {
 
   useEffect(() => {
     if (props.isOpen && props.uid) {
-      console.log('getting')
+      console.log("getting");
       getUserById(props.uid)
         .then((user) => {
           if (user && user.ingredients.length !== 0) {
-            console.log('SETTING', user.ingredients)
+            console.log("SETTING", user.ingredients);
             setIngredients(user.ingredients);
           }
         })
         .catch((error) => console.log(error));
     } else {
-      console.log('no')
+      console.log("no");
     }
-  }, [props.isOpen, props.uid, setIngredients])
+  }, [props.isOpen, props.uid, setIngredients]);
 
   const saveData = () => {
-    console.log(ingredients)
-    const filteredIngredients = ingredients.filter((ing) => ing.name !== "")
+    console.log(ingredients);
+    const filteredIngredients = ingredients.filter((ing) => ing.name !== "");
     if (filteredIngredients.length === 0) {
-      return
+      return;
     }
     setUserIngredients({ ingredients: ingredients }, props.uid)
       .then((res) => {
@@ -71,7 +70,8 @@ export default function IngredientModal(props: Props) {
     const index = parseInt(
       (
         event.target as Element
-      ).parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
+      ).parentElement?.parentElement?.parentElement?.getAttribute("index") ||
+        "-1"
     );
     if (!isNaN(index) && index >= 0) {
       const newIngredients = [...ingredients];
@@ -84,7 +84,9 @@ export default function IngredientModal(props: Props) {
     const index = parseInt(
       (
         event.target as HTMLInputElement
-      ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute("index") || "-1"
+      ).parentElement?.parentElement?.parentElement?.parentElement?.getAttribute(
+        "index"
+      ) || "-1"
     );
     if (!isNaN(index) && index >= 0) {
       const newIngredients = [...ingredients];
@@ -104,28 +106,27 @@ export default function IngredientModal(props: Props) {
     if (!isNaN(index) && index >= 0) {
       const newIngredients = [...ingredients];
       newIngredients[index].name = (event.target as HTMLInputElement).value;
-      console.log(newIngredients[index].name)
-      console.log(newIngredients)
+      console.log(newIngredients[index].name);
+      console.log(newIngredients);
       setIngredients(newIngredients);
     }
   };
-  
+
   const handleAddIngredient = (event: FormEvent) => {
     event.preventDefault();
     setIngredients([...ingredients, { name: "", units: "cup", qty: 0 }]);
   };
-  
+
   const afterClose = () => {
     setIngredients([{ name: "", units: "cup", qty: 0 }]);
   };
-  
+
   const removeIngredient = (index: number) => {
     const newIngredients = [...ingredients];
     newIngredients.splice(index, 1);
     setIngredients(newIngredients);
   };
 
-  const classes = useStyles();
   return (
     <Modal
       id="ingredientModal"
@@ -148,25 +149,15 @@ export default function IngredientModal(props: Props) {
         <IngredientList
           ingredients={ingredients}
           uid={props.uid}
-          handleQtyChange={(event) =>
-            handleIngredientQtyChange(event)
-          }
-          handleUnitsChange={(event) =>
-            handleIngredientUnitsChange(event)
-          }
-          handleNameChange={(event) =>
-            handleIngredientNameChange(event)
-          }
-          removeIngredient={(index) =>
-            removeIngredient(index)
-          }
+          handleQtyChange={(event) => handleIngredientQtyChange(event)}
+          handleUnitsChange={(event) => handleIngredientUnitsChange(event)}
+          handleNameChange={(event) => handleIngredientNameChange(event)}
+          removeIngredient={(index) => removeIngredient(index)}
         />
         <Button
           variant="contained"
           startIcon={<Add />}
-          onClick={(event) =>
-            handleAddIngredient(event)
-          }
+          onClick={(event) => handleAddIngredient(event)}
         >
           Add Ingredient
         </Button>
@@ -190,20 +181,20 @@ export default function IngredientModal(props: Props) {
           <SnackbarContent
             message={
               <Typography variant="body1">
-                <CheckCircleOutline className={classes.snackbarIcon} />
+                <CheckCircleOutline className="snackbarIcon" />
                 Successfully Saved Ingredients!
               </Typography>
             }
             action={
               <IconButton
-                className={classes.snackbarIcon}
+                className="snackbarIcon"
                 aria-label="close snackbar"
                 onClick={() => setSuccessOpen(false)}
               >
                 <Close />
               </IconButton>
             }
-            className={classes.successSnackbar}
+            className="successSnackbar"
           />
         </Snackbar>
         <Snackbar
@@ -218,38 +209,19 @@ export default function IngredientModal(props: Props) {
           <SnackbarContent
             message={
               <Typography variant="body1">
-                <ErrorOutline className={classes.snackbarIcon} />
+                <ErrorOutline className="snackbarIcon" />
                 Error Saving Ingredients...
               </Typography>
             }
             action={
-              <IconButton
-                className={classes.snackbarIcon}
-                aria-label="close snackbar"
-              >
+              <IconButton className="snackbarIcon" aria-label="close snackbar">
                 <Close />
               </IconButton>
             }
-            className={classes.errorSnackbar}
+            className="errorSnackbar"
           />
         </Snackbar>
       </div>
     </Modal>
   );
 }
-
-const useStyles = makeStyles({
-  errorSnackbar: {
-    background: "red !important",
-    color: "#f0f0f0 !important",
-  },
-  successSnackbar: {
-    background: "green !important",
-    color: "#f0f0f0 !important",
-  },
-  snackbarIcon: {
-    verticalAlign: "text-bottom",
-    marginBottom: "0 !important",
-    color: "#f0f0f0",
-  },
-});
