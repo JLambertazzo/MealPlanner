@@ -3,6 +3,8 @@
 import { Request, Response, NextFunction } from "express";
 import { get, has } from "lodash";
 import cors from "cors";
+import mongoose from "./db/mongoose";
+import MongoStore from "connect-mongo";
 
 const log = console.log;
 
@@ -12,11 +14,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const app = express();
 
-const { mongoose } = require("./db/mongoose");
-mongoose.set("useFindAndModify", false);
-
 const session = require("express-session");
-const MongoStore = require("connect-mongo")(session);
 
 const validUrls = ["/", "/calendar", "/login", "/signup", "/profile"];
 const authUrls = ["/calendar", "/profile"];
@@ -70,7 +68,7 @@ app.use(
       sameSite: "strict",
       httpOnly: true,
     },
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new MongoStore({ client: mongoose.connection.getClient() }),
     unset: "destroy",
   })
 );

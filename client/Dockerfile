@@ -2,9 +2,9 @@ FROM node:16
 
 WORKDIR /
 
-COPY package*.json ./
-COPY ./public ./public
-COPY ./src ./src
+# COPY package*.json ./
+# COPY ./public ./public
+COPY . .
 
 RUN npm install
 RUN npx react-scripts build
